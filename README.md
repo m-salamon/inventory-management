@@ -1,3 +1,3 @@
-# simcha-organizer
+# inventory-management
 
-a platform to organize and manage the gift buying for any occasion, where lots of people are contributing to varios partys.
+A platform to organize and manage inventory for a small bussiness.
