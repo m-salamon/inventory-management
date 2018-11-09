@@ -1,0 +1,28 @@
+<% include header.ejs %>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+    <div class="historyLayout">
+     <% if(pageTitle == 'History'){ for( i=0; i < 1; i++) { %>
+        <h2><%=history[i].participent_name %>'s History</h2>
+     <% }; }else if (pageTitle == 'Historys') { %>
+        <h2>All Participents History</h2>
+     <% }; %>    
+    <% history.forEach((element) => { %>
+    <hr class="style-two">
+        <ul>
+            <li><a id="<%=element.id%>" href="/history/<%=element.participentId%>"><%=element.participent_name %></a></li>
+            <li>Gave to <%=element.simcha_name%>'s simcha</li>  
+            <li>amount of $<%=element.amount%></li> 
+            <li>day <%=element.date%></li> 
+            <li>id <%=element.id%></li>
+        </ul>
+    <% }); %>
+   </div>  <!-- / .historyLayout -->
+  </div> <!-- / .col-md-6 -->
+ </div> <!-- / .row -->
+</div> <!-- / .container -->
+
+<% include footer.ejs %>

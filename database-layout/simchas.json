@@ -1,0 +1,18 @@
+{
+  "simchas": [{
+    "id": "1",
+    "name": "Garcia",
+    "type": "bar_mitzvah",
+    "amount" : "850"
+  },{
+    "id": "2",
+    "name": "Garcia",
+    "type": "kiddush",
+    "amount" : "1000"
+  },{
+    "id": "3",
+    "name": "Garcia",
+    "type": "bris",
+    "amount" : "500"
+  }]
+}

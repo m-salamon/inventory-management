@@ -1,0 +1,15 @@
+{
+  "participents": [{
+    "id": "3",
+    "name": "green Garcia",
+    "sum" : "100"
+  },{
+    "id": "2",
+    "name": "wiess Garcia",
+    "sum" : "200"
+  },{
+    "id": "1",
+    "name": "salamon Garcia",
+    "sum" : "350"
+  }]
+}

@@ -1,0 +1,78 @@
+html, body{
+    background-color:#d8d8d8;
+    font-size: 16px;
+    color: #333333;
+    text-transform: capitalize;
+}
+body{
+    padding: 1em;
+    position: fixed;
+}
+h1{
+    color: blue;
+}
+h2{
+    font-size: 1.6em;
+    color: #666666;
+    text-align: center;
+}
+.addParticipent, .addSimcha, .amountMoney{
+    padding: 10px;
+    background-color:#fff;
+    margin-bottom: 2em;
+    box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.5);
+}
+td{
+    display: inline-block;
+    padding: 1em;
+    border-top: 1px solid #b2b2b2;
+    width: 100%;
+}
+.active{ 
+    animation: fadein 1s;
+    background-color: #cccccc;
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+td:hover{
+    background-color: #e5e5e5;
+}
+.simchaMoney, .participentMoney, .amountMoney{
+    background-color:#fff;
+    box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.5);
+    overflow-y: scroll;
+    height: 88vh;
+    cursor: pointer;
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+.participentImage, .simchaImage{
+    width: 4em;
+   float: left;
+}
+.fa-plus, .fa-bars{
+    padding-left: 1em;
+    float: right;
+}
+.editParticipent, .editSimcha{
+    display: none;
+}
+/* participents-histroy.ejs */
+.historyLayout{
+    background-color:#fff;
+    box-shadow: 2px 2px 2px 0px rgba(50, 50, 50, 0.5);
+    overflow-y: scroll;
+    height: 88vh;
+}
+hr.style-two {
+     height: 1px;
+     color:#b2b2b2;
+     background-color:#b2b2b2;
+}

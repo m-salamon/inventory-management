@@ -1,0 +1,32 @@
+
+<div class="container">
+
+<div class="addItem">
+    <!-- add item -->
+    <h2>Add A Item</h2>
+    <form method="post" action="/addItem">
+        <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Item name"/></div>
+        <div class="form-group"> <input class="form-control" type="text" name="colorcode" placeholder="Color"/></div>    
+        <div class="form-group"> <input class="form-control" type="text" name="length" placeholder="Length"/></div>    
+        <div class="form-group"> <input class="form-control" type="text" name="serialnumber" placeholder="Serial number"/></div>    
+        <div class="form-group"> <ul><li>hello</li></ul></div>    
+        <div class="form-group"> <ul><li>hello</li></ul></div>    
+        <div class="form-group"> <ul><li>hello</li></ul></div>    
+        <div class="form-group"> <button class="btn btn-default" type="submit">Ok</button></div>    
+    </form>
+</div>
+
+<% items.forEach((element) => { %>
+    <ul>
+        <li><%=element.id%></li>
+        <li><a id="<%=element.id%>" href="/simchas/<%=element.id%>"><%=element.name%></a></li>
+        <li><%=element.colorcode%></li>  
+        <li><%=element.length%></li> 
+        <li><%=element.serialnumber%></li> 
+        <li><%=element.status%></li> 
+        <li><%=element.customer%></li> 
+        <li><%=element.reservations%></li> 
+        </ul>
+<% }); %>
+
+</div>

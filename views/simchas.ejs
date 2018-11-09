@@ -1,0 +1,9 @@
+<% simchas.forEach((element) => { %>
+    <ul>
+        <li><%=element.id%></li>
+        <li><a id="<%=element.id%>" href="/simchas/<%=element.id%>"><%=element.name%></a></li>
+        <li><%=element.type%></li>  
+        <li><%=element.amount%></li> 
+        </ul>
+<% }); %>
+ 

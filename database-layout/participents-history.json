@@ -1,0 +1,21 @@
+{
+  "participentsHistory": [{
+    "id": "0",
+    "participentId": "1",
+    "simchaId": "1",
+    "amount": "15",
+    "date": "2/3/17"
+  },{
+    "id": "1",
+    "participentId": "1",
+    "simchaId": "2",
+    "amount": "5",
+    "date": "2/3/16"
+  },{
+    "id": "2",
+    "participentId": "2",
+    "simchaId": "3",
+    "amount": "15",
+    "date": "2/3/17"
+  }]
+}

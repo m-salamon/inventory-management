@@ -1,0 +1,40 @@
+{
+  "name": "simcha-organizer",
+  "version": "1.0.0",
+  "description": "A Node.js app using Express 4",
+  "engines": {
+    "node": "8.5.8"
+  },
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start:prod": "./node_modules/.bin/knex migrate:latest && PROD=true npm start",
+    "knex-init": "npm-run knex init",
+    "migrate-latest": "npm-run knex migrate:latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "author": "m salamon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m-salamon/simcha-organizer/issues"
+  },
+  "homepage": "https://github.com/m-salamon/simcha-organizer#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "knex": "^0.15.2",
+    "mysql": "^2.16.0",
+    "pg": "^7.6.1"
+  }
+}
