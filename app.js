@@ -19,12 +19,15 @@ app.locals.siteHeader = 'Inventory Management';
 //brings in the index.js file it should be available to app 
 app.use(require('./routes/index'));
 app.use(require('./routes/items'));
-//app.use(require('./routes/customers'));
-//app.use(require('./routes/consigments'));
+app.use(require('./routes/customers'));
+app.use(require('./routes/consigments'));
 //app.use(require('./routes/reservations'));
+
+
 
 //make the public folder available to all the routes
 app.use(express.static('public'));
+
 
 //app.listen(3000, () => console.log('server is running on port 3000'));
 // //heroku stuff

@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
       table.string('city');
       table.string('state');
       table.string('zip');
+      table.string('country');
       table.boolean('inactive').notNullable()
       table.timestamp('createdAt').default(knex.fn.now())
    });

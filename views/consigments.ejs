@@ -1,0 +1,72 @@
+<% include header.ejs %>
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="addConsigment">
+                    <!-- add item -->
+                    <h2>Add A Consigment</h2>
+                    <form method="post" 
+                        
+                        <div class="form-group">
+                            <input  class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" >
+                            <datalist id="customers" >
+                            <% customers.forEach((element) => { %>
+                                <option value="<%= element.name %>" id="<%= element.id %>">
+                                <% }); %>
+                            </datalist>
+                        </div>
+                         
+                        <div class="input-group itemLookupWrapper mb-3">
+                            <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" >
+                            <datalist id="items" >
+                            <% items.forEach((element) => { %>
+                                <option value="<%= element.name %>" id="<%= element.id %>">
+                                <% }); %>
+                            </datalist>
+                            <div class="input-group-append">
+                            <button class="btn btn-outline-secondary removeItemInput">-</button>
+                            <button class="btn btn-outline-primary addItemInput">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input id="date" class="form-control" type="text" name="date" placeholder="Date"  />
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success" id="addConsigment" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <ul class="list-group">
+                    <% consigments.forEach((element) => { %>
+                     
+                            <a id="<%=element.id%>" href="/item/<%=element.id%>" class="list-group-item">
+                        
+                                <div>itemId:
+                                    <%=element.itemId%>
+                                </div>
+                                <div>customerId:
+                                    <%=element.customerId%>
+                                </div>
+                                <div>shippeddate:
+                                    <%=element.shippeddate%>
+                                </div>
+                                </a>
+                                <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
+                                    Delete
+                                </button>
+                    <% }); %>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <% include footer.ejs %>

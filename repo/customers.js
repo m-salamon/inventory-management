@@ -1,12 +1,26 @@
 const knex = require('./config');
 
 function getCustomers() {
-    let query = knex('customers').select('*').orderBy('id', 'desc');
+    let query = knex('customers').select('*').orderBy('id', 'desc').where({ inactive: false });
     return query;
 }
 
 function getCustomer(id) {
-    let query = knex('customers').select('*').where('id', id).orderBy('id', 'desc');
+    let query = knex('customers').select('*').where('id', id).orderBy('id', 'desc').where({ inactive: false });
+    return query;
+}
+
+function getCitys() {
+    let query = knex('customers').select('city').distinct().orderBy('id', 'asc').where({ inactive: false });
+    return query;
+}
+
+function getStates() {
+    let query = knex('customers').select('state').distinct().orderBy('id', 'asc').where({ inactive: false });
+    return query;
+}
+function getZips() {
+    let query = knex('customers').select('zip').distinct().orderBy('id', 'asc').where({ inactive: false });
     return query;
 }
 
@@ -25,4 +39,4 @@ function deleteCustomer(id) {
     return query;
 }
 
-module.exports = { getCustomers, getCustomer, addCustomer, editCustomer, deleteCustomer };
+module.exports = { getCustomers, getCustomer, addCustomer, editCustomer, deleteCustomer, getStates, getCitys, getZips };

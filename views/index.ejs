@@ -1,10 +1,13 @@
+<% include header.ejs %>
 
-
-<% include items.ejs %>
-
-
-
-
+<% if ( params.url == "items") { %>//does not throw error if property not defined
+  <div id="thisisaid"></div>         
+<% } %>
 
 
 
+  <% include items.ejs %>
+  <% include customers.ejs %>
+
+
+<% include footer.ejs %>

@@ -1,32 +1,80 @@
+<% include header.ejs %>
 
-<div class="container">
 
-<div class="addItem">
-    <!-- add item -->
-    <h2>Add A Item</h2>
-    <form method="post" action="/addItem">
-        <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Item name"/></div>
-        <div class="form-group"> <input class="form-control" type="text" name="colorcode" placeholder="Color"/></div>    
-        <div class="form-group"> <input class="form-control" type="text" name="length" placeholder="Length"/></div>    
-        <div class="form-group"> <input class="form-control" type="text" name="serialnumber" placeholder="Serial number"/></div>    
-        <div class="form-group"> <ul><li>hello</li></ul></div>    
-        <div class="form-group"> <ul><li>hello</li></ul></div>    
-        <div class="form-group"> <ul><li>hello</li></ul></div>    
-        <div class="form-group"> <button class="btn btn-default" type="submit">Ok</button></div>    
-    </form>
-</div>
+    <div class="container">
+        <div class="row">
 
-<% items.forEach((element) => { %>
-    <ul>
-        <li><%=element.id%></li>
-        <li><a id="<%=element.id%>" href="/simchas/<%=element.id%>"><%=element.name%></a></li>
-        <li><%=element.colorcode%></li>  
-        <li><%=element.length%></li> 
-        <li><%=element.serialnumber%></li> 
-        <li><%=element.status%></li> 
-        <li><%=element.customer%></li> 
-        <li><%=element.reservations%></li> 
-        </ul>
-<% }); %>
+            <div class="col-sm-6">
+                <div class="addItem">
+                    <!-- add item -->
+                    <h2>Add A Item</h2>
+                    <form method="post" action="/addItem">
+                        <div class="form-group">
+                            <input id="itemName" class="form-control" type="text" name="name" placeholder="Item name"  readonly="readonly"/>
+                        </div>
+                        <div class="form-group">
+                            <input id="itemColor" class="form-control" type="text" name="colorcode" placeholder="Color" list="colors" required>
+                            <datalist id="colors">
+                            <% colors.forEach((element) => { %>
+                                <option value="<%= element.colorcode %>">
+                                <% }); %>
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <input id="itemLength" class="form-control" type="text" name="length" placeholder="Length" list="lengths" required>
+                            <datalist id="lengths">
+                            <% lengths.forEach((element) => { %>
+                                <option value="<%= element.length %>">
+                                <% }); %>
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <input id="serialNumber" class="form-control" type="text" name="serialnumber" placeholder="Serial number" required />
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-</div>
+            <div class="col-sm-6">
+                <ul class="list-group">
+                    <% items.forEach((element) => { %>
+                     
+                            <a id="<%=element.id%>" href="/item/<%=element.id%>" class="list-group-item">
+                        
+                                <div>Name:
+                                    <%=element.name%>
+                                </div>
+                                <div>Color:
+                                    <%=element.colorcode%>
+                                </div>
+                                <div>Length:
+                                    <%=element.length%>
+                                </div>
+                                <div>Serial number:
+                                    <%=element.serialnumber%>
+                                </div>
+                                <div>Status:
+                                    <%=element.status%>
+                                </div>
+                                <div>Customer:
+                                    <%=element.customer%>
+                                </div>
+                                <div>Reservations:
+                                    <%=element.reservations%>
+                                </div>
+                                </a>
+                                <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
+                                    Delete
+                                </button>
+                    <% }); %>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <% include footer.ejs %>
