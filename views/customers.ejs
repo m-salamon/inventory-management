@@ -56,8 +56,7 @@
             <div class="col-sm-6">
                 <ul class="list-group">
                     <% customers.forEach((element) => { %>
-                     
-                            <a id="<%=element.id%>" href="/item/<%=element.id%>" class="list-group-item">
+                            <a id="<%=element.id%>" href="/customers/<%=element.id%>" class="list-group-item">
                         
                                 <div>Name:
                                     <%=element.name%>
@@ -90,6 +89,5 @@
 
         </div>
     </div>
-
 
     <% include footer.ejs %>

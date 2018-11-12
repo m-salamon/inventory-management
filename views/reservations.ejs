@@ -7,7 +7,7 @@
             <div class="col-sm-6">
                 <div class="">
                     <!-- add item -->
-                    <h2>Add A Consigment</h2>
+                    <h2>Add A Reservation</h2>
                     <div>
                         
                         <div class="form-group">
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="form-group">
-                            <button class="btn btn-success" id="addConsigment" type="submit">Submit</button>
+                            <button class="btn btn-success" id="addReservation" type="submit">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -45,9 +45,9 @@
 
             <div class="col-sm-6">
                 <ul class="list-group">
-                    <% consigments.forEach((element) => { %>
+                    <% reservations.forEach((element) => { %>
                      
-                            <a id="<%=element.id%>" href="/consigments/<%=element.id%>" class="list-group-item">
+                            <a id="<%=element.id%>" href="/reservations/<%=element.id%>" class="list-group-item">
                         
                                 <div id="<%=element.itemId%>">Item:
                                     <%=element.item%>
@@ -56,7 +56,7 @@
                                     <%=element.customer%>
                                 </div>
                                 <div>Date Shipped:
-                                    <%=element.shippeddate%>
+                                    <%=element.reserveddate%>
                                 </div>
                                 </a>
                                 <button class="btn btn-danger deleteConsigment" name="delete" id="<%=element.id%>"  value="<%=element.id%>">

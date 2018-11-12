@@ -34,8 +34,8 @@ router.post('/getConsigment', (req, res) => {
 });
 
 router.post('/addConsigment', (req, res) => {
-  console.log(req.body)
-  
+    console.log(req.body)
+
     repo.consigments.addConsigment(req.body).then(data => {
         res.redirect('/consigments');
     });
@@ -52,17 +52,21 @@ router.post('/editConsigment', (req, res) => {
 });
 
 router.post('/deleteConsigment', async (req, res) => {
-   await repo.consigments.deleteConsigment(req.body.id)
-   let consigments = await repo.consigments.getConsigments()
-   let customers = await repo.customers.getCustomers()
-   let items = await repo.items.getItems()
-   res.render('consigments', {
-       pageTitle: 'consigments',
-       consigments,
-       customers,
-       items
-   });
-    
+    try {
+        await repo.consigments.deleteConsigment(req.body.id)
+        let consigments = await repo.consigments.getConsigments()
+        let customers = await repo.customers.getCustomers()
+        let items = await repo.items.getItems()
+        res.render('consigments', {
+            pageTitle: 'consigments',
+            consigments,
+            customers,
+            items
+        });
+    } catch (e) {
+        console.log('Routes Error: ', e)
+    }
+
 });
 
 module.exports = router;

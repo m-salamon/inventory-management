@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary();
       table.integer('customerId');
       table.integer('itemId');
+      table.string('reserveddate');
       table.boolean('inactive').notNullable()
       table.timestamp('createdAt').default(knex.fn.now())
    });

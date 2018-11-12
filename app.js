@@ -21,7 +21,7 @@ app.use(require('./routes/index'));
 app.use(require('./routes/items'));
 app.use(require('./routes/customers'));
 app.use(require('./routes/consigments'));
-//app.use(require('./routes/reservations'));
+app.use(require('./routes/reservations'));
 
 
 
