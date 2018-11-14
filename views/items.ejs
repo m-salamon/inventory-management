@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="addItem">
                     <!-- add item -->
                     <h2>Add A Item</h2>
@@ -38,43 +38,41 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
-                <ul class="list-group">
+            <div class="col-sm-8">
+            <div class="total">Total: <%= items.length %></div>
+                <table  class="table table-hover table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">Serial number</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Reservations</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
                     <% items.forEach((element) => { %>
-                     
-                            <a id="<%=element.id%>" href="/item/<%=element.id%>" class="list-group-item">
-                        
-                                <div>Name:
-                                    <%=element.name%>
-                                </div>
-                                <div>Color:
-                                    <%=element.colorcode%>
-                                </div>
-                                <div>Length:
-                                    <%=element.length%>
-                                </div>
-                                <div>Serial number:
-                                    <%=element.serialnumber%>
-                                </div>
-                                <div>Status:
-                                    <%=element.status%>
-                                </div>
-                                <div>Customer:
-                                    <%=element.customer%>
-                                </div>
-                                <div>Reservations:
-                                    <%=element.reservations%>
-                                </div>
-                                </a>
-                                <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
-                                    Delete
-                                </button>
+                            <tr>
+                                <td><a id="<%=element.id%>" href="/getItem/<%=element.id%>"> <%=element.name%>  </a></td>
+                                <td> <%=element.colorcode%></td>
+                                <td> <%=element.length%></td>
+                                <td><%=element.serialnumber%></td>
+                                <td><%=element.status%> </td>
+                                <td><%=element.customer%></td>
+                                <td><%=element.reservations%> </td>
+                                <td>
+                                <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>
+                                </td>
+                            </tr>
                     <% }); %>
-                </ul>
+                    </tbody>
+                </table >
             </div>
 
         </div>
     </div>
-
 
     <% include footer.ejs %>

@@ -1,13 +1,3 @@
-html, body{
-
-}
-body{
-}
-
-.active{ 
-    animation: fadein 1s;
-    background-color: #cccccc;
-}
 @keyframes fadein {
     from {
         opacity: 0;

@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
       table.string('length');
       table.string('serialnumber');
       table.string('brand');
-      table.integer('statusId');
+      table.string('status');
       table.integer('customerId');
       table.integer('reservationsId');
       table.integer('stockamount');

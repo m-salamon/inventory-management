@@ -27,8 +27,6 @@ router.get('/reservations', async (req, res) => {
          return R.head(found.filter(f => f))
       })(items).filter(f => f)
 
-
-
       console.log(items)
 
       res.render('reservations', {

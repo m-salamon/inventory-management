@@ -9,14 +9,33 @@
         <%= siteHeader %>
     </title>
     <link rel="icon" href="/images/glass2.png">
-    <script src="https://use.fontawesome.com/86e8323539.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/sidenav.css">
 </head>
 
 <body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="/">Main</a>
+  <a href="/items">Items</a>
+  <a href="/customers">Customers</a>
+  <a href="/consigments">Consigments</a>
+  <a href="/reservations">Reservations</a>
+</div>
+
+<!-- Use any element to open the sidenav -->
+<span onclick="openNav()">open</span>
+
+<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+<div id="main">
+
+
+
     <h2>The
         <%=siteHeader%>
             <span style="font-size: 0.9em;">&bullet;
@@ -27,3 +46,5 @@
                 <a href="/reservations">Reservations</a>
             </span>
     </h2>
+
+  

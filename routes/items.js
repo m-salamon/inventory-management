@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const repo = require('../repo');
+const R = require('ramda')
+const { ITEM_STATUS } = require('./globals')
 
 router.get('/items', async (req, res) => {
     let items = await repo.items.getItems()
@@ -24,20 +26,18 @@ router.get('/getItems', (req, res) => {
     });
 });
 
-router.post('/getItem', (req, res) => {
-    repo.items.getItem(req.body.id).then(data => {
-        res.render('items', {
-            pageTitle: 'items',
-            items: data
-        });
+router.get('/getItem/:id', async (req, res) => {
+    let data = await repo.items.getItem(req.params.id)
+    res.render('item', {
+        pageTitle: 'item',
+        item: data
     });
 });
 
-router.post('/addItem', (req, res) => {
-    console.log('item', req.body)
-    repo.items.addItem(req.body).then(data => {
-        res.redirect('/items');
-    });
+router.post('/addItem', async (req, res) => {
+    let body = R.merge(req.body, { status: ITEM_STATUS.available })
+    let data = await repo.items.addItem(body)
+    res.redirect('/items');
 });
 
 
@@ -51,7 +51,7 @@ router.post('/editItem', (req, res) => {
 });
 
 router.post('/deleteItem', async (req, res) => {
-   await repo.items.deleteItem(req.body.id)
+    await repo.items.deleteItem(req.body.id)
     let items = await repo.items.getItems()
     let colors = await repo.items.getColors()
     let lengths = await repo.items.getLengths()
@@ -61,7 +61,7 @@ router.post('/deleteItem', async (req, res) => {
         colors: colors,
         lengths: lengths
     });
-    
+
 });
 
 module.exports = router;

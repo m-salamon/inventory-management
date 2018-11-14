@@ -6,15 +6,17 @@ const customers = require('../repo/customers');
 const consigments = require('../repo/consigments');
 const reservations = require('../repo/reservations');
 
-router.use(function(req, res, next) {
+
+
+router.use(function (req, res, next) {
     res.locals.params = {
-        query : req.query,
-        url   : req.originalUrl
+        query: req.query,
+        url: req.originalUrl
     }
     next();
-  });
+});
 
-  
+
 
 router.get('/', (req, res) => {
     items.getItems().then(data => {
@@ -28,7 +30,7 @@ router.get('/', (req, res) => {
 
 
 
-  
+
 // router.post('/addParticipent', (req, res) => {
 //     let name = req.body.name;
 //     let sum = req.body.sum;

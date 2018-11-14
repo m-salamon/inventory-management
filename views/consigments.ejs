@@ -1,70 +1,86 @@
 <% include header.ejs %>
 
 
-    <div class="container">
-        <div class="row">
+<div class="container">
+    <div class="row">
 
-            <div class="col-sm-6">
-                <div class="">
-                    <!-- add item -->
-                    <h2>Add A Consigment</h2>
-                    <div>
-                        
-                        <div class="form-group">
-                            <input  class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" >
-                            <datalist id="customers" >
+        <div class="col-sm-4">
+            <div class="">
+                <!-- add item -->
+                <h2>Add A Consigment</h2>
+                <div>
+                    <div class="form-group">
+                        <input class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" required>
+                        <datalist id="customers">
                             <% customers.forEach((element) => { %>
-                                <option value="<%= element.name %>" data-id="<%= element.id %>">
+                            <option value="<%= element.name %>" data-id="<%= element.id %>">
                                 <% }); %>
-                            </datalist>
-                        </div>
-                         
-                        <div class="input-group itemLookupWrapper mb-3">
-                            <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" >
-                            <datalist id="items" >
-                            <% items.forEach((element) => { %>
-                                <option value="<%= element.name %>" data-id="<%= element.id %>">
-                                <% }); %>
-                            </datalist>
-                            <div class="input-group-append">
-                            <button class="btn btn-outline-secondary removeItemInput">-</button>
-                            <button class="btn btn-outline-primary addItemInput">+</button>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input id="date" class="form-control" type="date" name="date" placeholder="Date" />
-                        </div>
+                        </datalist>
+                    </div>
 
-                        <div class="form-group">
-                            <button class="btn btn-success" id="addConsigment" type="submit">Submit</button>
+                    <div class="input-group itemLookupWrapper mb-3">
+                        <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" required>
+                        <datalist id="items">
+                            <% items.forEach((element) => { %>
+                            <option value="<%= element.name %>" data-id="<%= element.id %>">
+                                <% }); %>
+                        </datalist>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary removeItemInput"><i class="fas fa-minus"></i></button>
+                            <button class="btn btn-outline-primary addItemInput"><i class="fas fa-plus"></i></button>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input id="date" class="form-control" type="date" name="date" placeholder="Date" />
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-success" id="addConsigment" type="submit">Submit</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-sm-6">
-                <ul class="list-group">
+
+        <div class="col-sm-8">
+            <div class="total">Total: <%= consigments.length %></div>
+            <table class="table table-hover table-striped"">
+            <thead class=" thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Date Shipped</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
                     <% consigments.forEach((element) => { %>
-                     
-                            <a id="<%=element.id%>" href="/consigments/<%=element.id%>" class="list-group-item">
-                        
-                                <div id="<%=element.itemId%>">Item:
-                                    <%=element.item%>
-                                </div>
-                                <div id="<%=element.customerId%>">Customer:
-                                    <%=element.customer%>
-                                </div>
-                                <div>Date Shipped:
-                                    <%=element.shippeddate%>
-                                </div>
-                                </a>
-                                <button class="btn btn-danger deleteConsigment" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
-                                    Delete
-                                </button>
-                    <% }); %>
-                </ul>
-            </div>
+                    <tr>
+                        <td><a id="<%=element.id%>" href="/getConsigment/<%=element.id%>">
+                                <%=element.id%>
+                            </a>
+                        </td>
+                        <td>
+                            <%=element.item%>
+                        </td>
+                        <td>
+                            <%=element.customer%>
+                        </td>
+                        <td>
+                            <%=element.shippeddate%>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger deleteConsigment" name="delete" id="<%=element.id%>" value="<%=element.id%>">
+                                Delete
+                            </button>
+                        </td>
+                        <% }); %>
+                </tbody>
+            </table>
+
+
 
         </div>
     </div>

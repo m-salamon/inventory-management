@@ -1,0 +1,46 @@
+<% include header.ejs %>
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-6">
+                <ul class="list-group">
+                    <% item.forEach((element) => { %>
+                     
+                            <a id="<%=element.id%>" href="/getItem/<%=element.id%>" class="list-group-item">
+                        
+                                <div>Name:
+                                    <%=element.name%>
+                                </div>
+                                <div>Color:
+                                    <%=element.colorcode%>
+                                </div>
+                                <div>Length:
+                                    <%=element.length%>
+                                </div>
+                                <div>Serial number:
+                                    <%=element.serialnumber%>
+                                </div>
+                                <div>Status:
+                                    <%=element.status%>
+                                </div>
+                                <div>Customer:
+                                    <%=element.customer%>
+                                </div>
+                                <div>Reservations:
+                                    <%=element.reservations%>
+                                </div>
+                                </a>
+                                <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
+                                    Delete
+                                </button>
+                    <% }); %>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <% include footer.ejs %>

@@ -4,22 +4,28 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="addCustomer">
                     <!-- add item -->
                     <h2>Add A Customer</h2>
                     <form method="post" action="/addCustomer">
                         <div class="form-group">
-                            <input id="customerName" class="form-control" type="text" name="name" placeholder="Customer name" />
+                            <input  class="form-control" type="text" name="name" placeholder="Customer name" required />
                         </div>
                         <div class="form-group">
-                            <input id="customerName" class="form-control" type="text" name="email" placeholder="Email" />
+                            <input  class="form-control" type="text" name="phone" placeholder="Phone number" />
                         </div>
                         <div class="form-group">
-                            <input id="customerName" class="form-control" type="text" name="address" placeholder="Address" />
+                            <input  class="form-control" type="text" name="mobile" placeholder="Mobile number" />
                         </div>
                         <div class="form-group">
-                        <input id="customerCity" class="form-control" type="text" name="city" placeholder="City" list="citys">
+                            <input class="form-control" type="text" name="email" placeholder="Email" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="address" placeholder="Address" />
+                        </div>
+                        <div class="form-group">
+                        <input  class="form-control" type="text" name="city" placeholder="City" list="citys">
                         <datalist id="citys">
                         <% citys.forEach((element) => { %>
                             <option value="<%= element.city %>">
@@ -27,7 +33,7 @@
                         </datalist>
                         </div>
                         <div class="form-group">
-                        <input id="customerState" class="form-control" type="text" name="state" placeholder="State" list="states">
+                        <input class="form-control" type="text" name="state" placeholder="State" list="states">
                         <datalist id="states">
                         <% states.forEach((element) => { %>
                             <option value="<%= element.state %>">
@@ -35,7 +41,7 @@
                         </datalist>
                         </div>
                         <div class="form-group">
-                        <input id="customerZip" class="form-control" type="text" name="zip" placeholder="Zip" list="zips">
+                        <input  class="form-control" type="text" name="zip" placeholder="Zip" list="zips">
                         <datalist id="zips">
                         <% zips.forEach((element) => { %>
                             <option value="<%= element.zip %>">
@@ -43,7 +49,7 @@
                         </datalist>
                         </div>
                         <div class="form-group">
-                            <input id="customerName" class="form-control" type="text" name="country" placeholder="Country" />
+                            <input  class="form-control" type="text" name="country" placeholder="Country" />
                         </div>
                        
                         <div class="form-group">
@@ -53,39 +59,43 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
-                <ul class="list-group">
-                    <% customers.forEach((element) => { %>
-                            <a id="<%=element.id%>" href="/customers/<%=element.id%>" class="list-group-item">
-                        
-                                <div>Name:
-                                    <%=element.name%>
-                                </div>
-                                <div>email:
-                                    <%=element.email%>
-                                </div>
-                                <div>address:
-                                    <%=element.address%>
-                                </div>
-                                <div>city:
-                                    <%=element.city%>
-                                </div>
-                                <div>state:
-                                    <%=element.state%>
-                                </div>
-                                <div>zip:
-                                    <%=element.zip%>
-                                </div>
-                                <div>country:
-                                    <%=element.country%>
-                                </div>
-                                </a>
-                                <button class="btn btn-danger deleteCustomer" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
-                                    Delete
-                                </button>
-                    <% }); %>
-                </ul>
-            </div>
+
+            <div class="col-sm-8">
+            <div class="total">Total: <%= customers.length %></div>
+            <table  class="table table-hover table-striped"">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">email</th>
+                <th scope="col">address</th>
+                <th scope="col">city</th>
+                <th scope="col">state</th>
+                <th scope="col">zip</th>
+                <th scope="col">country</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <% customers.forEach((element) => { %>
+                        <tr>
+                            <td><a id="<%=element.id%>" href="/getCustomer/<%=element.id%>"> <%=element.name%>  </a></td>
+                            <td> <%=element.phone%></td>
+                            <td> <%=element.mobile%></td>
+                            <td> <%=element.email%></td>
+                            <td> <%=element.address%></td>
+                            <td><%=element.city%></td>
+                            <td><%=element.state%> </td>
+                            <td><%=element.zip%></td>
+                            <td><%=element.country%> </td>
+                            <td>
+                            <button class="btn btn-danger deleteCustomer" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>
+                            </td>
+                        </tr>
+                <% }); %>
+                </tbody>
+            </table >
 
         </div>
     </div>
