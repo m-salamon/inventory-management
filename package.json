@@ -1,5 +1,5 @@
 {
-  "name": "simcha-organizer",
+  "name": "inventory-management",
   "version": "1.0.0",
   "description": "A Node.js app using Express 4",
   "engines": {
@@ -25,9 +25,9 @@
   "author": "m salamon",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/m-salamon/simcha-organizer/issues"
+    "url": "https://github.com/m-salamon/inventory-management/issues"
   },
-  "homepage": "https://github.com/m-salamon/simcha-organizer#readme",
+  "homepage": "https://github.com/m-salamon/inventory-management#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "dotenv": "^6.1.0",
