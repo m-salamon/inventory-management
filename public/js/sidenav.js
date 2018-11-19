@@ -1,17 +1,23 @@
 /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
 function openNav() {
-   // document.getElementById("mySidenav").style.display = "block";
+  localStorage.setItem('sidenav', 'true');
 
-   document.getElementById("mySidenav").style.width = "250px";
-   document.getElementById("main").style.marginLeft = "250px";
+  $("#mySidenav").css("width", "250px")
+  $("#main").css("marginLeft", "250px")
 }
 
 /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
 function closeNav() {
-   // document.getElementById("mySidenav").style.display = "none";
+  localStorage.setItem('sidenav', 'false');
 
-   document.getElementById("mySidenav").style.width = "0";
-   document.getElementById("main").style.marginLeft = "0";
+  $("#mySidenav").css("width", "0px")
+  $("#main").css("marginLeft", "0px")
 }
 
-openNav()
+if (localStorage.getItem('sidenav') == 'true') {
+  openNav()
+}
+
+if (localStorage.getItem('sidenav') == 'false') {
+  closeNav()
+}

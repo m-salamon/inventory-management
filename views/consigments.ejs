@@ -21,7 +21,7 @@
                     <div class="input-group itemLookupWrapper mb-3">
                         <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" required>
                         <datalist id="items">
-                            <% items.forEach((element) => { %>
+                            <% itemsToConsign.forEach((element) => { %>
                             <option value="<%= element.name %>" data-id="<%= element.id %>">
                                 <% }); %>
                         </datalist>

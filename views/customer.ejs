@@ -5,36 +5,42 @@
 
             <div class="offset-md-2 col-md-8 col-sm-12">
                 <ul class="list-group single-view-wrapper">
-                    <% item.forEach((element) => { %>
+                    <% customer.forEach((element) => { %>
 
                             <div class="list-group-item single-view-list-wrapper">
-                                <div class="single-view-list-item" >
-                                ID: <%=element.id%>
+                                <div class="single-view-list-item" >ID:
+                                    <%=element.id%>
                                 </div>
                                 <div class="single-view-list-item" >
-                                Name: <%=element.name%>
+                                  Name: <%=element.name%>
                                 </div>
                                 <div class="single-view-list-item" >
-                                Color: <%=element.colorcode%>
+                                Phone: <%=element.phone%>
                                 </div>
                                 <div class="single-view-list-item" >
-                                Length: <%=element.length%>
+                                Mobile: <%=element.mobile%>
                                 </div>
                                 <div class="single-view-list-item" >
-                                Serial number: <%=element.serialnumber%>
+                                Email: <%=element.email%>
                                 </div>
                                 <div class="single-view-list-item" >
-                                Status: <%=element.status%>
+                                Address: <%=element.address%>
                                 </div>
                                 <div class="single-view-list-item" >
-                                <a href="/getCustomer/<%=element.itemId%>">Customer: <%=element.customer%></a>
+                                City: <%=element.city%>
                                 </div>
                                 <div class="single-view-list-item" >
-                                Reservations: <%=element.reservations%>
+                                State: <%=element.state%>
                                 </div>
-                                <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
-                                Delete
-                            </button>
+                                <div class="single-view-list-item" >
+                                Zip:<%=element.zip%>
+                                </div>
+                                <div class="single-view-list-item" >
+                                Country:<%=element.country%>
+                                </div>
+                                <button class="btn btn-danger deleteReservation float-right" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
+                                    Delete
+                                </button>
                                 </div>
                     <% }); %>
                 </ul>

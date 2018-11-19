@@ -22,7 +22,7 @@
                             <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" >
                             <datalist id="items" >
                             <% items.forEach((element) => { %>
-                                <option value="<%= element.name %>" data-id="<%= element.id %>">
+                                <option value="<%= element.name %>---<%= element.count || 0 %>" data-id="<%= element.id %>">
                                 <% }); %>
                             </datalist>
                             <div class="input-group-append">
@@ -57,7 +57,7 @@
                 <tbody>
                     <% reservations.forEach((element) => { %>
                     <tr>
-                        <td><a id="<%=element.id%>" href="/getReservations/<%=element.id%>">
+                        <td><a id="<%=element.id%>" href="/getReservation/<%=element.id%>">
                                 <%=element.id%>
                             </a>
                         </td>

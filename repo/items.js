@@ -5,8 +5,22 @@ function getItems() {
     return query;
 }
 
+function getItemsToConsign() {
+    let query = knex('items').select('*').orderBy('id', 'desc').where({ inactive: false })
+    .whereNotExists(function() {
+        this.select('*').from('consigments').whereRaw('items.id = consigments.itemId').whereRaw('consigments.inactive = false')
+      })
+    return query;
+}
+
+
+  
 function getItem(id) {
-    let query = knex('items').select('*').where('id', id).orderBy('id', 'desc');
+    let query = knex('items as i').select('*', 'i.id')
+    .leftJoin('reservations', function () {
+        this.on('i.id', 'reservations.itemId').andOn('reservations.inactive', 0);
+      })
+    .where('i.id', id).where({ 'i.inactive': false })
     return query;
 }
 
@@ -34,4 +48,4 @@ function deleteItem(id) {
     return query;
 }
 
-module.exports = { getItems, getItem, addItem, editItem, deleteItem, getColors, getLengths };
+module.exports = { getItems, getItem, addItem, editItem, deleteItem, getColors, getLengths, getItemsToConsign };

@@ -4,12 +4,15 @@ function getConsigments() {
     let query = knex('consigments as con').select('con.id', 'con.itemId', 'con.customerId', 'con.shippeddate', 'i.name AS item', 'c.name AS customer' )
         .leftJoin('items as i', 'i.id', 'con.itemId')
         .leftJoin('customers as c', 'c.id', 'con.customerId')
-        .orderBy('con.id', 'desc').where({ 'con.inactive': false });
+        .orderBy('con.id', 'desc').where({ 'con.inactive': false })
     return query;
 }
 
 function getConsigment(id) {
-    let query = knex('consigments').select('*').where('id', id).orderBy('id', 'desc');
+    let query = knex('consigments as con').select('con.id', 'con.itemId', 'con.customerId', 'con.shippeddate', 'i.name AS item', 'c.name AS customer' )
+    .leftJoin('items as i', 'i.id', 'con.itemId')
+    .leftJoin('customers as c', 'c.id', 'con.customerId')
+    .orderBy('con.id', 'desc').where('con.id', id)
     return query;
 }
 

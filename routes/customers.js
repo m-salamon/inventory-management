@@ -17,11 +17,12 @@ router.get('/customers', async (req, res) => {
 
 });
 
-router.post('/getCustomer', (req, res) => {
-    repo.customers.getCustomer(req.body.id).then(data => {
-        res.render('customers', {
-            pageTitle: 'customers',
-            items: data
+router.get('/getCustomer/:id', (req, res) => {
+    repo.customers.getCustomer(req.params.id).then(data => {
+        console.log(data)
+        res.render('customer', {
+            pageTitle: 'customer',
+            customer: data
         });
     });
 });
@@ -44,17 +45,7 @@ router.post('/editCustomer', (req, res) => {
 
 router.post('/deleteCustomer', async (req, res) => {
    await repo.customers.deleteCustomer(req.body.id)
-   let customers = await repo.customers.getCustomers()
-   let states = await repo.customers.getStates()
-   let citys = await repo.customers.getCitys()
-   let zips = await repo.customers.getZips()
-   res.render('customers', {
-       pageTitle: 'customers',
-       customers,
-       states,
-       citys,
-       zips
-   });
+   res.redirect('/customers')
 });
 
 module.exports = router;

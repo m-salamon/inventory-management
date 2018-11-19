@@ -27,7 +27,7 @@
       }
     }).get()[0]
 
-    if (_.isEmpty(customerLookup)) return
+    if (R.isEmpty(customerLookup)) return
     
     let itemLookup = $('.itemLookup').map(function (i, obj) {
       if ($(this).val() != '') {
@@ -36,10 +36,10 @@
       }
     }).get()
 
-    if (_.isEmpty(itemLookup)) return
+    if (R.isEmpty(itemLookup)) return
 
     var date = $('#date').val()
-    if (_.isEmpty(date)) return
+    if (R.isEmpty(date)) return
 
     itemLookup.map((id) => {
       $.post('/addConsigment', { itemId: id, customerId: customerLookup, shippeddate: date }, (data) => {

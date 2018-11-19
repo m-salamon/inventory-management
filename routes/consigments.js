@@ -6,11 +6,13 @@ router.get('/consigments', async (req, res) => {
     let consigments = await repo.consigments.getConsigments()
     let customers = await repo.customers.getCustomers()
     let items = await repo.items.getItems()
+    let itemsToConsign = await repo.items.getItemsToConsign()
     res.render('consigments', {
         pageTitle: 'consigments',
         consigments,
         customers,
-        items
+        items,
+        itemsToConsign
     });
 
 });
@@ -24,11 +26,13 @@ router.get('/getConsigments', (req, res) => {
     });
 });
 
-router.post('/getConsigment', (req, res) => {
-    repo.consigments.getConsigment(req.body.id).then(data => {
-        res.render('consigments', {
-            pageTitle: 'consigments',
-            items: data
+router.get('/getConsigment/:id', (req, res) => {
+    console.log(req.params.id)
+    repo.consigments.getConsigment(req.params.id).then(data => {
+        console.log(data)
+        res.render('consigment', {
+            pageTitle: 'consigment',
+            consigment: data
         });
     });
 });
@@ -54,15 +58,7 @@ router.post('/editConsigment', (req, res) => {
 router.post('/deleteConsigment', async (req, res) => {
     try {
         await repo.consigments.deleteConsigment(req.body.id)
-        let consigments = await repo.consigments.getConsigments()
-        let customers = await repo.customers.getCustomers()
-        let items = await repo.items.getItems()
-        res.render('consigments', {
-            pageTitle: 'consigments',
-            consigments,
-            customers,
-            items
-        });
+        res.redirect('/consigments')
     } catch (e) {
         console.log('Routes Error: ', e)
     }

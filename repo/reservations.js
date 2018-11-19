@@ -9,7 +9,11 @@ function getReservations() {
 }
 
 function getReservation(id) {
-    let query = knex('reservations').select('*').where('id', id).orderBy('id', 'desc');
+    let query = knex('reservations as r').select('r.id', 'r.itemId', 'r.customerId', 'r.reserveddate', 'i.name AS item', 'c.name AS customer' )
+    .leftJoin('items as i', 'i.id', 'r.itemId')
+    .leftJoin('customers as c', 'c.id', 'r.customerId')
+    .orderBy('r.id', 'desc')
+    .where('r.id', id)
     return query;
 }
 
