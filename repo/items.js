@@ -16,10 +16,11 @@ function getItemsToConsign() {
 
   
 function getItem(id) {
-    let query = knex('items as i').select('*', 'i.id')
-    .leftJoin('reservations', function () {
-        this.on('i.id', 'reservations.itemId').andOn('reservations.inactive', 0);
+    let query = knex('items as i').select('i.id', 'i.name', 'i.length', 'i.colorcode','i.serialnumber', 'i.brand', 'i.status', 'r.customerId', '.reservationsId', 'i.stockamount', 'i.inactive', 'r.reserveddate', 'c.name as customer', 'r.id as reservationId')
+    .leftJoin('reservations as r', function () {
+        this.on('i.id', 'r.itemId').andOn('r.inactive', 0);
       })
+    .leftJoin('customers as c', 'c.id', 'r.customerId')
     .where('i.id', id).where({ 'i.inactive': false })
     return query;
 }

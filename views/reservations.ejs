@@ -10,7 +10,7 @@
                     <div>
 
                         <div class="form-group">
-                            <input  class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" >
+                            <input  class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" autocomplete="off">
                             <datalist id="customers" >
                             <% customers.forEach((element) => { %>
                                 <option value="<%= element.name %>" data-id="<%= element.id %>">
@@ -19,7 +19,7 @@
                         </div>
                          
                         <div class="input-group itemLookupWrapper mb-3">
-                            <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" >
+                            <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" autocomplete="off">
                             <datalist id="items" >
                             <% items.forEach((element) => { %>
                                 <option value="<%= element.name %>---<%= element.count || 0 %>" data-id="<%= element.id %>">

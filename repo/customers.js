@@ -6,7 +6,7 @@ function getCustomers() {
 }
 
 function getCustomer(id) {
-    let query = knex('customers').select('*').where('id', id).orderBy('id', 'desc')
+    let query = knex('customers').select('*').where('id', id)
     return query;
 }
 

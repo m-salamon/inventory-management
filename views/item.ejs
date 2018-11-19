@@ -27,10 +27,17 @@
                                 Status: <%=element.status%>
                                 </div>
                                 <div class="single-view-list-item" >
-                                <a href="/getCustomer/<%=element.itemId%>">Customer: <%=element.customer%></a>
+                                Customer: <a href="/getCustomer/<%=element.itemId%>"><%=element.customer%></a>
                                 </div>
                                 <div class="single-view-list-item" >
-                                Reservations: <%=element.reservations%>
+                                Reservations: <ol>
+                                <% element.reservedCustomers.forEach((r)=> {  %>
+                                <li>
+                                Customer: <a href="/getCustomer/<%=r.customerId%>"><%=r.customer%></a>
+                                Date Reserved:<a href="/getReservation/<%=r.reservationId%>"><%=r.reserveddate%></a>
+                                </li>
+                                    <% }); %>
+                                    </ol>
                                 </div>
                                 <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
                                 Delete

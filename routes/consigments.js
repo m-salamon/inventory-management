@@ -27,9 +27,7 @@ router.get('/getConsigments', (req, res) => {
 });
 
 router.get('/getConsigment/:id', (req, res) => {
-    console.log(req.params.id)
     repo.consigments.getConsigment(req.params.id).then(data => {
-        console.log(data)
         res.render('consigment', {
             pageTitle: 'consigment',
             consigment: data
@@ -38,8 +36,6 @@ router.get('/getConsigment/:id', (req, res) => {
 });
 
 router.post('/addConsigment', (req, res) => {
-    console.log(req.body)
-
     repo.consigments.addConsigment(req.body).then(data => {
         res.redirect('/consigments');
     });

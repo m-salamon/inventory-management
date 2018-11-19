@@ -19,7 +19,6 @@ router.get('/customers', async (req, res) => {
 
 router.get('/getCustomer/:id', (req, res) => {
     repo.customers.getCustomer(req.params.id).then(data => {
-        console.log(data)
         res.render('customer', {
             pageTitle: 'customer',
             customer: data

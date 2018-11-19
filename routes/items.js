@@ -27,8 +27,15 @@ router.get('/getItems', (req, res) => {
 });
 
 router.get('/getItem/:id', async (req, res) => {
-    let data = await repo.items.getItem(req.params.id)
-    console.log('data', data)
+    let items = await repo.items.getItem(req.params.id)
+
+    var data =  [R.reduce(function (pre, cur) {
+        pre.reservedCustomers = [...pre.reservedCustomers, { customerId: cur.customerId, reserveddate: cur.reserveddate, customer: cur.customer, reservationId: cur.reservationId }]
+         pre = R.merge(cur, pre)
+        return pre
+      }, { reservedCustomers: [] }, items)]
+
+    console.log(data)
     res.render('item', {
         pageTitle: 'item',
         item: data
@@ -36,7 +43,7 @@ router.get('/getItem/:id', async (req, res) => {
 });
 
 router.post('/addItem', async (req, res) => {
-    let body = R.merge(req.body, { status: ITEM_STATUS.available })
+    let body = R.merge(req.body, { status: ITEM_STATUS.available, stockamount: 1 })
     let data = await repo.items.addItem(body)
     res.redirect('/items');
 });

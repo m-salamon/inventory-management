@@ -55,7 +55,6 @@ router.get('/getReservations', async (req, res) => {
 router.get('/getReservation/:id', async (req, res) => {
   try {
     let data = await repo.reservations.getReservation(req.params.id)
-    console.log(data)
     res.render('reservation', {
       pageTitle: 'reservation',
       reservation: data
@@ -69,7 +68,6 @@ router.get('/getReservation/:id', async (req, res) => {
 
 router.post('/addReservation', async (req, res) => {
   try {
-    console.log(req.body)
     let data = await repo.reservations.addReservation(req.body)
     res.redirect('/reservations');
 
