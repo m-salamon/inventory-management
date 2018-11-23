@@ -5,6 +5,7 @@
         <div class="row">
 
             <div class="offset-md-2 col-md-8 col-sm-12">
+            <div class="page-title">Consigment</div>
                 <ul class="list-group single-view-wrapper">
                     <% consigment.forEach((element) => { %>
 
@@ -21,7 +22,7 @@
                                 <div class="single-view-list-item" >
                                 Date shipped: <%=element.shippeddate%>
                                 </div>
-                                <button class="btn btn-danger deleteReservation float-right" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
+                                <button class="btn btn-danger deleteConsigment float-right" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
                                     Delete
                                 </button>
                                 </div>

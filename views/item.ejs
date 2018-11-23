@@ -2,8 +2,9 @@
 
     <div class="container">
         <div class="row">
-
             <div class="offset-md-2 col-md-8 col-sm-12">
+            <div class="page-title">Item</div>
+
                 <ul class="list-group single-view-wrapper">
                     <% item.forEach((element) => { %>
 
@@ -27,17 +28,35 @@
                                 Status: <%=element.status%>
                                 </div>
                                 <div class="single-view-list-item" >
-                                Customer: <a href="/getCustomer/<%=element.itemId%>"><%=element.customer%></a>
+                                Consigment:
+                                <% if (element.consigmentId) { %>
+                                <ol>
+                                    <li>
+                                    Consigment no: <a href="/getConsigment/<%=element.consigmentId%>"> <%=element.consigmentId%></a>
+                                    Customer: <a href="/getCustomer/<%=element.customerConsigmentId%>"><%=element.customerConsigmentName%></a>
+                                    Date: <%=element.shippeddate%>
+                                    </li>
+                                </ol>
+                                <% } else {%>
+                                    0
+                                <% } %>
+
                                 </div>
                                 <div class="single-view-list-item" >
-                                Reservations: <ol>
-                                <% element.reservedCustomers.forEach((r)=> {  %>
-                                <li>
-                                Customer: <a href="/getCustomer/<%=r.customerId%>"><%=r.customer%></a>
-                                Date Reserved:<a href="/getReservation/<%=r.reservationId%>"><%=r.reserveddate%></a>
-                                </li>
-                                    <% }); %>
-                                    </ol>
+                                Reservations: 
+                                <% if (element.reservationId) { %>
+                                <ol>
+                                    <%  element.reservedCustomers.forEach((r)=> {  %>
+                                        <li>
+                                        Reservation no:<a href="/getReservation/<%=r.reservationId%>"> <%=r.reservationId%></a>
+                                        Customer: <a href="/getCustomer/<%=r.customerReservationId%>"><%=r.customerReservationName%></a>
+                                        Date: <%=r.reserveddate%>
+                                        </li>
+                                    <% })  %>
+                                </ol>
+                                <% } else {%>
+                                    0
+                                <% } %>
                                 </div>
                                 <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
                                 Delete

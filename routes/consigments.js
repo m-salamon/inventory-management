@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const repo = require('../repo');
+const R = require('ramda')
+const { ITEM_STATUS, ErrorHandeling } = require('./globals')
 
 router.get('/consigments', async (req, res) => {
     let consigments = await repo.consigments.getConsigments()
@@ -26,34 +28,35 @@ router.get('/getConsigments', (req, res) => {
     });
 });
 
-router.get('/getConsigment/:id', (req, res) => {
-    repo.consigments.getConsigment(req.params.id).then(data => {
-        res.render('consigment', {
-            pageTitle: 'consigment',
-            consigment: data
-        });
+router.get('/getConsigment/:id', async (req, res) => {
+    let response = await repo.consigments.getConsigment(req.params.id)
+    res.render('consigment', {
+        pageTitle: 'consigment',
+        consigment: response
     });
 });
 
-router.post('/addConsigment', (req, res) => {
-    repo.consigments.addConsigment(req.body).then(data => {
+router.post('/addConsigment', async (req, res) => {
+    try {
+        let response = await repo.consigments.addConsigment(R.merge(req.body, { status: ITEM_STATUS.consigned }))
         res.redirect('/consigments');
-    });
+    } catch (e) {
+        console.log('Error: ', e)
+    }
 });
 
 
-router.post('/editConsigment', (req, res) => {
-    repo.consigments.editConsigment(req.body.item).then(data => {
-        res.render('consigments', {
-            pageTitle: 'consigments',
-            items: data
-        });
+router.post('/editConsigment', async (req, res) => {
+    let response = await repo.consigments.editConsigment(req.body.item)
+    res.render('consigments', {
+        pageTitle: 'consigments',
+        items: data
     });
 });
 
 router.post('/deleteConsigment', async (req, res) => {
     try {
-        await repo.consigments.deleteConsigment(req.body.id)
+        let response = await repo.consigments.deleteConsigment(req.body.id)
         res.redirect('/consigments')
     } catch (e) {
         console.log('Routes Error: ', e)

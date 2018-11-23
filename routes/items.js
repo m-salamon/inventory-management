@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const repo = require('../repo');
 const R = require('ramda')
-const { ITEM_STATUS } = require('./globals')
+const { ITEM_STATUS, ErrorHandeling } = require('./globals')
 
 router.get('/items', async (req, res) => {
     let items = await repo.items.getItems()
@@ -17,25 +17,23 @@ router.get('/items', async (req, res) => {
 
 });
 
-router.get('/getItems', (req, res) => {
-    repo.items.getItems().then(data => {
-        res.render('items', {
-            pageTitle: 'Items',
-            items: data
-        });
+router.get('/getItems', async (req, res) => {
+    let items = await repo.items.getItems()
+    res.render('items', {
+        pageTitle: 'Items',
+        items: items
     });
 });
 
 router.get('/getItem/:id', async (req, res) => {
     let items = await repo.items.getItem(req.params.id)
 
-    var data =  [R.reduce(function (pre, cur) {
-        pre.reservedCustomers = [...pre.reservedCustomers, { customerId: cur.customerId, reserveddate: cur.reserveddate, customer: cur.customer, reservationId: cur.reservationId }]
-         pre = R.merge(cur, pre)
+    var data = [R.reduce(function (pre, cur) {
+        pre.reservedCustomers = [...pre.reservedCustomers, { customerReservationId: cur.customerReservationId, reserveddate: cur.reserveddate, customerReservationName: cur.customerReservationName, reservationId: cur.reservationId }]
+        pre = R.merge(cur, pre)
         return pre
-      }, { reservedCustomers: [] }, items)]
+    }, { reservedCustomers: [] }, items)]
 
-    console.log(data)
     res.render('item', {
         pageTitle: 'item',
         item: data
@@ -43,24 +41,31 @@ router.get('/getItem/:id', async (req, res) => {
 });
 
 router.post('/addItem', async (req, res) => {
-    let body = R.merge(req.body, { status: ITEM_STATUS.available, stockamount: 1 })
-    let data = await repo.items.addItem(body)
-    res.redirect('/items');
-});
+    try {
+        let response = await repo.items.addItem(R.merge(req.body, { status: ITEM_STATUS.available, stockamount: 1 }))
+        ErrorHandeling("/items", res, response, true)
+    } catch (e) {
+        console.log('Error: ', e)
+        ErrorHandeling("/items", res, "", false)
+    }
+})
 
 
-router.post('/editItem', (req, res) => {
-    repo.items.editItem(req.body.item).then(data => {
-        res.render('items', {
-            pageTitle: 'items',
-            items: data
-        });
-    });
-});
+router.post('/editItem', async (req, res) => {
+    let response = await repo.items.editItem(req.body.item)
+    res.render('items', {
+        pageTitle: 'items',
+        items: response
+    })
+})
 
 router.post('/deleteItem', async (req, res) => {
-    await repo.items.deleteItem(req.body.id)
-    res.redirect('/items');
-});
+    try {
+        let response = await repo.items.deleteItem(req.body.id)
+        res.redirect('/items')
+    } catch (e) {
+        console.log('Error: ', e)
+    }
+})
 
-module.exports = router;
+module.exports = router

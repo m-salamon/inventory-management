@@ -7,7 +7,7 @@
             <div class="col-sm-4">
                 <div class="addItem">
                     <!-- add item -->
-                    <h2>Add A Item</h2>
+                    <div class="page-title">Add Item</div>
                     <form method="post" action="/addItem" autocomplete="off">
                         <div class="form-group">
                             <input id="itemName" class="form-control" type="text" name="name" placeholder="Item name"  readonly="readonly"/>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="col-sm-8">
-            <div class="total">Total: <%= items.length %></div>
+            <div class="page-title">Total: <%= items.length %></div>
                 <table  class="table table-hover table-striped">
                 <thead class="thead-dark">
                 <tr>
@@ -51,7 +51,6 @@
                     <th scope="col">Length</th>
                     <th scope="col">Serial number</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Customer</th>
                     <th scope="col">Reservations</th>
                     <th scope="col"></th>
                 </tr>
@@ -64,7 +63,6 @@
                                 <td> <%=element.length%></td>
                                 <td><%=element.serialnumber%></td>
                                 <td><%=element.status%> </td>
-                                <td><%=element.customer%></td>
                                 <td><%=element.reservations%> </td>
                                 <td>
                                 <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>

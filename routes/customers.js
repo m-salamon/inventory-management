@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const repo = require('../repo');
+const R = require('ramda')
+const { ITEM_STATUS, ErrorHandeling } = require('./globals')
 
 router.get('/customers', async (req, res) => {
     let customers = await repo.customers.getCustomers()
@@ -17,34 +19,44 @@ router.get('/customers', async (req, res) => {
 
 });
 
-router.get('/getCustomer/:id', (req, res) => {
-    repo.customers.getCustomer(req.params.id).then(data => {
-        res.render('customer', {
-            pageTitle: 'customer',
-            customer: data
-        });
+router.get('/getCustomer/:id', async (req, res) => {
+    let response = await repo.customers.getCustomer(req.params.id)
+    res.render('customer', {
+        pageTitle: 'customer',
+        customer: response
     });
 });
 
-router.post('/addCustomer', (req, res) => {
-    repo.customers.addCustomer(req.body).then(data => {
-        res.redirect('/customers');
-    });
+router.post('/addCustomer', async (req, res) => {
+    try {
+        let response = await repo.customers.addCustomer(req.body)
+        ErrorHandeling("/customers", res, response, true)
+    } catch (e) {
+        console.log('Error: ', e)
+        ErrorHandeling("/customers", res, "", false)
+    }
 });
 
 
-router.post('/editCustomer', (req, res) => {
-    repo.customers.editCustomer(req.body.item).then(data => {
+router.post('/editCustomer', async (req, res) => {
+    try {
+        let response = await repo.customers.editCustomer(req.body.item)
         res.render('customers', {
             pageTitle: 'customers',
-            items: data
+            items: response
         });
-    });
+    } catch (e) {
+        console.log('Error: ', e)
+    }
 });
 
 router.post('/deleteCustomer', async (req, res) => {
-   await repo.customers.deleteCustomer(req.body.id)
-   res.redirect('/customers')
+    try {
+        let response = await repo.customers.deleteCustomer(req.body.id)
+        res.redirect('/customers')
+    } catch (e) {
+        console.log('Error: ', e)
+    }
 });
 
 module.exports = router;

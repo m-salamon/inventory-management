@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
       table.string('shippeddate');
       table.string('shippedby');
       table.string('status');
+      table.string('note');
       table.boolean('inactive').notNullable()
       table.timestamp('createdAt').default(knex.fn.now())
    });

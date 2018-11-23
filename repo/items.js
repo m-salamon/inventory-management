@@ -7,21 +7,41 @@ function getItems() {
 
 function getItemsToConsign() {
     let query = knex('items').select('*').orderBy('id', 'desc').where({ inactive: false })
-    .whereNotExists(function() {
-        this.select('*').from('consigments').whereRaw('items.id = consigments.itemId').whereRaw('consigments.inactive = false')
-      })
+        .whereNotExists(function () {
+            this.select('*').from('consigments').whereRaw('items.id = consigments.itemId').whereRaw('consigments.inactive = false')
+        })
     return query;
 }
 
 
-  
+
 function getItem(id) {
-    let query = knex('items as i').select('i.id', 'i.name', 'i.length', 'i.colorcode','i.serialnumber', 'i.brand', 'i.status', 'r.customerId', '.reservationsId', 'i.stockamount', 'i.inactive', 'r.reserveddate', 'c.name as customer', 'r.id as reservationId')
-    .leftJoin('reservations as r', function () {
-        this.on('i.id', 'r.itemId').andOn('r.inactive', 0);
-      })
-    .leftJoin('customers as c', 'c.id', 'r.customerId')
-    .where('i.id', id).where({ 'i.inactive': false })
+    let query = knex('items as i').select(
+        'i.id',
+        'i.name',
+        'i.length',
+        'i.colorcode',
+        'i.serialnumber',
+        'i.brand',
+        'i.status',
+        'i.stockamount',
+        'i.inactive',
+        'r.reserveddate',
+        'r.id as reservationId',
+        'c.name as customerReservationName',
+        'c.id as customerReservationId',
+        'con.id as consigmentId',
+        'con.shippeddate',
+        'cust.name as customerConsigmentName')
+        .leftJoin('reservations as r', function () {
+            this.on('r.itemId', 'i.id').andOn('r.inactive', 0);
+        })
+        .leftJoin('consigments as con', function () {
+            this.on('con.itemId', 'i.id').andOn('con.inactive', 0);
+        })
+        .leftJoin('customers as c', 'c.id', 'r.customerId')
+        .leftJoin('customers as cust', 'cust.id', 'con.customerId')
+        .where('i.id', id).where({ 'i.inactive': false })
     return query;
 }
 
@@ -34,8 +54,8 @@ function getLengths() {
     return query;
 }
 
-function addItem(data) {
-    let query = knex('items').insert(data)
+async function addItem(data) {
+    var  query = await knex('items').insert(data)
     return query;
 }
 

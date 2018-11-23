@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const repo = require('../repo');
-var R = require('ramda')
+const R = require('ramda')
+const { ITEM_STATUS, ErrorHandeling } = require('./globals')
 
 router.get('/reservations', async (req, res) => {
   try {

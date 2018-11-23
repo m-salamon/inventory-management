@@ -4,6 +4,7 @@
         <div class="row">
 
             <div class="offset-md-2 col-md-8 col-sm-12">
+            <div class="page-title">Customer</div>
                 <ul class="list-group single-view-wrapper">
                     <% customer.forEach((element) => { %>
 
@@ -38,7 +39,7 @@
                                 <div class="single-view-list-item" >
                                 Country:<%=element.country%>
                                 </div>
-                                <button class="btn btn-danger deleteReservation float-right" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
+                                <button class="btn btn-danger deleteCustomer float-right" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
                                     Delete
                                 </button>
                                 </div>

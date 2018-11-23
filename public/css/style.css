@@ -1,8 +1,179 @@
-@keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+:root {
+    --blue: #1997c6;
+}
+
+/* ===================================================
+  ==============   special css aplicable to the entire project   =============
+  ====================================================== */
+
+body {
+    color: #202020;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+}
+
+.colors {
+    padding: 50px;
+}
+
+.text {
+    color: #cfd2da;
+}
+
+.text-hover, .text-white {
+    color: #ffffff;
+}
+
+.text-medium-dark {
+    color: #999;
+}
+
+.text-dark {
+    color: #51586a;
+}
+
+.hr-line {
+    border-bottom: 1px solid #1997c6;
+    margin-bottom: 2rem;
+    margin-top: 0px;
+}
+
+.f-0-8 {
+    font-size: 0.8rem;
+}
+
+.f-0-9 {
+    font-size: 0.9rem;
+}
+
+.f-1 {
+    font-size: 1rem;
+}
+
+.f-1-2 {
+    font-size: 1.2rem;
+}
+
+.f-1-3 {
+    font-size: 1.3rem;
+}
+
+.f-1-5 {
+    font-size: 1.5rem;
+}
+
+.f-2 {
+    font-size: 2rem;
+}
+
+.f-3 {
+    font-size: 3rem;
+}
+
+.f-4 {
+    font-size: 4rem;
+}
+
+.f-5 {
+    font-size: 5rem;
+}
+
+.f-6 {
+    font-size: 6rem;
+}
+
+/* green */
+
+.green {
+    color: #1BC98E;
+}
+
+.green-background {
+    background-color: #1BC98E;
+    border-color: #1BC98E;
+}
+
+.green-background:hover {
+    background-color: #15a071;
+    border-color: #128c63;
+}
+
+/* red */
+
+.red {
+    color: #E64759;
+}
+
+.red-background {
+    background-color: #E64759;
+    border-color: #E64759;
+}
+
+.red-background:hover {
+    background-color: #b83847;
+    border-color: #a1313e;
+}
+
+/* purple */
+
+.purple {
+    color: #9F86FF;
+}
+
+.purple-background {
+    background-color: #9F86FF;
+    border-color: #9F86FF;
+}
+
+.purple-background:hover {
+    background-color: #7f6bcc;
+    border-color: #6f5db2;
+}
+
+/* yellow */
+
+.yellow {
+    color: #E4D836;
+}
+
+.yellow-background {
+    background-color: #E4D836;
+    border-color: #E4D836;
+}
+
+.yellow-background:hover {
+    background-color: #b6ac2b;
+    border-color: #9f9725;
+}
+
+/* blue */
+
+.blue {
+    color: #1997c6;
+}
+
+.blue-background {
+    background-color: #1997c6;
+    border-color: #1997c6;
+}
+
+.blue-background:hover {
+    background-color: #13779E;
+    border-color: #11698a;
+}
+
+/* ===================================================
+  =======================   end  =======================
+  ====================================================== */
+
+.page-title {
+    font-weight: 550;
+    font-size: 30px;
+    margin-bottom: 20px;
 }

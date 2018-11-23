@@ -4,11 +4,9 @@
         <div class="row">
 
             <div class="col-sm-4">
-                <div class="">
-                    <!-- add item -->
-                    <h2>Add A Reservation</h2>
+            
+                    <div class="page-title">Add Reservation</div>
                     <div>
-
                         <div class="form-group">
                             <input  class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" autocomplete="off">
                             <datalist id="customers" >
@@ -40,10 +38,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+    
 
             <div class="col-sm-8">
-            <div class="total">Total: <%= reservations.length %></div>
+            <div class="page-title">Total: <%= reservations.length %></div>
             <table class="table table-hover table-striped"">
             <thead class="thead-dark">
                 <tr>

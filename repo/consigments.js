@@ -1,7 +1,7 @@
 const knex = require('./config');
 
 function getConsigments() {
-    let query = knex('consigments as con').select('con.id', 'con.itemId', 'con.customerId', 'con.shippeddate', 'i.name AS item', 'c.name AS customer' )
+    let query = knex('consigments as con').select('con.id', 'con.itemId', 'con.customerId', 'con.shippeddate', 'i.name AS item', 'c.name AS customer', 'i.status')
         .leftJoin('items as i', 'i.id', 'con.itemId')
         .leftJoin('customers as c', 'c.id', 'con.customerId')
         .orderBy('con.id', 'desc').where({ 'con.inactive': false })
@@ -9,15 +9,17 @@ function getConsigments() {
 }
 
 function getConsigment(id) {
-    let query = knex('consigments as con').select('con.id', 'con.itemId', 'con.customerId', 'con.shippeddate', 'i.name AS item', 'c.name AS customer' )
-    .leftJoin('items as i', 'i.id', 'con.itemId')
-    .leftJoin('customers as c', 'c.id', 'con.customerId')
-    .orderBy('con.id', 'desc').where('con.id', id)
+    let query = knex('consigments as con').select('con.id', 'con.itemId', 'con.customerId', 'con.shippeddate', 'i.name AS item', 'c.name AS customer', 'i.status')
+        .leftJoin('items as i', 'i.id', 'con.itemId')
+        .leftJoin('customers as c', 'c.id', 'con.customerId')
+        .orderBy('con.id', 'desc').where('con.id', id)
     return query;
 }
 
-function addConsigment(data) {
-    let query = knex('consigments').insert(data)
+async function addConsigment(data) {
+    let query = await knex('consigments').insert(data)
+    //update items
+    await knex('items').where('id', data.itemId).update({ status: data.status, consigmentId: query})
     return query;
 }
 
