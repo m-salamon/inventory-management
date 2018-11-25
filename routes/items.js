@@ -33,11 +33,14 @@ router.get('/getItem/:id', async (req, res) => {
         pre = R.merge(cur, pre)
         return pre
     }, { reservedCustomers: [] }, items)]
-
+    
     res.render('item', {
-        pageTitle: 'item',
+        pageTitle: 'Items',
         item: data
     });
+    
+    console.log(data)
+    
 });
 
 router.post('/addItem', async (req, res) => {
@@ -50,14 +53,23 @@ router.post('/addItem', async (req, res) => {
     }
 })
 
+router.get('/editItem', async (req, res) => {
+    let response = await repo.items.getItem(req.query.id)
+    res.json(response)
+});
 
-router.post('/editItem', async (req, res) => {
-    let response = await repo.items.editItem(req.body.item)
-    res.render('items', {
-        pageTitle: 'items',
-        items: response
-    })
-})
+router.post('/updateItem', async (req, res) => {
+    
+    console.log(req.body)
+    try {
+        let response = await repo.items.updateItem(req.body.id, req.body)
+        ErrorHandeling("/items", res, response, true)
+    } catch (e) {
+        console.log('Error: ', e)
+        ErrorHandeling("/items", res, "", false)
+    }
+});
+
 
 router.post('/deleteItem', async (req, res) => {
     try {

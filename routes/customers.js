@@ -10,7 +10,7 @@ router.get('/customers', async (req, res) => {
     let citys = await repo.customers.getCitys()
     let zips = await repo.customers.getZips()
     res.render('customers', {
-        pageTitle: 'customers',
+        pageTitle: 'Customers',
         customers,
         states,
         citys,
@@ -22,7 +22,7 @@ router.get('/customers', async (req, res) => {
 router.get('/getCustomer/:id', async (req, res) => {
     let response = await repo.customers.getCustomer(req.params.id)
     res.render('customer', {
-        pageTitle: 'customer',
+        pageTitle: 'Customers',
         customer: response
     });
 });
@@ -37,16 +37,18 @@ router.post('/addCustomer', async (req, res) => {
     }
 });
 
+router.get('/editCustomer', async (req, res) => {
+    let response = await repo.customers.getCustomer(req.query.id)
+    res.json(response)
+});
 
-router.post('/editCustomer', async (req, res) => {
+router.post('/updateCustomer', async (req, res) => {
     try {
-        let response = await repo.customers.editCustomer(req.body.item)
-        res.render('customers', {
-            pageTitle: 'customers',
-            items: response
-        });
+        let response = await repo.customers.updateCustomer(req.body.id, req.body)
+        ErrorHandeling("/customers", res, response, true)
     } catch (e) {
         console.log('Error: ', e)
+        ErrorHandeling("/customers", res, "", false)
     }
 });
 

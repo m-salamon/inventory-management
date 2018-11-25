@@ -10,7 +10,7 @@ router.get('/consigments', async (req, res) => {
     let items = await repo.items.getItems()
     let itemsToConsign = await repo.items.getItemsToConsign()
     res.render('consigments', {
-        pageTitle: 'consigments',
+        pageTitle: 'Consigments',
         consigments,
         customers,
         items,
@@ -22,7 +22,7 @@ router.get('/consigments', async (req, res) => {
 router.get('/getConsigments', (req, res) => {
     repo.consigments.getConsigments().then(data => {
         res.render('consigments', {
-            pageTitle: 'consigments',
+            pageTitle: 'Consigments',
             items: data
         });
     });
@@ -31,7 +31,7 @@ router.get('/getConsigments', (req, res) => {
 router.get('/getConsigment/:id', async (req, res) => {
     let response = await repo.consigments.getConsigment(req.params.id)
     res.render('consigment', {
-        pageTitle: 'consigment',
+        pageTitle: 'Consigments',
         consigment: response
     });
 });
@@ -39,7 +39,7 @@ router.get('/getConsigment/:id', async (req, res) => {
 router.post('/addConsigment', async (req, res) => {
     try {
         let response = await repo.consigments.addConsigment(R.merge(req.body, { status: ITEM_STATUS.consigned }))
-        res.redirect('/consigments');
+        res.redirect('/Consigments');
     } catch (e) {
         console.log('Error: ', e)
     }
@@ -49,7 +49,7 @@ router.post('/addConsigment', async (req, res) => {
 router.post('/editConsigment', async (req, res) => {
     let response = await repo.consigments.editConsigment(req.body.item)
     res.render('consigments', {
-        pageTitle: 'consigments',
+        pageTitle: 'Consigments',
         items: data
     });
 });
@@ -57,6 +57,7 @@ router.post('/editConsigment', async (req, res) => {
 router.post('/deleteConsigment', async (req, res) => {
     try {
         let response = await repo.consigments.deleteConsigment(req.body.id)
+        
         res.redirect('/consigments')
     } catch (e) {
         console.log('Routes Error: ', e)

@@ -59,7 +59,7 @@ async function addItem(data) {
     return query;
 }
 
-function editItem(id, data) {
+function updateItem(id, data) {
     let query = knex('items').where('id', id).update(data)
     return query;
 }
@@ -69,4 +69,4 @@ function deleteItem(id) {
     return query;
 }
 
-module.exports = { getItems, getItem, addItem, editItem, deleteItem, getColors, getLengths, getItemsToConsign };
+module.exports = { getItems, getItem, addItem, updateItem, deleteItem, getColors, getLengths, getItemsToConsign };

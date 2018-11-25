@@ -19,7 +19,7 @@
       "showMethod": "fadeIn",
       "hideMethod": "fadeOut"
    }
-   console.log(urlParams)
+   
    var type = ''
    if (urlParams.has('success')) {
       type = urlParams.get('success') == 'true' ? 'success' : 'error'

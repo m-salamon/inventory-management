@@ -27,7 +27,7 @@
       }
     }).get()[0]
 
-    if (R.isEmpty(customerLookup)) return
+    if (R.isEmpty(customerLookup) || customerLookup == undefined) return
     
     let itemLookup = $('.itemLookup').map(function (i, obj) {
       if ($(this).val() != '') {

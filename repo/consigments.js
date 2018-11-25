@@ -1,4 +1,6 @@
 const knex = require('./config');
+const R = require('ramda')
+const { ITEM_STATUS, ErrorHandeling } = require('../routes/globals')
 
 function getConsigments() {
     let query = knex('consigments as con').select('con.id', 'con.itemId', 'con.customerId', 'con.shippeddate', 'i.name AS item', 'c.name AS customer', 'i.status')
@@ -19,7 +21,7 @@ function getConsigment(id) {
 async function addConsigment(data) {
     let query = await knex('consigments').insert(data)
     //update items
-    await knex('items').where('id', data.itemId).update({ status: data.status, consigmentId: query})
+    await knex('items').where('id', data.itemId).update({ status: data.status, consigmentId: query })
     return query;
 }
 
@@ -28,7 +30,9 @@ function editConsigment(id, data) {
     return query;
 }
 
-function deleteConsigment(id) {
+async function deleteConsigment(id) {
+    let con = await knex('consigments').select('itemId').where('id', id)
+    await knex('items').where('id', R.head(con).itemId).update({ status: ITEM_STATUS.available })
     let query = knex('consigments').where('id', id).update({ inactive: true })
     return query;
 }

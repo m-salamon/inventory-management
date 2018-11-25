@@ -10,6 +10,7 @@
                 <div class="page-title">Add Consigment</div>
                 <div>
                     <div class="form-group">
+                    <small class="form-text text-muted">Choose a customer from the list.</small>
                         <input class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" required autocomplete="off">
                         <datalist id="customers">
                             <% customers.forEach((element) => { %>
@@ -18,19 +19,25 @@
                         </datalist>
                     </div>
 
+                    <small class="form-text text-muted">Choose an item from the list.</small>
                     <div class="input-group itemLookupWrapper mb-3">
+                    
                         <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" required autocomplete="off">
+                        
                         <datalist id="items">
                             <% itemsToConsign.forEach((element) => { %>
                             <option value="<%= element.name %>" data-id="<%= element.id %>">
                                 <% }); %>
                         </datalist>
+                        
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary removeItemInput"><i class="fas fa-minus"></i></button>
                             <button class="btn btn-outline-primary addItemInput"><i class="fas fa-plus"></i></button>
                         </div>
+                        
                     </div>
 
+                   
                     <div class="form-group">
                         <input id="date" class="form-control" type="date" name="date" placeholder="Date" />
                     </div>

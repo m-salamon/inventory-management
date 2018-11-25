@@ -1,7 +1,8 @@
 <% include header.ejs %>
 
-
     <div class="container">
+   
+    
         <div class="row">
 
             <div class="col-sm-4">
@@ -10,7 +11,7 @@
                     <div class="page-title">Add Item</div>
                     <form method="post" action="/addItem" autocomplete="off">
                         <div class="form-group">
-                            <input id="itemName" class="form-control" type="text" name="name" placeholder="Item name"  readonly="readonly"/>
+                            <input id="itemName" class="form-control" type="text" name="name" placeholder="Item name"  readonly="readonly" required/>
                         </div>
                         <div class="form-group">
                             <input id="itemColor" class="form-control" type="text" name="colorcode" placeholder="Color" list="colors" required>
@@ -51,7 +52,6 @@
                     <th scope="col">Length</th>
                     <th scope="col">Serial number</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Reservations</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -63,8 +63,8 @@
                                 <td> <%=element.length%></td>
                                 <td><%=element.serialnumber%></td>
                                 <td><%=element.status%> </td>
-                                <td><%=element.reservations%> </td>
                                 <td>
+                                <button class="btn btn-warning editItem" id="<%=element.id%>"  value="<%=element.id%>">Edit</button>
                                 <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>
                                 </td>
                             </tr>

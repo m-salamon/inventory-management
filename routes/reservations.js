@@ -28,7 +28,7 @@ router.get('/reservations', async (req, res) => {
     }
 
     res.render('reservations', {
-      pageTitle: 'reservations',
+      pageTitle: 'Reservations',
       reservations,
       customers,
       items
@@ -44,7 +44,7 @@ router.get('/getReservations', async (req, res) => {
   try {
     let data = await repo.reservations.getReservations()
     res.render('reservations', {
-      pageTitle: 'reservations',
+      pageTitle: 'Reservations',
       items: data
     });
 
@@ -57,7 +57,7 @@ router.get('/getReservation/:id', async (req, res) => {
   try {
     let data = await repo.reservations.getReservation(req.params.id)
     res.render('reservation', {
-      pageTitle: 'reservation',
+      pageTitle: 'Reservations',
       reservation: data
     });
 
@@ -83,7 +83,7 @@ router.post('/editReservation', async (req, res) => {
   try {
     let data = await repo.reservations.editReservation(req.body.item)
     res.render('reservations', {
-      pageTitle: 'reservations',
+      pageTitle: 'Reservations',
       items: data
     });
 

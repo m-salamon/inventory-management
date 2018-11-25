@@ -29,7 +29,7 @@ function addCustomer(data) {
     return query;
 }
 
-function editCustomer(id, data) {
+function updateCustomer(id, data) {
     let query = knex('customers').where('id', id).update(data)
     return query;
 }
@@ -39,4 +39,4 @@ function deleteCustomer(id) {
     return query;
 }
 
-module.exports = { getCustomers, getCustomer, addCustomer, editCustomer, deleteCustomer, getStates, getCitys, getZips };
+module.exports = { getCustomers, getCustomer, addCustomer, updateCustomer, deleteCustomer, getStates, getCitys, getZips };
