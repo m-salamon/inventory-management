@@ -5,7 +5,7 @@ const R = require('ramda')
 const { ITEM_STATUS, ErrorHandeling } = require('./globals')
 
 router.get('/customers', async (req, res) => {
-    let customers = await repo.customers.getCustomers()
+    let customers = await repo.customers.getCustomers(req.query.search || '')
     let states = await repo.customers.getStates()
     let citys = await repo.customers.getCitys()
     let zips = await repo.customers.getZips()

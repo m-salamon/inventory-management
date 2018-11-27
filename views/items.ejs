@@ -11,9 +11,11 @@
                     <div class="page-title">Add Item</div>
                     <form method="post" action="/addItem" autocomplete="off">
                         <div class="form-group">
+                        <small class="form-text text-muted">Item name will automatically populate.</small>
                             <input id="itemName" class="form-control" type="text" name="name" placeholder="Item name"  readonly="readonly" required/>
                         </div>
                         <div class="form-group">
+                        <small class="form-text text-muted">Type a Color or choose from the list.</small>
                             <input id="itemColor" class="form-control" type="text" name="colorcode" placeholder="Color" list="colors" required>
                             <datalist id="colors">
                             <% colors.forEach((element) => { %>
@@ -22,6 +24,7 @@
                             </datalist>
                         </div>
                         <div class="form-group">
+                        <small class="form-text text-muted">Type a length or choose from the list.</small>
                             <input id="itemLength" class="form-control" type="text" name="length" placeholder="Length" list="lengths" required>
                             <datalist id="lengths">
                             <% lengths.forEach((element) => { %>
@@ -30,6 +33,7 @@
                             </datalist>
                         </div>
                         <div class="form-group">
+                        <small class="form-text text-muted">Must be unique</small>
                             <input id="serialNumber" class="form-control" type="text" name="serialnumber" placeholder="Serial number" required />
                         </div>
                         <div class="form-group">
@@ -43,7 +47,16 @@
             </div>
 
             <div class="col-sm-8">
-            <div class="page-title">Total: <%= items.length %></div>
+            <div class="page-title col">
+            Total: <%= items.length %>
+            <form id="globalSearchForm" method="get" action="/items" autocomplete="off" class="form-inline float-right">
+                <div class="form-group mr-3">
+                        <input type="text" class="form-control" placeholder="Search..." name="search" />
+                </div>
+                <button type="submit" class="btn btn-info" >Search</button>
+            </div>
+            </form>
+          
                 <table  class="table table-hover table-striped">
                 <thead class="thead-dark">
                 <tr>

@@ -17,6 +17,10 @@
   });
 
 
+  $("input[name*='search']").keyup($.debounce(1000, (e) => {
+    document.forms["globalSearchForm"].submit();
+  }));
+
 
   $('.editItem').click(() => {
     let id = event.target.id;

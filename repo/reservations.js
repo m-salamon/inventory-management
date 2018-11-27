@@ -1,10 +1,16 @@
 const knex = require('./config');
 
-function getReservations() {
-    let query = knex('reservations as r').select('r.id', 'r.itemId', 'r.customerId', 'r.reserveddate', 'i.name AS item', 'c.name AS customer' )
+function getReservations(data = '') {
+    let query = knex('reservations as r').select('r.id', 'r.itemId', 'r.customerId', 'r.reserveddate', 'i.name AS item', 'c.name AS customer', 'i.status' )
     .leftJoin('items as i', 'i.id', 'r.itemId')
     .leftJoin('customers as c', 'c.id', 'r.customerId')
-    .orderBy('r.id', 'desc').where({ 'r.inactive': false });
+    .orderBy('r.id', 'asc')
+    .where(function() {
+        this.where('i.name', 'like', `%${data}%`)
+        .orWhere('c.name', 'like', `%${data}%`)
+        .orWhere('r.reserveddate', 'like', `%${data}%`)
+      })
+    .where({ 'r.inactive': false });
     return query;
 }
 

@@ -8,6 +8,8 @@ exports.up = function(knex, Promise) {
       table.string('serialnumber');
       table.string('brand');
       table.string('status');
+      table.string('costprice');
+      table.string('sellprice');
       table.integer('consigmentId');
       table.integer('stockamount');
       table.boolean('inactive').notNullable()

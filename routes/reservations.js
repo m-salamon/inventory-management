@@ -6,7 +6,7 @@ const { ITEM_STATUS, ErrorHandeling } = require('./globals')
 
 router.get('/reservations', async (req, res) => {
   try {
-    let reservations = await repo.reservations.getReservations()
+    let reservations = await repo.reservations.getReservations(req.query.search || '')
     let customers = await repo.customers.getCustomers()
     let items = await repo.items.getItems()
 
@@ -42,11 +42,8 @@ router.get('/reservations', async (req, res) => {
 
 router.get('/getReservations', async (req, res) => {
   try {
-    let data = await repo.reservations.getReservations()
-    res.render('reservations', {
-      pageTitle: 'Reservations',
-      items: data
-    });
+    let reservations = await repo.reservations.getReservations(req.query.search || '')
+    res.json(reservations)
 
   } catch (e) {
     console.log('Routes Error: ', e)

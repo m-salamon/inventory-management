@@ -5,7 +5,7 @@ const R = require('ramda')
 const { ITEM_STATUS, ErrorHandeling } = require('./globals')
 
 router.get('/items', async (req, res) => {
-    let items = await repo.items.getItems()
+    let items = await repo.items.getItems(req.query.search || '')
     let colors = await repo.items.getColors()
     let lengths = await repo.items.getLengths()
     res.render('items', {

@@ -51,7 +51,16 @@
 
 
         <div class="col-sm-8">
-            <div class="page-title">Total: <%= consigments.length %></div>
+            <div class="page-title">Total: <%= consigments.length %>
+            <form id="globalSearchForm" method="get" action="/consigments" autocomplete="off" class="form-inline float-right">
+                    <div class="form-group mr-3">
+                            <input type="text" class="form-control" placeholder="Search..." name="search" />
+                    </div>
+                    <button type="submit" class="btn btn-info" >Search</button>
+                    <button type="submit" class="btn btn-secondary ml-2" >All</button>
+                </form>
+            </div>
+            
             <table class="table table-hover table-striped"">
             <thead class=" thead-dark">
                 <tr>
@@ -80,7 +89,7 @@
                         </td>
                         <td>
                             <button class="btn btn-danger deleteConsigment" name="delete" id="<%=element.id%>" value="<%=element.id%>">
-                                Delete
+                                Return
                             </button>
                         </td>
                         <% }); %>

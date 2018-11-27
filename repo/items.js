@@ -1,7 +1,9 @@
 const knex = require('./config');
 
-function getItems() {
-    let query = knex('items').select('*').orderBy('id', 'desc').where({ inactive: false });
+function getItems(data = '') {
+    let query = knex('items').select('*').orderBy('id', 'desc').where(function() {
+        this.where('status', 'like', `%${data}%`).orWhere('name', 'like', `%${data}%`)
+      }).where({ inactive: false })
     return query;
 }
 

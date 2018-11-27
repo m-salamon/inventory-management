@@ -1,7 +1,16 @@
 const knex = require('./config');
 
-function getCustomers() {
-    let query = knex('customers').select('*').orderBy('id', 'desc').where({ inactive: false });
+function getCustomers(data = '') {
+    let query = knex('customers').select('*').orderBy('id', 'desc').where(function() {
+        this.where('name', 'like', `%${data}%`)
+        .orWhere('phone', 'like', `%${data}%`)
+        .orWhere('mobile', 'like', `%${data}%`)
+        .orWhere('address', 'like', `%${data}%`)
+        .orWhere('city', 'like', `%${data}%`)
+        .orWhere('state', 'like', `%${data}%`)
+        .orWhere('zip', 'like', `%${data}%`)
+        .orWhere('country', 'like', `%${data}%`)
+      }).where({ inactive: false })
     return query;
 }
 

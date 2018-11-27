@@ -26,18 +26,18 @@
         return $(this).attr('data-id')
       }
     }).get()[0]
-    
-    if (R.isEmpty(customerLookup)) return
+
+    if (R.isEmpty(customerLookup) || customerLookup == undefined) return
 
     let itemLookup = $('.itemLookup').map(function (i, obj) {
       if ($(this).val() != '') {
         var g = $(this).val()
-        return $('#items option[value=' + g + ']').attr('data-id')
+        return $(`#items option[value='${g}']`).attr('data-id')
       }
-      
+
     }).get()
-    
-    if (R.isEmpty(itemLookup)) return
+
+    if (R.isEmpty(itemLookup) || itemLookup == undefined) return
 
     var date = $('#date').val()
     if (R.isEmpty(date)) return
@@ -61,5 +61,25 @@
       console.error("function ('.deleteReservation') failed");
     });
   });
+
+
+  $(document).on('click', '.uniq-customer-btn', (e) => {
+    $('#search').val($(e.target).attr("value"))
+    $( ".btn-search" ).trigger( "click" );
+  });
+
+
+  $.get('/getReservations', function (data) {
+
+    var getReservations = R.uniqBy(R.prop('customer'), data)
+    getReservations.map(i => {
+      $('.uniq-reservation-customers').append(`<div class="uniq-customer-btn btn btn-outline-secondary mr-3 mb-3" value="${i.customer}">${i.customer}</div>`)
+    })
+
+  }).fail(function (e) {
+    console.error("function ('.getReservations') failed");
+  });
+
+
 
 }());
