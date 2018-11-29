@@ -17,7 +17,6 @@ router.use(function (req, res, next) {
 router.get('/', (req, res) => {
         res.render('index', {
             pageTitle: 'Home',
-            items: data,
     });
 });
 
