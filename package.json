@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
-    "start:prod": "./node_modules/.bin/knex migrate:latest npm start",
+    "start:prod": "./node_modules/.bin/knex migrate:latest && PROD=true npm start",
     "knex-init": "npm-run knex init",
     "migrate-latest": "npm-run knex migrate:latest"
   },
