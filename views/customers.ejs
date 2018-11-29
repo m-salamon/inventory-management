@@ -67,6 +67,7 @@
                             <input type="text" class="form-control" placeholder="Search..." name="search" />
                     </div>
                     <button type="submit" class="btn btn-info" >Search</button>
+                    <button type="submit" class="btn btn-secondary ml-2" >All</button>
                 </form>
                 </div>
             <table  class="table table-hover table-striped">
@@ -90,8 +91,8 @@
                             <td><%=element.city%></td>
                             <td>
 
-                            <button class="btn btn-warning editCustomer" id="<%=element.id%>"  value="<%=element.id%>">Edit</button>
-                            <button class="btn btn-danger deleteCustomer" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>
+                            <button class="btn btn-warning editCustomer m-md-0 m-1" id="<%=element.id%>"  value="<%=element.id%>">Edit</button>
+                            <button class="btn btn-danger deleteCustomer m-md-0 m-1" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>
                             </td>
                         </tr>
                 <% }); %>

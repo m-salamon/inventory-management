@@ -47,15 +47,22 @@
             </div>
 
             <div class="col-sm-8">
-            <div class="page-title col">
+            <div class="row page-title ">
+            <div class="col-3">
             Total: <%= items.length %>
+            </div>
+            <div class="col-9">
             <form id="globalSearchForm" method="get" action="/items" autocomplete="off" class="form-inline float-right">
-                <div class="form-group mr-3">
+                <div class="form-group mr-2">
                         <input type="text" class="form-control" placeholder="Search..." name="search" />
                 </div>
+                <div class="form-group">
                 <button type="submit" class="btn btn-info" >Search</button>
+                <button type="submit" class="btn btn-secondary ml-2" >All</button>
+                </div>
             </div>
             </form>
+            </div>
           
                 <table  class="table table-hover table-striped">
                 <thead class="thead-dark">
@@ -77,8 +84,10 @@
                                 <td><%=element.serialnumber%></td>
                                 <td><%=element.status%> </td>
                                 <td>
-                                <button class="btn btn-warning editItem" id="<%=element.id%>"  value="<%=element.id%>">Edit</button>
-                                <button class="btn btn-danger deleteItem" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>
+                                <div class="btn-toolbar">
+                                <button class="btn btn-warning editItem m-1" id="<%=element.id%>"  value="<%=element.id%>">Edit</button>
+                                <button class="btn btn-danger deleteItem m-1" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>
+                               </div>
                                 </td>
                             </tr>
                     <% }); %>
