@@ -15,11 +15,9 @@ router.use(function (req, res, next) {
 });
 
 router.get('/', (req, res) => {
-    items.getItems().then(data => {
         res.render('index', {
             pageTitle: 'Home',
             items: data,
-        });
     });
 });
 
