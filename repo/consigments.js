@@ -1,6 +1,6 @@
 const knex = require('./config');
 const R = require('ramda')
-const moment =  require('moment')
+const moment = require('moment')
 
 
 
@@ -61,10 +61,13 @@ async function deleteConsigment(id) {
 }
 
 async function soldConsigment(id) {
-    console.log(id)
-    let query = await knex('consigments').select('id', 'customerId', 'itemId').where('itemId', id) //.update({ inactive: true })
-    await knex('items').where('id', id).update({ status: ITEM_STATUS.sold })
-    await knex('invoices').insert({customerId: R.head(query).customerId, itemId: R.head(query).itemId, solddate: moment().format('YYYY/MM/DD')})
+    //set consigment to inactive
+    let query = await knex('consigments').select('id', 'customerId', 'itemId').where('itemId', id)
+                await knex('consigments').where('itemId', id).update({ inactive: true })
+                //update item status to sold
+                await knex('items').where('id', id).update({ status: ITEM_STATUS.sold })
+                //create an invoice
+                await knex('invoices').insert({ customerId: R.head(query).customerId, itemId: R.head(query).itemId, solddate: moment().format('YYYY/MM/DD') })
     return query;
 }
 

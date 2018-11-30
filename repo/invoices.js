@@ -15,7 +15,7 @@ function getInvoices(data = '') {
         .orWhere('c.name', 'like', `%${data}%`)
         .orWhere('inv.solddate', 'like', `%${data}%`)
     })
-    .where({ 'con.inactive': false })
+    .where({ 'inv.inactive': false })
   return query;
 }
 

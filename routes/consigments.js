@@ -73,6 +73,7 @@ router.post('/deleteConsigment', async (req, res) => {
 });
 
 router.post('/soldConsigment', async (req, res) => {
+    //console.log(req.body)
     try {
         let response = await repo.consigments.soldConsigment(req.body.id)
         res.redirect('/consigments')

@@ -5,13 +5,13 @@ const R = require('ramda')
 const { ITEM_STATUS, ErrorHandeling } = require('./globals')
 
 router.get('/invoices', async (req, res) => {
-    let consigments = await repo.invoices.getInvoices(req.query.search || '')
+    let invoices = await repo.invoices.getInvoices(req.query.search || '')
     let customers = await repo.customers.getCustomers()
     let items = await repo.items.getItems()
 
     res.render('invoices', {
         pageTitle: 'Invoices',
-        consigments,
+        invoices,
         customers,
         items
     });

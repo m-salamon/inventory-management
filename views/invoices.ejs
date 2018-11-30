@@ -25,7 +25,7 @@
                         <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" required autocomplete="off">
                         
                         <datalist id="items">
-                            <% itemsToConsign.forEach((element) => { %>
+                            <% items.forEach((element) => { %>
                             <option value="<%= element.name %>" data-id="<%= element.id %>">
                                 <% }); %>
                         </datalist>
@@ -51,8 +51,8 @@
 
 
         <div class="col-sm-8">
-            <div class="page-title">Total: <%= consigments.length %>
-            <form id="globalSearchForm" method="get" action="/consigments" autocomplete="off" class="form-inline float-right">
+            <div class="page-title">Total: <%= invoices.length %>
+            <form id="globalSearchForm" method="get" action="/invoices" autocomplete="off" class="form-inline float-right">
                     <div class="form-group mr-3">
                             <input type="text" class="form-control" placeholder="Search..." name="search" />
                     </div>
@@ -67,14 +67,14 @@
                     <th scope="col">ID</th>
                     <th scope="col">Item</th>
                     <th scope="col">Customer</th>
-                    <th scope="col">Date Shipped</th>
+                    <th scope="col">Date Sold</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                    <% consigments.forEach((element) => { %>
+                    <% invoices.forEach((element) => { %>
                     <tr>
-                        <td><a id="<%=element.id%>" href="/getConsigment/<%=element.id%>">
+                        <td><a id="<%=element.id%>" href="/getInvoice/<%=element.id%>">
                                 <%=element.id%>
                             </a>
                         </td>
@@ -85,15 +85,12 @@
                             <%=element.customer%>
                         </td>
                         <td>
-                            <%=element.shippeddate%>
+                            <%=element.solddate%>
                         </td>
                         <td>
-                            <button class=" btn btn-danger deleteConsigment m-1" name="delete" id="<%=element.id%>" value="<%=element.id%>">
-                                Return
+                            <button class=" btn btn-danger deleteInvoice m-1" name="delete" id="<%=element.id%>" value="<%=element.id%>">
+                                Delete
                             </button>
-                            <form class="d-inline" method="post" action="/soldConsigment">
-                            <button type="submit" name="id" id="<%=element.itemId%>" value="<%=element.itemId%>" class="d-inline btn btn-success m-1" >Sold</button>
-                            </form>
                         </td>
                         <% }); %>
                 </tbody>
