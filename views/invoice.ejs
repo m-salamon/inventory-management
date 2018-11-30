@@ -1,0 +1,37 @@
+<% include header.ejs %>
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="offset-md-2 col-md-8 col-sm-12">
+            <div class="page-title">Invoice</div>
+                <ul class="list-group single-view-wrapper">
+                    <% invoice.forEach((element) => { %>
+
+                            <div class="list-group-item single-view-list-wrapper">
+                                <div class="single-view-list-item" >ID:
+                                    <%=element.id%>
+                                </div>
+                                <div class="single-view-list-item" >
+                                Item:<a href="/getItem/<%=element.itemId%>"> <%=element.item%></a>
+                                </div>
+                                <div class="single-view-list-item" >
+                                Customer: <a href="/getCustomer/<%=element.customerId%>"><%=element.customer%></a>
+                                </div>
+                                <div class="single-view-list-item" >
+                                Date Sold: <%=element.solddate%>
+                                </div>
+                                <button class="btn btn-danger deleteReservation float-right" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
+                                    Delete
+                                </button>
+                                </div>
+                    <% }); %>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <% include footer.ejs %>

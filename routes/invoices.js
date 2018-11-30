@@ -29,9 +29,9 @@ router.get('/getInvoices', (req, res) => {
 
 router.get('/getInvoice/:id', async (req, res) => {
     let response = await repo.invoices.getInvoice(req.params.id)
-    res.render('invoices', {
+    res.render('invoice', {
         pageTitle: 'invoices',
-        consigment: response
+        invoice: response
     });
 });
 
@@ -44,17 +44,17 @@ router.post('/addInvoice', async (req, res) => {
     }
 });
 
-router.post('/editItem', async (req, res) => {
-    let response = await repo.invoices.editItem(req.body.item)
+router.post('/editInvoice', async (req, res) => {
+    let response = await repo.invoices.editInvoice(req.body.item)
     res.render('invoices', {
         pageTitle: 'invoices',
         items: data
     });
 });
 
-router.post('/deleteItem', async (req, res) => {
+router.post('/deleteInvoice', async (req, res) => {
     try {
-        let response = await repo.invoices.deleteItem(req.body.id)
+        let response = await repo.invoices.deleteInvoice(req.body.id)
         res.redirect('/invoices')
     } catch (e) {
         console.log('Routes Error: ', e)

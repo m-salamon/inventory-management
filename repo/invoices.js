@@ -1,9 +1,6 @@
 const knex = require('./config');
 const R = require('ramda')
 const moment = require('moment')
-
-
-
 const { ITEM_STATUS, ErrorHandeling } = require('../routes/globals')
 
 function getInvoices(data = '') {
@@ -15,12 +12,14 @@ function getInvoices(data = '') {
         .orWhere('c.name', 'like', `%${data}%`)
         .orWhere('inv.solddate', 'like', `%${data}%`)
     })
+    .orderBy('inv.id', 'desc')
     .where({ 'inv.inactive': false })
+    .where({ 'i.inactive': false })
   return query;
 }
 
 function getInvoice(id) {
-  let query = knex('invoices as inv').select('inv.id', 'inv.itemId', 'inv.customerId', 'inv.shippeddate', 'i.name AS item', 'c.name AS customer', 'i.status')
+  let query = knex('invoices as inv').select('inv.id', 'inv.itemId', 'inv.customerId', 'inv.solddate', 'i.name AS item', 'c.name AS customer', 'i.status')
     .leftJoin('items as i', 'i.id', 'inv.itemId')
     .leftJoin('customers as c', 'c.id', 'inv.customerId')
     .orderBy('inv.id', 'desc').where('inv.id', id)

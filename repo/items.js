@@ -1,6 +1,15 @@
 const knex = require('./config');
+const { ITEM_STATUS, ErrorHandeling } = require('../routes/globals')
+
 
 function getItems(data = '') {
+    let query = knex('items').select('*').orderBy('id', 'desc').where(function() {
+        this.where('status', 'like', `%${data}%`).orWhere('name', 'like', `%${data}%`)
+      }).where({ inactive: false })
+    return query;
+}
+
+function getItemsNotSold(data = '') {
     let query = knex('items').select('*').orderBy('id', 'desc').where(function() {
         this.where('status', 'like', `%${data}%`).orWhere('name', 'like', `%${data}%`)
       }).where({ inactive: false })
@@ -71,4 +80,4 @@ function deleteItem(id) {
     return query;
 }
 
-module.exports = { getItems, getItem, addItem, updateItem, deleteItem, getColors, getLengths, getItemsToConsign };
+module.exports = { getItems, getItem, addItem, updateItem, deleteItem, getColors, getLengths, getItemsToConsign, getItemsNotSold };
