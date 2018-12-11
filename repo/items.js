@@ -3,16 +3,18 @@ const { ITEM_STATUS, ErrorHandeling } = require('../routes/globals')
 
 
 function getItems(data = '') {
-    let query = knex('items').select('*').orderBy('id', 'desc').where(function() {
+    let query = knex('items').select('*').where(function() {
         this.where('status', 'like', `%${data}%`).orWhere('name', 'like', `%${data}%`)
       }).where({ inactive: false })
+      .orderBy('status', 'asc')
+      .orderBy('id', 'desc')
     return query;
 }
 
 function getItemsNotSold(data = '') {
     let query = knex('items').select('*').orderBy('id', 'desc').where(function() {
         this.where('status', 'like', `%${data}%`).orWhere('name', 'like', `%${data}%`)
-      }).where({ inactive: false })
+      }).where({ inactive: false }).whereNot({status: ITEM_STATUS.sold})
     return query;
 }
 
@@ -20,7 +22,7 @@ function getItemsToConsign() {
     let query = knex('items').select('*').orderBy('id', 'desc').where({ inactive: false })
         .whereNotExists(function () {
             this.select('*').from('consigments').whereRaw('items.id = consigments.itemId').whereRaw('consigments.inactive = false')
-        })
+        }).whereNot({status: ITEM_STATUS.sold})
     return query;
 }
 

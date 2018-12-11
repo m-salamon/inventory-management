@@ -8,7 +8,7 @@ router.get('/reservations', async (req, res) => {
   try {
     let reservations = await repo.reservations.getReservations(req.query.search || '')
     let customers = await repo.customers.getCustomers()
-    let items = await repo.items.getItems()
+    let items = await repo.items.getItemsNotSold()
 
     if (!R.isEmpty(reservations)) {
       var itemsCount = R.compose(

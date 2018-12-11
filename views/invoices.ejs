@@ -68,6 +68,7 @@
                     <th scope="col">Item</th>
                     <th scope="col">Customer</th>
                     <th scope="col">Date Sold</th>
+                    <th scope="col">Status</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -86,6 +87,9 @@
                         </td>
                         <td>
                             <%=element.solddate%>
+                        </td>
+                        <td>
+                            <%=element.status%>
                         </td>
                         <td>
                             <button class=" btn btn-danger deleteInvoice m-1" name="delete" id="<%=element.id%>" value="<%=element.id%>">

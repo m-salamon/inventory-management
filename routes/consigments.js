@@ -72,6 +72,15 @@ router.post('/deleteConsigment', async (req, res) => {
     }
 });
 
+router.post('/returningConsigment', async (req, res) => {
+    console.log(req.body)
+    try {
+        let response = await repo.consigments.returningConsigment(req.body.id)
+        res.redirect('/consigments')
+    } catch (e) {
+        console.log('Routes Error: ', e)
+    }
+})
 router.post('/soldConsigment', async (req, res) => {
     //console.log(req.body)
     try {

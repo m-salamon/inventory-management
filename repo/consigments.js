@@ -70,5 +70,11 @@ async function soldConsigment(id) {
                 await knex('invoices').insert({ customerId: R.head(query).customerId, itemId: R.head(query).itemId, solddate: moment().format('YYYY/MM/DD') })
     return query;
 }
+async function returningConsigment(id) {
+    let query = await knex('consigments').select('id', 'customerId', 'itemId').where('itemId', id)
+                //update item status to sold
+                await knex('items').where('id', id).update({ status: ITEM_STATUS.returning })
+    return query;
+}
 
-module.exports = { getConsigments, getConsigment, addConsigment, editConsigment, deleteConsigment, checkConsigment, soldConsigment };
+module.exports = { getConsigments, getConsigment, addConsigment, editConsigment, deleteConsigment, checkConsigment, soldConsigment, returningConsigment };

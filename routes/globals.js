@@ -5,7 +5,7 @@ const ITEM_STATUS = {
    sold: 'sold',
    consigned: 'consigned',
    reserved: 'reserved',
-   returning: 'being returned'
+   returning: 'returning'
 }
 
 
