@@ -85,9 +85,9 @@
                                 <td><%=element.status%> </td>
                                 <td>
                                 <div class="btn-toolbar">
-                                <button class="btn btn-warning editItem m-1" id="<%=element.id%>"  value="<%=element.id%>">Edit</button>
+                                <button class="btn btn-warning editItem m-1 btn-sm" id="<%=element.id%>"  value="<%=element.id%>">Edit</button>
                                 <% if(element.status != 'sold' && element.status != 'consigned') { %>
-                                <button class="btn btn-danger deleteItem m-1" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>
+                                <button class="btn btn-danger deleteItem m-1 btn-sm" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>
                                 <% } %>
                                </div>
                                 </td>

@@ -73,7 +73,7 @@
 
     var getReservations = R.uniqBy(R.prop('customer'), data)
     getReservations.map(i => {
-      $('.uniq-reservation-customers').append(`<div class="uniq-customer-btn btn btn-outline-secondary mr-3 mb-3" value="${i.customer}">${i.customer}</div>`)
+      $('.uniq-reservation-customers').append(`<div class="uniq-customer-btn btn btn-outline-secondary btn-sm mr-3 mb-3" value="${i.customer}">${i.customer}</div>`)
     })
 
   }).fail(function (e) {

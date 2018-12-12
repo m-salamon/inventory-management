@@ -17,12 +17,14 @@ app.locals.siteHeader = 'Inventory Management';
 //app.locals.participents = dataParticipents.participents;
 
 //brings in the index.js file it should be available to app 
+app.use(express.static( "public" ) );
 app.use(require('./routes/index'));
 app.use(require('./routes/items'));
 app.use(require('./routes/customers'));
 app.use(require('./routes/consigments'));
 app.use(require('./routes/reservations'));
 app.use(require('./routes/invoices'));
+app.use(require('./routes/dashboard'));
 
 
 

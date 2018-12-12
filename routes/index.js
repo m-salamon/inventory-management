@@ -6,6 +6,7 @@ const customers = require('../repo/customers');
 const consigments = require('../repo/consigments');
 const reservations = require('../repo/reservations');
 const invoices = require('../repo/invoices');
+const dashboard = require('../repo/dashboard');
 
 router.use(function (req, res, next) {
     res.locals.params = {

@@ -9,6 +9,7 @@ function getReservations(data = '') {
         this.where('i.name', 'like', `%${data}%`)
         .orWhere('c.name', 'like', `%${data}%`)
         .orWhere('r.reserveddate', 'like', `%${data}%`)
+        .orWhere('i.status', 'like', `%${data}%`)
       })
     .where({ 'r.inactive': false });
     return query;
