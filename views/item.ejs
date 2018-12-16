@@ -2,72 +2,106 @@
 
     <div class="container">
         <div class="row">
-            <div class="offset-md-2 col-md-8 col-sm-12">
-            <div class="page-title">Item</div>
 
-                <ul class="list-group single-view-wrapper">
-                    <% item.forEach((element) => { %>
+            <div class="col-md-8 offset-md-2 mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">Item </h4>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <% item.forEach((element) => { %>
+                                <div class="">
+                                    <div class="single-view-list-item">
+                                        ID:
+                                        <%=element.id%>
+                                    </div>
+                                    <div class="single-view-list-item">
+                                        Name:
+                                        <%=element.name%>
+                                    </div>
+                                    <div class="single-view-list-item">
+                                        Color:
+                                        <%=element.colorcode%>
+                                    </div>
+                                    <div class="single-view-list-item">
+                                        Length:
+                                        <%=element.length%>
+                                    </div>
+                                    <div class="single-view-list-item">
+                                        Serial number:
+                                        <%=element.serialnumber%>
+                                    </div>
+                                    <div class="single-view-list-item">
+                                        Status:
+                                        <%=element.status%>
+                                    </div>
+                                    <div class="single-view-list-item">
+                                        Consigment:
+                                        <% if (element.consigmentId) { %>
+                                            <ol class="ml-5">
+                                                <li>
+                                                    Consigment no:
+                                                    <a href="/getConsigment/<%=element.consigmentId%>">
+                                                        <%=element.consigmentId%>
+                                                    </a>
+                                                    Customer:
+                                                    <a href="/getCustomer/<%=element.customerConsigmentId%>">
+                                                        <%=element.customerConsigmentName%>
+                                                    </a>
+                                                    Date:
+                                                    <%=element.shippeddate%>
+                                                </li>
+                                            </ol>
+                                            <% } else {%>
+                                                0
+                                                <% } %>
 
-                            <div class="list-group-item single-view-list-wrapper">
-                                <div class="single-view-list-item" >
-                                ID: <%=element.id%>
-                                </div>
-                                <div class="single-view-list-item" >
-                                Name: <%=element.name%>
-                                </div>
-                                <div class="single-view-list-item" >
-                                Color: <%=element.colorcode%>
-                                </div>
-                                <div class="single-view-list-item" >
-                                Length: <%=element.length%>
-                                </div>
-                                <div class="single-view-list-item" >
-                                Serial number: <%=element.serialnumber%>
-                                </div>
-                                <div class="single-view-list-item" >
-                                Status: <%=element.status%>
-                                </div>
-                                <div class="single-view-list-item" >
-                                Consigment:
-                                <% if (element.consigmentId) { %>
-                                <ol>
-                                    <li>
-                                    Consigment no: <a href="/getConsigment/<%=element.consigmentId%>"> <%=element.consigmentId%></a>
-                                    Customer: <a href="/getCustomer/<%=element.customerConsigmentId%>"><%=element.customerConsigmentName%></a>
-                                    Date: <%=element.shippeddate%>
-                                    </li>
-                                </ol>
-                                <% } else {%>
-                                    0
-                                <% } %>
+                                    </div>
+                                    <div class="single-view-list-item">
+                                        Reservations:
+                                        <% if (element.reservationId) { %>
+                                            <ol class="ml-5">
+                                                <%  element.reservedCustomers.forEach((r)=> {  %>
+                                                    <li>
+                                                        Reservation no:
+                                                        <a href="/getReservation/<%=r.reservationId%>">
+                                                            <%=r.reservationId%>
+                                                        </a>
+                                                        Customer:
+                                                        <a href="/getCustomer/<%=r.customerReservationId%>">
+                                                            <%=r.customerReservationName%>
+                                                        </a>
+                                                        Date:
+                                                        <%=r.reserveddate%>
+                                                    </li>
+                                                    <% })  %>
+                                            </ol>
+                                            <% } else {%>
+                                                0
+                                                <% } %>
+                                    </div>
+
+                                    <div class="btn-toolbar mt-4">
+                                        <button class="btn btn-warning editItem m-1 btn-sm" id="<%=element.id%>" value="<%=element.id%>">Edit</button>
+                                        <% if(element.status != 'sold' && element.status != 'consigned') { %>
+                                            <button class="btn btn-danger deleteItem m-1 btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">Delete </button>
+                                            <% } %>
+                                    </div>
 
                                 </div>
-                                <div class="single-view-list-item" >
-                                Reservations: 
-                                <% if (element.reservationId) { %>
-                                <ol>
-                                    <%  element.reservedCustomers.forEach((r)=> {  %>
-                                        <li>
-                                        Reservation no:<a href="/getReservation/<%=r.reservationId%>"> <%=r.reservationId%></a>
-                                        Customer: <a href="/getCustomer/<%=r.customerReservationId%>"><%=r.customerReservationName%></a>
-                                        Date: <%=r.reserveddate%>
-                                        </li>
-                                    <% })  %>
-                                </ol>
-                                <% } else {%>
-                                    0
-                                <% } %>
-                                </div>
-                                <button class="btn btn-danger deleteItem float-right" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
-                                Delete
-                            </button>
-                                </div>
-                    <% }); %>
-                </ul>
+                                <% }); %>
+                        </ul>
+
+                    </div>
+                </div>
             </div>
+            <!-- /# column -->
 
         </div>
+        <!-- End row -->
     </div>
+    <!-- End customer -->
 
 
     <% include footer.ejs %>

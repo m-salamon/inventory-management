@@ -4,34 +4,51 @@
     <div class="container">
         <div class="row">
 
-            <div class="offset-md-2 col-md-8 col-sm-12">
-            <div class="page-title">Invoice</div>
-                <ul class="list-group single-view-wrapper">
-                    <% invoice.forEach((element) => { %>
+            <div class="col-md-8 offset-md-2 mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">Invoice </h4>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <% invoice.forEach((element) => { %>
 
-                            <div class="list-group-item single-view-list-wrapper">
-                                <div class="single-view-list-item" >ID:
-                                    <%=element.id%>
+                                <div>
+                                    <div class="single-view-list-item">ID:
+                                        <%=element.id%>
+                                    </div>
+                                    <div class="single-view-list-item">
+                                        Item:
+                                        <a href="/getItem/<%=element.itemId%>">
+                                            <%=element.item%>
+                                        </a>
+                                    </div>
+                                    <div class="single-view-list-item">
+                                        Customer:
+                                        <a href="/getCustomer/<%=element.customerId%>">
+                                            <%=element.customer%>
+                                        </a>
+                                    </div>
+                                    <div class="single-view-list-item">
+                                        Date Sold:
+                                        <%=element.solddate%>
+                                    </div>
+                                    <div class="btn-toolbar mt-4">
+                                        <button class="btn btn-danger deleteReservation btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="single-view-list-item" >
-                                Item:<a href="/getItem/<%=element.itemId%>"> <%=element.item%></a>
-                                </div>
-                                <div class="single-view-list-item" >
-                                Customer: <a href="/getCustomer/<%=element.customerId%>"><%=element.customer%></a>
-                                </div>
-                                <div class="single-view-list-item" >
-                                Date Sold: <%=element.solddate%>
-                                </div>
-                                <button class="btn btn-danger deleteReservation float-right" name="delete" id="<%=element.id%>"  value="<%=element.id%>">
-                                    Delete
-                                </button>
-                                </div>
-                    <% }); %>
-                </ul>
+                                <% }); %>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
 
         </div>
+        <!-- End row -->
     </div>
-
+    <!-- End customer -->
 
     <% include footer.ejs %>

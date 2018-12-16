@@ -10,7 +10,6 @@ exports.up = function(knex, Promise) {
       table.string('status');
       table.string('costprice');
       table.string('sellprice');
-      table.integer('consigmentId');
       table.integer('stockamount');
       table.boolean('inactive').notNullable()
       table.timestamp('createdAt').default(knex.fn.now())

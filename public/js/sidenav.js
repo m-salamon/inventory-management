@@ -2,8 +2,8 @@
 function openNav() {
   localStorage.setItem('sidenav', 'true');
 
-  $("#mySidenav").css("width", "250px")
-  $("#main").css("marginLeft", "250px")
+  $("#mySidenav").css("width", "215px")
+  $("#main").css("marginLeft", "215px")
   
   $('#sidenavToggle').html('<button class="btn btn-default" onclick="closeNav()"><i class="fas fa-bars fa-lg"></i></button></li>')
 }

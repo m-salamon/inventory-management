@@ -19,4 +19,6 @@ const ErrorHandeling = (path = '/', res, response = '', success = false) => {
   }))
 }
 
-module.exports = {ITEM_STATUS, ErrorHandeling}
+const PaginatePerPage = 10;
+
+module.exports = {ITEM_STATUS, ErrorHandeling, PaginatePerPage}

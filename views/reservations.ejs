@@ -4,99 +4,120 @@
         <div class="row">
 
             <div class="col-sm-4">
-            
-                    <div class="page-title">Add Reservation</div>
-                    <div>
-                        <div class="form-group">
-                            <small class="form-text text-muted">Choose a customer from the list.</small>
-                            <input  class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" autocomplete="off">
-                            <datalist id="customers" >
+
+                <div class="page-title">Add Reservation</div>
+                <div>
+                    <div class="form-group">
+                        <small class="form-text text-muted">Choose a customer from the list.</small>
+                        <input class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" autocomplete="off">
+                        <datalist id="customers">
                             <% customers.forEach((element) => { %>
                                 <option value="<%= element.name %>" data-id="<%= element.id %>">
-                                <% }); %>
-                            </datalist>
-                        </div>
-                         
+                                    <% }); %>
+                        </datalist>
+                    </div>
+
                     <small class="form-text text-muted">Choose an item from the list.</small>
-                        <div class="input-group itemLookupWrapper mb-3">
-                            <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" autocomplete="off">
-                            <datalist id="items" >
+                    <div class="input-group itemLookupWrapper mb-3">
+                        <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" autocomplete="off">
+                        <datalist id="items">
                             <% items.forEach((element) => { %>
                                 <option value="<%= element.name %>---<%= element.count || 0 %>" data-id="<%= element.id %>">
-                                <% }); %>
-                            </datalist>
-                            <div class="input-group-append">
-                            <button class="btn btn-outline-secondary removeItemInput"><i class="fas fa-minus"></i></button>
-                            <button class="btn btn-outline-primary addItemInput"><i class="fas fa-plus"></i></button>
-                            </div>
+                                    <% }); %>
+                        </datalist>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary removeItemInput">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button class="btn btn-outline-primary addItemInput">
+                                <i class="fas fa-plus"></i>
+                            </button>
                         </div>
-                        
-                        <div class="form-group">
-                            <input id="date" class="form-control" type="date" name="date" placeholder="Date" />
-                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <button class="btn btn-success" id="addReservation" type="submit">Submit</button>
-                        </div>
+                    <div class="form-group">
+                        <input id="date" class="form-control" type="date" name="date" placeholder="Date" />
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-success" id="addReservation" type="submit">Submit</button>
                     </div>
                 </div>
-    
+            </div>
+
 
             <div class="col-sm-8">
-            <div class="page-title">Total: <%= reservations.length %>
-            <form id="globalSearchForm" method="get" action="/reservations" autocomplete="off" class="form-inline float-right">
-                    <div class="form-group mr-3">
-                            <input id="search" type="text" class="form-control" placeholder="Search..." name="search" />
+                <div class="row page-title ">
+                    <div class="col-3">
+                        Total:
+                        <%= totalResult %>
                     </div>
-                    <button type="submit" class="btn-search btn btn-info" >Search</button>
-                    <button type="submit" class="btn btn-secondary ml-2" >All</button>
-                </form>
+                    <div class="col-9">
+                        <form id="globalSearchForm" method="get" action="/reservations" autocomplete="off" class="form-inline float-right">
+                            <div class="form-group input-group-sm mr-3">
+                                <input id="search" type="text" class="form-control" placeholder="Search..." name="search" />
+                            </div>
+                            <button type="submit" class="btn-search btn btn-info btn-sm">Search</button>
+                            <button type="submit" class="btn btn-secondary ml-2 btn-sm">All</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row col uniq-reservation-customers"></div>
+
+                <table class="table table-hover table-striped table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Date Reserved</th>
+                            <th scope="col">Item Status</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% reservations.forEach((element) => { %>
+                            <tr>
+                                <td>
+                                    <a id="<%=element.id%>" href="/getReservation/<%=element.id%>">
+                                        <%=element.id%>
+                                    </a>
+                                </td>
+                                <td>
+                                    <%=element.item%>
+                                </td>
+                                <td>
+                                    <%=element.customer%>
+                                </td>
+                                <td>
+                                    <%=element.reserveddate%>
+                                </td>
+                                <td>
+                                    <%=element.status%>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger deleteReservation btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">
+                                        Delete
+                                    </button>
+                                </td>
+                                <% }); %>
+                    </tbody>
+                </table>
+
+
+                <!-- pagination -->
+                <div class="col text-center">
+                    <%- paginator %>
+                </div>
+                <!-- End pagination -->
+
             </div>
-    
-            <div class="row col uniq-reservation-customers"></div>
-
-            <table class="table table-hover table-striped"">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Item</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Date Reserved</th>
-                    <th scope="col">Item Status</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                    <% reservations.forEach((element) => { %>
-                    <tr>
-                        <td><a id="<%=element.id%>" href="/getReservation/<%=element.id%>">
-                                <%=element.id%>
-                            </a>
-                        </td>
-                        <td>
-                            <%=element.item%>
-                        </td>
-                        <td>
-                            <%=element.customer%>
-                        </td>
-                        <td>
-                            <%=element.reserveddate%>
-                        </td>
-                        <td>
-                            <%=element.status%>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger deleteReservation btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">
-                                Delete
-                            </button>
-                        </td>
-                        <% }); %>
-                </tbody>
-            </table>
-
 
         </div>
+        <!-- End row -->
     </div>
+    <!-- End container -->
 
 
     <% include footer.ejs %>

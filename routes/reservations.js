@@ -3,21 +3,22 @@ const router = express.Router();
 const repo = require('../repo');
 const R = require('ramda')
 const { ITEM_STATUS, ErrorHandeling } = require('./globals')
+var pagination = require('pagination');
 
 router.get('/reservations', async (req, res) => {
   try {
-    let reservations = await repo.reservations.getReservations(req.query.search || '')
+    let reservations = await repo.reservations.getReservations(req.query.search || '', req.query.page || 1, true )
     let customers = await repo.customers.getCustomers()
     let items = await repo.items.getItemsNotSold()
 
-    if (!R.isEmpty(reservations)) {
+    if (!R.isEmpty(reservations.data)) {
       var itemsCount = R.compose(
         R.values,
         R.map(i => {
           return { itemId: R.head(i).itemId, count: i.length }
         }),
         R.groupBy(i => i.itemId)
-      )(reservations)
+      )(reservations.data)
 
       items = R.map(item => {
         var found = R.find(i => {
@@ -27,11 +28,15 @@ router.get('/reservations', async (req, res) => {
       })(items).filter(f => f)
     }
 
+    var paginator = new pagination.SearchPaginator({ prelink: '/reservations', current: reservations.current_page, rowsPerPage: reservations.per_page, totalResult: reservations.total }).render()
+    
     res.render('reservations', {
       pageTitle: 'Reservations',
-      reservations,
+      reservations: reservations.data,
       customers,
-      items
+      items,
+      paginator,
+      totalResult: reservations.total
     });
 
   } catch (e) {

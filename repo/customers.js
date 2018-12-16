@@ -1,16 +1,24 @@
 const knex = require('./config');
+const R = require('ramda')
+const moment = require('moment')
+const { ITEM_STATUS, ErrorHandeling, PaginatePerPage } = require('../routes/globals')
+const setupPaginator = require('knex-paginator')(knex);
 
-function getCustomers(data = '') {
-    let query = knex('customers').select('*').orderBy('id', 'desc').where(function() {
+function getCustomers(data = '', page = 1, paginate = false) {
+    let query = knex('customers').select('*').orderBy('id', 'desc')
+    .where(function () {
         this.where('name', 'like', `%${data}%`)
-        .orWhere('phone', 'like', `%${data}%`)
-        .orWhere('mobile', 'like', `%${data}%`)
-        .orWhere('address', 'like', `%${data}%`)
-        .orWhere('city', 'like', `%${data}%`)
-        .orWhere('state', 'like', `%${data}%`)
-        .orWhere('zip', 'like', `%${data}%`)
-        .orWhere('country', 'like', `%${data}%`)
-      }).where({ inactive: false })
+            .orWhere('phone', 'like', `%${data}%`)
+            .orWhere('mobile', 'like', `%${data}%`)
+            .orWhere('address', 'like', `%${data}%`)
+            .orWhere('city', 'like', `%${data}%`)
+            .orWhere('state', 'like', `%${data}%`)
+            .orWhere('zip', 'like', `%${data}%`)
+            .orWhere('country', 'like', `%${data}%`)
+    }).where({ inactive: false })
+    if (paginate)
+        query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = true)
+
     return query;
 }
 

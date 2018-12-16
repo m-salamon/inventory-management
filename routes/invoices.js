@@ -3,17 +3,22 @@ const router = express.Router();
 const repo = require('../repo');
 const R = require('ramda')
 const { ITEM_STATUS, ErrorHandeling } = require('./globals')
+var pagination = require('pagination');
 
 router.get('/invoices', async (req, res) => {
-    let invoices = await repo.invoices.getInvoices(req.query.search || '')
+    let invoices = await repo.invoices.getInvoices(req.query.search || '', req.query.page || 1, true )
     let customers = await repo.customers.getCustomers()
     let items = await repo.items.getItemsNotSold()
 
+    var paginator = new pagination.SearchPaginator({ prelink: '/invoices', current: invoices.current_page, rowsPerPage: invoices.per_page, totalResult: invoices.total }).render()
+    
     res.render('invoices', {
         pageTitle: 'Invoices',
-        invoices,
+        invoices: invoices.data,
         customers,
-        items
+        items,
+        paginator,
+        totalResult: invoices.total
     });
 
 });

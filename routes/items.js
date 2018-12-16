@@ -3,18 +3,27 @@ const router = express.Router();
 const repo = require('../repo');
 const R = require('ramda')
 const { ITEM_STATUS, ErrorHandeling } = require('./globals')
+var pagination = require('pagination');
+
 
 router.get('/items', async (req, res) => {
-    let items = await repo.items.getItems(req.query.search || '')
+    
+    let items = await repo.items.getItems(req.query.search || '', req.query.page || 1 , true)
     let colors = await repo.items.getColors()
     let lengths = await repo.items.getLengths()
+    
+    var paginator = new pagination.SearchPaginator({ prelink: '/items', current: items.current_page, rowsPerPage: items.per_page, totalResult: items.total }).render()
+    
     res.render('items', {
         pageTitle: 'Items',
-        items: items,
-        colors: colors,
-        lengths: lengths
+        items: items.data,
+        colors,
+        lengths,
+        paginator,
+        totalResult: items.total
     });
 
+    
 });
 
 router.get('/getItems', async (req, res) => {
@@ -33,14 +42,12 @@ router.get('/getItem/:id', async (req, res) => {
         pre = R.merge(cur, pre)
         return pre
     }, { reservedCustomers: [] }, items)]
-    
+
     res.render('item', {
         pageTitle: 'Items',
         item: data
     });
-    
-    console.log(data)
-    
+
 });
 
 router.post('/addItem', async (req, res) => {
@@ -59,7 +66,7 @@ router.get('/editItem', async (req, res) => {
 });
 
 router.post('/updateItem', async (req, res) => {
-    
+
     console.log(req.body)
     try {
         let response = await repo.items.updateItem(req.body.id, req.body)

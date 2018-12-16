@@ -3,19 +3,26 @@ const router = express.Router();
 const repo = require('../repo');
 const R = require('ramda')
 const { ITEM_STATUS, ErrorHandeling } = require('./globals')
+var pagination = require('pagination');
 
 router.get('/consigments', async (req, res) => {
-    let consigments = await repo.consigments.getConsigments(req.query.search || '')
+    let consigments = await repo.consigments.getConsigments(req.query.search || '', req.query.page || 1, true)
+    console.log(consigments);
+
     let customers = await repo.customers.getCustomers()
     let items = await repo.items.getItems()
     let itemsToConsign = await repo.items.getItemsToConsign()
 
+    var paginator = new pagination.SearchPaginator({ prelink: '/consigments', current: consigments.current_page, rowsPerPage: consigments.per_page, totalResult: consigments.total }).render()
+
     res.render('consigments', {
         pageTitle: 'Consigments',
-        consigments,
-        customers,
-        items,
-        itemsToConsign
+        consigments: consigments.data,
+        customers: customers,
+        items: items,
+        itemsToConsign,
+        paginator,
+        totalResult: consigments.total
     });
 
 });

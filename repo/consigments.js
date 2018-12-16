@@ -1,23 +1,29 @@
 const knex = require('./config');
 const R = require('ramda')
 const moment = require('moment')
+const { ITEM_STATUS, ErrorHandeling, PaginatePerPage } = require('../routes/globals')
+const setupPaginator = require('knex-paginator')(knex);
 
 
+function getConsigments(data = '', page, paginate = false) {
 
-const { ITEM_STATUS, ErrorHandeling } = require('../routes/globals')
-
-function getConsigments(data = '') {
     let query = knex('consigments as con').select('con.id', 'con.itemId', 'con.customerId', 'con.shippeddate', 'i.name AS item', 'c.name AS customer', 'i.status')
         .leftJoin('items as i', 'i.id', 'con.itemId')
         .leftJoin('customers as c', 'c.id', 'con.customerId')
-        .orderBy('con.id', 'asc')
         .where(function () {
-            this.where('i.name', 'like', `%${data}%`)
-                .orWhere('c.name', 'like', `%${data}%`)
+            this.where('c.name', 'like', `%${data}%`)
                 .orWhere('con.shippeddate', 'like', `%${data}%`)
+             //   .orWhere('i.name', 'like', `%${data}%`)
+            // .orWhere('i.status', 'like', `%${data}%`)
         })
         .where({ 'con.inactive': false })
+        .orderBy('con.id', 'asc')
+
+    if (paginate)
+        query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = true)
+
     return query;
+
 }
 
 function getConsigment(id) {
@@ -63,17 +69,17 @@ async function deleteConsigment(id) {
 async function soldConsigment(id) {
     //set consigment to inactive
     let query = await knex('consigments').select('id', 'customerId', 'itemId').where('itemId', id)
-                await knex('consigments').where('itemId', id).update({ inactive: true })
-                //update item status to sold
-                await knex('items').where('id', id).update({ status: ITEM_STATUS.sold })
-                //create an invoice
-                await knex('invoices').insert({ customerId: R.head(query).customerId, itemId: R.head(query).itemId, solddate: moment().format('YYYY/MM/DD') })
+    await knex('consigments').where('itemId', id).update({ inactive: true })
+    //update item status to sold
+    await knex('items').where('id', id).update({ status: ITEM_STATUS.sold })
+    //create an invoice
+    await knex('invoices').insert({ customerId: R.head(query).customerId, itemId: R.head(query).itemId, solddate: moment().format('YYYY/MM/DD') })
     return query;
 }
 async function returningConsigment(id) {
     let query = await knex('consigments').select('id', 'customerId', 'itemId').where('itemId', id)
-                //update item status to sold
-                await knex('items').where('id', id).update({ status: ITEM_STATUS.returning })
+    //update item status to sold
+    await knex('items').where('id', id).update({ status: ITEM_STATUS.returning })
     return query;
 }
 

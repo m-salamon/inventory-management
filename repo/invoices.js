@@ -1,20 +1,26 @@
 const knex = require('./config');
 const R = require('ramda')
 const moment = require('moment')
-const { ITEM_STATUS, ErrorHandeling } = require('../routes/globals')
+const { ITEM_STATUS, ErrorHandeling, PaginatePerPage } = require('../routes/globals')
+const setupPaginator = require('knex-paginator')(knex);
 
-function getInvoices(data = '') {
+function getInvoices(data = '', page, paginate = false) {
   let query = knex('invoices as inv').select('inv.id', 'inv.itemId', 'inv.customerId', 'inv.solddate', 'i.name AS item', 'c.name AS customer', 'i.status')
     .leftJoin('items as i', 'i.id', 'inv.itemId')
     .leftJoin('customers as c', 'c.id', 'inv.customerId')
     .where(function () {
-      this.where('i.name', 'like', `%${data}%`)
-        .orWhere('c.name', 'like', `%${data}%`)
+      this.where('c.name', 'like', `%${data}%`)
         .orWhere('inv.solddate', 'like', `%${data}%`)
+       // .orWhere('i.name', 'like', `%${data}%`)
     })
     .orderBy('inv.id', 'desc')
     .where({ 'inv.inactive': false })
-    .where({ 'i.inactive': false })
+ //   .where({ 'i.inactive': false })
+
+  if (paginate)
+    query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = true)
+
+
   return query;
 }
 

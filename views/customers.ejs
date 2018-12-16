@@ -10,13 +10,13 @@
                     <div class="page-title">Add Customer</div>
                     <form method="post" action="/addCustomer" autocomplete="off">
                         <div class="form-group">
-                            <input  class="form-control" type="text" name="name" placeholder="Customer name" required />
+                            <input class="form-control" type="text" name="name" placeholder="Customer name" required />
                         </div>
                         <div class="form-group">
-                            <input  class="form-control" type="text" name="phone" placeholder="Phone number" />
+                            <input class="form-control" type="text" name="phone" placeholder="Phone number" />
                         </div>
                         <div class="form-group">
-                            <input  class="form-control" type="text" name="mobile" placeholder="Mobile number" />
+                            <input class="form-control" type="text" name="mobile" placeholder="Mobile number" />
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="text" name="email" placeholder="Email" />
@@ -25,33 +25,33 @@
                             <input class="form-control" type="text" name="address" placeholder="Address" />
                         </div>
                         <div class="form-group">
-                        <input  class="form-control" type="text" name="city" placeholder="City" list="citys">
-                        <datalist id="citys">
-                        <% citys.forEach((element) => { %>
-                            <option value="<%= element.city %>">
-                            <% }); %>
-                        </datalist>
+                            <input class="form-control" type="text" name="city" placeholder="City" list="citys">
+                            <datalist id="citys">
+                                <% citys.forEach((element) => { %>
+                                    <option value="<%= element.city %>">
+                                        <% }); %>
+                            </datalist>
                         </div>
                         <div class="form-group">
-                        <input class="form-control" type="text" name="state" placeholder="State" list="states">
-                        <datalist id="states">
-                        <% states.forEach((element) => { %>
-                            <option value="<%= element.state %>">
-                            <% }); %>
-                        </datalist>
+                            <input class="form-control" type="text" name="state" placeholder="State" list="states">
+                            <datalist id="states">
+                                <% states.forEach((element) => { %>
+                                    <option value="<%= element.state %>">
+                                        <% }); %>
+                            </datalist>
                         </div>
                         <div class="form-group">
-                        <input  class="form-control" type="text" name="zip" placeholder="Zip" list="zips">
-                        <datalist id="zips">
-                        <% zips.forEach((element) => { %>
-                            <option value="<%= element.zip %>">
-                            <% }); %>
-                        </datalist>
+                            <input class="form-control" type="text" name="zip" placeholder="Zip" list="zips">
+                            <datalist id="zips">
+                                <% zips.forEach((element) => { %>
+                                    <option value="<%= element.zip %>">
+                                        <% }); %>
+                            </datalist>
                         </div>
                         <div class="form-group">
-                            <input  class="form-control" type="text" name="country" placeholder="Country" value="US"/>
+                            <input class="form-control" type="text" name="country" placeholder="Country" value="US" />
                         </div>
-                       
+
                         <div class="form-group">
                             <button class="btn btn-success" type="submit">Submit</button>
                         </div>
@@ -59,49 +59,75 @@
                 </div>
             </div>
 
-
             <div class="col-sm-8">
-                <div class="page-title">Total: <%= customers.length %>
-                <form id="globalSearchForm" method="get" action="/customers" autocomplete="off" class="form-inline float-right">
-                    <div class="form-group mr-3">
-                            <input type="text" class="form-control" placeholder="Search..." name="search" />
+                <div class="row page-title ">
+                    <div class="col-3">
+                        Total:
+                        <%= totalResult %>
                     </div>
-                    <button type="submit" class="btn btn-info" >Search</button>
-                    <button type="submit" class="btn btn-secondary ml-2" >All</button>
-                </form>
+                    <div class="col-9">
+                        <form id="globalSearchForm" method="get" action="/customers" autocomplete="off" class="form-inline float-right">
+                            <div class="form-group input-group-sm mr-3">
+                                <input type="text" class="form-control " placeholder="Search..." name="search" />
+                            </div>
+                            <button type="submit" class="btn btn-info btn-sm">Search</button>
+                            <button type="submit" class="btn btn-secondary ml-2 btn-sm">All</button>
+                        </form>
+                    </div>
                 </div>
-            <table  class="table table-hover table-striped">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Mobile</th>
-                <th scope="col">Address</th>
-                <th scope="col">City</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-                <% customers.forEach((element) => { %>
+
+                <table class="table table-hover table-striped table-sm">
+                    <thead class="thead-dark">
                         <tr>
-                            <td><a id="<%=element.id%>" href="/getCustomer/<%=element.id%>"> <%=element.name%>  </a></td>
-                            <td> <%=element.phone%></td>
-                            <td> <%=element.mobile%></td>
-                            <td> <%=element.address%></td>
-                            <td><%=element.city%></td>
-                            <td>
-
-                            <button class="btn btn-warning editCustomer m-md-0 m-1 btn-sm" id="<%=element.id%>"  value="<%=element.id%>">Edit</button>
-                            <button class="btn btn-danger deleteCustomer m-md-0 m-1 btn-sm" name="delete" id="<%=element.id%>"  value="<%=element.id%>">Delete </button>
-                            </td>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Mobile</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">City</th>
+                            <th scope="col"></th>
                         </tr>
-                <% }); %>
-                </tbody>
-            </table >
+                    </thead>
+                    <tbody>
+                        <% customers.forEach((element) => { %>
+                            <tr>
+                                <td>
+                                    <a id="<%=element.id%>" href="/getCustomer/<%=element.id%>">
+                                        <%=element.name%>
+                                    </a>
+                                </td>
+                                <td>
+                                    <%=element.phone%>
+                                </td>
+                                <td>
+                                    <%=element.mobile%>
+                                </td>
+                                <td>
+                                    <%=element.address%>
+                                </td>
+                                <td>
+                                    <%=element.city%>
+                                </td>
+                                <td>
 
+                                    <button class="btn btn-warning editCustomer m-md-0 m-1 btn-sm" id="<%=element.id%>" value="<%=element.id%>">Edit</button>
+                                    <button class="btn btn-danger deleteCustomer m-md-0 m-1 btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">Delete </button>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+
+
+                <!-- pagination -->
+                <div class="col text-center">
+                    <%- paginator %>
+                </div>
+                <!-- End pagination -->
+
+            </div>
         </div>
-    </div>
-    
-    
+        <!-- End row -->
+    </div> 
+    <!-- End container -->
 
     <% include footer.ejs %>

@@ -1,5 +1,5 @@
 (function () {
-
+                    
   var length = '';
   var color = '';
   var serialnumber = '';
@@ -15,18 +15,38 @@
     serialnumber = $('#serialNumber').val();
     $('#itemName').val(color + '-' + length + '-' + serialnumber);
   });
+  $('#sellPrice').keyup(() => {
+    sellPrice = $('#sellPrice').val();
+    localStorage.setItem('sellPrice', sellPrice);
+  });
+  $('#costPrice').keyup(() => {
+    costPrice = $('#costPrice').val();
+    localStorage.setItem('costPrice', costPrice);
+  });
 
 
+  if (localStorage.getItem('sellPrice')) {
+    $('#sellPrice').val(localStorage.getItem('sellPrice'));
+  }
+  if (localStorage.getItem('costPrice')) {
+    $('#costPrice').val(localStorage.getItem('costPrice'));
+  }
+
+  
   $("input[name*='search']").keyup($.debounce(1000, (e) => {
     document.forms["globalSearchForm"].submit();
   }));
 
 
+
+  
+  
   $('.editItem').click(() => {
     let id = event.target.id;
 
     $.get('/editItem', { id: id }, function (data) {
-      let { id, colorcode, length, serialnumber, status, stockamount, brand } = R.head(data)
+      console.log(data)
+      let { id, colorcode, length, serialnumber, status, stockamount, brand, costprice, sellprice } = R.head(data)
 
       $('#main').append(`
         <div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -55,6 +75,12 @@
             </div>
             <div class="form-group">
                 <input id="serialNumber" class="form-control serialNumber" type="text" name="serialnumber" placeholder="Serial number" value="${serialnumber}" required />
+            </div>
+            <div class="form-group">
+                <input id="costprice" class="form-control" type="number" name="costprice" placeholder="Cost Price" value="${costprice}"  />
+            </div>
+            <div class="form-group">
+                <input id="sellprice" class="form-control" type="number" name="sellprice" placeholder="Sell Price" value="${sellprice}"  required />
             </div>
             <div class="form-group">
                 <input class="form-control" type="text" name="brand" placeholder="Brand" value="Beverly" value="${brand}" required />
@@ -91,7 +117,6 @@
         serialnumber = $('.serialNumber').val();
         $('.itemName').val(color + '-' + length + '-' + serialnumber);
       });
-
 
     }).fail(function (e) {
       console.error("function ('.editItem') failed");

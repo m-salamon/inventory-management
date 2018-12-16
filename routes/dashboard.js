@@ -3,6 +3,7 @@ const router = express.Router();
 const repo = require('../repo');
 const R = require('ramda')
 const { ITEM_STATUS, ErrorHandeling } = require('./globals')
+var pagination = require('pagination');
 
 router.get('/dashboard', async (req, res) => {
     let invoices = await repo.invoices.getInvoices(req.query.search || '')

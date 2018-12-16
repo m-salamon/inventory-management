@@ -1,20 +1,31 @@
 const knex = require('./config');
-const { ITEM_STATUS, ErrorHandeling } = require('../routes/globals')
+const R = require('ramda')
+const moment = require('moment')
+const { ITEM_STATUS, ErrorHandeling, PaginatePerPage } = require('../routes/globals')
+const setupPaginator = require('knex-paginator')(knex);
 
+function getItems(data = '', page = 1, paginate = false) {
 
-function getItems(data = '') {
-    let query = knex('items').select('*').where(function() {
-        this.where('status', 'like', `%${data}%`).orWhere('name', 'like', `%${data}%`)
-      }).where({ inactive: false })
-      .orderBy('status', 'asc')
-      .orderBy('id', 'desc')
+    let query = knex('items').select('*')
+        .where(function () {
+            this.where('status', 'like', `%${data}%`)
+                .orWhere('name', 'like', `%${data}%`)
+                .orWhere('sellprice', 'like', `%${data}%`)
+                .orWhere('costprice', 'like', `%${data}%`)
+        }).where({ inactive: false })
+        .orderBy('status', 'asc')
+        .orderBy('id', 'desc')
+        
+    if (paginate)
+        query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = true)
+
     return query;
 }
 
 function getItemsNotSold(data = '') {
-    let query = knex('items').select('*').orderBy('id', 'desc').where(function() {
+    let query = knex('items').select('*').orderBy('id', 'desc').where(function () {
         this.where('status', 'like', `%${data}%`).orWhere('name', 'like', `%${data}%`)
-      }).where({ inactive: false }).whereNot({status: ITEM_STATUS.sold})
+    }).where({ inactive: false }).whereNot({ status: ITEM_STATUS.sold })
     return query;
 }
 
@@ -22,7 +33,7 @@ function getItemsToConsign() {
     let query = knex('items').select('*').orderBy('id', 'desc').where({ inactive: false })
         .whereNotExists(function () {
             this.select('*').from('consigments').whereRaw('items.id = consigments.itemId').whereRaw('consigments.inactive = false')
-        }).whereNot({status: ITEM_STATUS.sold})
+        }).whereNot({ status: ITEM_STATUS.sold })
     return query;
 }
 
@@ -38,6 +49,8 @@ function getItem(id) {
         'i.brand',
         'i.status',
         'i.stockamount',
+        'i.sellprice',
+        'i.costprice',
         'i.inactive',
         'r.reserveddate',
         'r.id as reservationId',
@@ -68,7 +81,7 @@ function getLengths() {
 }
 
 async function addItem(data) {
-    var  query = await knex('items').insert(data)
+    var query = await knex('items').insert(data)
     return query;
 }
 

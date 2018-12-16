@@ -1,115 +1,133 @@
 <% include header.ejs %>
 
 
-<div class="container">
-    <div class="row">
+    <div class="container">
+        <div class="row">
 
-        <div class="col-sm-4">
-            <div class="">
-                <!-- add item -->
-                <div class="page-title">Add Consigment</div>
-                <div>
-                    <div class="form-group">
-                    <small class="form-text text-muted">Choose a customer from the list.</small>
-                        <input class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" required autocomplete="off">
-                        <datalist id="customers">
-                            <% customers.forEach((element) => { %>
-                            <option value="<%= element.name %>" data-id="<%= element.id %>">
-                                <% }); %>
-                        </datalist>
-                    </div>
-
-                    <small class="form-text text-muted">Choose an item from the list.</small>
-                    <div class="input-group itemLookupWrapper mb-3">
-                    
-                        <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" required autocomplete="off">
-                        
-                        <datalist id="items">
-                            <% itemsToConsign.forEach((element) => { %>
-                            <option value="<%= element.name %>" data-id="<%= element.id %>">
-                                <% }); %>
-                        </datalist>
-                        
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary removeItemInput"><i class="fas fa-minus"></i></button>
-                            <button class="btn btn-outline-primary addItemInput"><i class="fas fa-plus"></i></button>
+            <div class="col-sm-4">
+                <div class="">
+                    <!-- add item -->
+                    <div class="page-title">Add Consigment</div>
+                    <div>
+                        <div class="form-group">
+                            <small class="form-text text-muted">Choose a customer from the list.</small>
+                            <input class="form-control customerLookup" type="text" name="customer" placeholder="Customer" list="customers" required autocomplete="off">
+                            <datalist id="customers">
+                                <% customers.forEach((element) => { %>
+                                    <option value="<%= element.name %>" data-id="<%= element.id %>">
+                                        <% }); %>
+                            </datalist>
                         </div>
-                        
-                    </div>
 
-                   
-                    <div class="form-group">
-                        <input id="date" class="form-control" type="date" name="date" placeholder="Date" />
-                    </div>
+                        <small class="form-text text-muted">Choose an item from the list.</small>
+                        <div class="input-group itemLookupWrapper mb-3">
 
-                    <div class="form-group">
-                        <button class="btn btn-success" id="addConsigment" type="submit">Submit</button>
+                            <input class="form-control itemLookup" type="text" name="item" placeholder="Item" list="items" required autocomplete="off">
+
+                            <datalist id="items">
+                                <% itemsToConsign.forEach((element) => { %>
+                                    <option value="<%= element.name %>" data-id="<%= element.id %>">
+                                        <% }); %>
+                            </datalist>
+
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary removeItemInput">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button class="btn btn-outline-primary addItemInput">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <input id="date" class="form-control" type="date" name="date" placeholder="Date" />
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-success" id="addConsigment" type="submit">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="col-sm-8">
-            <div class="page-title">Total: <%= consigments.length %>
-            <form id="globalSearchForm" method="get" action="/consigments" autocomplete="off" class="form-inline float-right">
-                    <div class="form-group mr-3">
-                            <input type="text" class="form-control" placeholder="Search..." name="search" />
+            <div class="col-sm-8">
+                <div class="row page-title ">
+                    <div class="col-3">
+                        Total:
+                        <%= totalResult %>
                     </div>
-                    <button type="submit" class="btn btn-info" >Search</button>
-                    <button type="submit" class="btn btn-secondary ml-2" >All</button>
-                </form>
+                    <div class="col-9">
+                        <form id="globalSearchForm" method="get" action="/consigments" autocomplete="off" class="form-inline float-right">
+                            <div class="form-group input-group-sm mr-3">
+                                <input type="text" class="form-control" placeholder="Search..." name="search" />
+                            </div>
+                            <button type="submit" class="btn btn-info btn-sm">Search</button>
+                            <button type="submit" class="btn btn-secondary ml-2 btn-sm">All</button>
+                        </form>
+                    </div>
+                </div>
+
+                <table class="table table-hover table-striped table-sm">
+                    <thead class=" thead-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Date Shipped</th>
+                            <th scope="col">Status</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% consigments.forEach((element) => { %>
+                            <tr>
+                                <td>
+                                    <a id="<%=element.id%>" href="/getConsigment/<%=element.id%>">
+                                        <%=element.id%>
+                                    </a>
+                                </td>
+                                <td>
+                                    <%=element.item%>
+                                </td>
+                                <td>
+                                    <%=element.customer%>
+                                </td>
+                                <td>
+                                    <%=element.shippeddate%>
+                                </td>
+                                <td>
+                                    <%=element.status%>
+                                </td>
+                                <td>
+                                    <form class="d-inline" method="post" action="/returningConsigment">
+                                        <button type="submit" name="id" id="<%=element.itemId%>" value="<%=element.itemId%>" class="d-inline btn btn-warning m-1 btn-sm">Returning</button>
+                                    </form>
+                                    <button class=" btn btn-danger deleteConsigment m-1 btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">
+                                        Delete
+                                    </button>
+                                    <form class="d-inline" method="post" action="/soldConsigment">
+                                        <button type="submit" name="id" id="<%=element.itemId%>" value="<%=element.itemId%>" class="d-inline btn btn-success m-1 btn-sm">Sold</button>
+                                    </form>
+                                </td>
+                                <% }); %>
+                    </tbody>
+                </table>
+
+                <!-- pagination -->
+                <div class="col text-center">
+                    <%- paginator %>
+                </div>
+                <!-- End pagination -->
+
             </div>
-            
-            <table class="table table-hover table-striped"">
-            <thead class=" thead-dark">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Item</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Date Shipped</th>
-                    <th scope="col">Status</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                    <% consigments.forEach((element) => { %>
-                    <tr>
-                        <td><a id="<%=element.id%>" href="/getConsigment/<%=element.id%>">
-                                <%=element.id%>
-                            </a>
-                        </td>
-                        <td>
-                            <%=element.item%>
-                        </td>
-                        <td>
-                            <%=element.customer%>
-                        </td>
-                        <td>
-                            <%=element.shippeddate%>
-                        </td>
-                        <td>
-                            <%=element.status%>
-                        </td>
-                        <td>
-                            <form class="d-inline" method="post" action="/returningConsigment">
-                            <button type="submit" name="id" id="<%=element.itemId%>" value="<%=element.itemId%>" class="d-inline btn btn-warning m-1 btn-sm" >Returning</button>
-                            </form>
-                            <button class=" btn btn-danger deleteConsigment m-1 btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">
-                                Delete
-                            </button>
-                            <form class="d-inline" method="post" action="/soldConsigment">
-                            <button type="submit" name="id" id="<%=element.itemId%>" value="<%=element.itemId%>" class="d-inline btn btn-success m-1 btn-sm" >Sold</button>
-                            </form>
-                        </td>
-                        <% }); %>
-                </tbody>
-            </table>
-
-
-
         </div>
+        <!-- End row -->
     </div>
+    <!-- End container -->
 
 
     <% include footer.ejs %>
