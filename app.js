@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -17,22 +18,27 @@ app.locals.siteHeader = 'Inventory Management';
 //app.locals.participents = dataParticipents.participents;
 
 //brings in the index.js file it should be available to app 
-app.use(express.static( "public" ) );
+app.use(express.static("public"));
+
+require('./auth')
+app.use(require('./routes/login'));
 app.use(require('./routes/index'));
-app.use(require('./routes/items'));
-app.use(require('./routes/customers'));
-app.use(require('./routes/consigments'));
-app.use(require('./routes/reservations'));
-app.use(require('./routes/invoices'));
-app.use(require('./routes/dashboard'));
+app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/items'));
+app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/customers'));
+app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/consigments'));
+app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/reservations'));
+app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/invoices'));
+app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/dashboard'));
 
 
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500);
+  return res.redirect('/login');
+});
 
 //make the public folder available to all the routes
 app.use(express.static('public'));
 
-
-//app.listen(3000, () => console.log('server is running on port 3000'));
 // //heroku stuff
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`server is running on port ${port}`));

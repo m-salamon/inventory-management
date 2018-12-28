@@ -60,15 +60,15 @@
                         <%= totalResult %>
                     </div>
                     <div class="col-9">
-                        <form id="globalSearchForm" method="get" action="/items" autocomplete="off" class="form-inline float-right">
+                        <div id="globalSearchForm" class="form-inline float-right">
                             <div class="form-group input-group-sm mr-2">
-                                <input type="text" class="form-control" placeholder="Search..." name="search" />
+                                <input type="text" class="form-control" placeholder="Search..." name="search" id="search"/>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-info btn-sm">Search</button>
-                                <button type="submit" class="btn btn-secondary ml-2 btn-sm">All</button>
+                                <button class="btn btn-info btn-sm searchButton">Search</button>
+                                <button type="submit" class="btn btn-secondary ml-2 btn-sm     searchAll">All</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
 
@@ -89,8 +89,7 @@
                         <% items.forEach((element) => { %>
                             <tr>
                                 <td>
-                                    <a id="<%=element.id%>" href="/getItem/
-                    <%=element.id%>">
+                                    <a id="<%=element.id%>" href="/getItem/<%= element.id %>">
                                         <%=element.name%>
                                     </a>
                                 </td>
@@ -107,10 +106,10 @@
                                     <%=element.status%>
                                 </td>
                                 <td>
-                                    <%=element.costprice%>
+                                    $ <%=element.costprice || 0 %>
                                 </td>
                                 <td>
-                                    <%=element.sellprice%>
+                                    $ <%=element.sellprice || 0 %>
                                 </td>
                                 <td>
                                     <div class="btn-toolbar">

@@ -25,10 +25,18 @@
 <body class="loginPage">
 
   <div class="container">
-
+    
     <div class="row">
-      <form class="col-md-3 col-9 card loginForm">
-        <div class="text-center" style="font-size: 35px">Login</div>
+      <form class="col-md-3 col-9 card loginForm" autocomplete="off"> 
+        <div class="text-center" style="font-size: 35px;">Signup</div>
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" class="form-control" placeholder="Enter First Name" name="firstname" required>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" class="form-control" placeholder="Enter Last name" name="lastname" required>
+        </div>
         <div class="form-group">
           <label>Email</label>
           <input type="email" class="form-control" placeholder="Enter email" name="email" required>
@@ -37,40 +45,32 @@
           <label>Password</label>
           <input type="password" class="form-control" placeholder="Password" name="password" required>
         </div>
-        <button type="submit" class="btn btn-outline-primary btn-block">Login</button>
-        <a class="pt-4" href="/signup">Signup</a>
-
+        <button type="submit" class="btn btn-outline-primary btn-block">Signup</button>
+        <a class="pt-4" href="/login">Login</a>
       </form>
     </div>
 
   </div>
 
   <% include footer.ejs %>
+  
+  <script>
 
-    <script>
-
-      $('form').submit(function () {
-        $.ajax({
-          url: '/login',
-          type: 'POST',
-          data: $(this).serialize(),
-          success: function (res) {
-            console.log('res', res)
-            if (res.success) {
-              localStorage.clear();
-              localStorage.setItem('token', res.token);
-              localStorage.setItem('firstname', res.firstname);
-              window.location.href = `/dashboard?secret_token=${res.token}`
-            } else {
-              window.location.href = '/'
-            }
-            //this is a global variable
-            var token = localStorage.getItem('token');
-            var firstname = localStorage.getItem('firstname');
+    $('form').submit(function () {
+      $.ajax({
+        url: '/signup',
+        type: 'POST',
+        data: $(this).serialize(),
+        success: function (res) {
+          if (res.success) {
+            window.location.href = `/login`
+          } else {
+            window.location.href = '/'
           }
-
-        })
-
+        }
       });
+      return false;
+    });
 
-    </script>
+  </script>
+  

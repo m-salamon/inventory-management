@@ -1,4 +1,3 @@
-
 <!-- End Main -->
 </div>
 
@@ -8,29 +7,28 @@
 <!-- Debouce -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 <!-- Bootstrap -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
 <!-- Ramda -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.js"></script>
 <!-- Toaster JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-    <!--  Heigt js -->
+<!--  Heigt js -->
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 
-    <!--  Chart js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
-   
-    <!--  dataTables js -->
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<!--  Chart js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
 
-    <!--Chartist Chart-->
-    <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
+<!--Chartist Chart-->
+<script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flot-pie@1.0.0/src/jquery.flot.pie.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flot-pie@1.0.0/src/jquery.flot.pie.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
 <!-- Custom Javascript -->
 <script src="/js/sidenav.js"></script>
 <script src="/js/items.js"></script>
@@ -39,5 +37,45 @@
 <script src="/js/reservations.js"></script>
 <script src="/js/invoices.js"></script>
 <script src="/js/errorHandeling.js"></script>
+
+<script>
+    if (localStorage.getItem('token')) {
+        var token = localStorage.getItem('token');
+        var links = document.getElementsByTagName('a');
+        for (var i of links) {
+            if (i.href.split('?').length > 1) {
+                i.setAttribute('href', i.href + "&secret_token=" + token)
+            } else {
+                i.setAttribute('href', i.href + "?secret_token=" + token)
+            }
+        }
+    }
+
+    $("form").on("submit", function (event) {
+        event.preventDefault();
+        $.ajax({
+            type: $(this).attr('method'),
+            url: $(this).attr('action'),
+            "headers": {
+                "secret_token": localStorage.getItem('token')
+            },
+            data: $(this).serialize(),
+            success: function (data) {
+                location.reload();
+            }
+        })
+    })
+
+    $.ajaxSetup({
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("secret_token", localStorage.getItem('token'));
+        }
+    });
+
+
+</script>
+
+
 </body>
+
 </html>

@@ -17,7 +17,7 @@
               </button>
             </div>
             <div class="modal-body">
-            <form method="post" action="/updateCustomer" autocomplete="off">
+            <form method="post" action="/updateCustomer" autocomplete="off" class="updateCustomer">
             <div class="form-group">
                 <input  class="form-control" type="text" name="id" placeholder="Customer name" value="${id}" required readonly/>
             </div>
@@ -68,11 +68,27 @@
 
   });
 
+  
+  $("body").on("submit", ".updateCustomer", function (event) {
+    event.preventDefault();
+    $.ajax({
+      type: $(this).attr('method'),
+      url: $(this).attr('action'),
+      "headers": {
+        "secret_token": localStorage.getItem('token')
+      },
+      data: $(this).serialize(),
+      success: function (data) {
+        location.reload();
+      }
+    })
+  })
+  
 
   $('.deleteCustomer').click(() => {
     let id = event.target.id;
     $.post('/deleteCustomer', { id: id }, function (data) {
-      window.location.replace("/customers");
+      window.location.replace("/customers?secret_token=" + token);
     }).fail(function (e) {
       console.error("function ('.deleteCustomer') failed");
     });

@@ -23,7 +23,6 @@ router.get('/items', async (req, res) => {
         totalResult: items.total
     });
 
-    
 });
 
 router.get('/getItems', async (req, res) => {
@@ -55,7 +54,7 @@ router.post('/addItem', async (req, res) => {
         let response = await repo.items.addItem(R.merge(req.body, { status: ITEM_STATUS.available, stockamount: 1 }))
         ErrorHandeling("/items", res, response, true)
     } catch (e) {
-        console.log('Error: ', e)
+        console.error('Error: ', e)
         ErrorHandeling("/items", res, "", false)
     }
 })
@@ -66,13 +65,11 @@ router.get('/editItem', async (req, res) => {
 });
 
 router.post('/updateItem', async (req, res) => {
-
-    console.log(req.body)
     try {
         let response = await repo.items.updateItem(req.body.id, req.body)
         ErrorHandeling("/items", res, response, true)
     } catch (e) {
-        console.log('Error: ', e)
+        console.error('Error: ', e)
         ErrorHandeling("/items", res, "", false)
     }
 });
@@ -83,7 +80,7 @@ router.post('/deleteItem', async (req, res) => {
         let response = await repo.items.deleteItem(req.body.id)
         res.redirect('/items')
     } catch (e) {
-        console.log('Error: ', e)
+        console.error('Error: ', e)
     }
 })
 

@@ -11,16 +11,20 @@ function getReservations(data = '', page, paginate = false) {
         .where(function () {
             this.where('c.name', 'like', `%${data}%`)
                 .orWhere('r.reserveddate', 'like', `%${data}%`)
-                // .orWhere('i.status', 'like', `%${data}%`)
-                //.orWhere('i.name', 'like', `%${data}%`)
+                .orWhere('i.status', 'like', `%${data}%`)
+                .orWhere('i.name', 'like', `%${data}%`)
         })
         .where({ 'r.inactive': false })
-        .orderBy('r.id', 'asc');
-        
+        .orderBy('r.id', 'asc')
+
     if (paginate)
-        query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = true)
+        query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = false)
 
     return query;
+}
+
+function countRows() {
+    return knex('reservations').count().where('inactive', false)
 }
 
 function getReservation(id) {
@@ -47,4 +51,4 @@ function deleteReservation(id) {
     return query;
 }
 
-module.exports = { getReservations, getReservation, addReservation, editReservation, deleteReservation };
+module.exports = { getReservations, getReservation, addReservation, editReservation, deleteReservation, countRows };

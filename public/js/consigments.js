@@ -59,24 +59,44 @@
       itemLookup.map((id) => {
 
         $.post('/addConsigment', { itemId: id, customerId: customerLookup, shippeddate: date }, (data) => {
-          window.location.replace("/consigments");
+          location.reload();
         }).fail(function (e) {
           console.error("function ('.addConsigment') failed");
         });
-        window.location.replace("/consigments");
+        location.reload();
       })
 
     })
 
   });
 
+  $('.returningConsigment').click(() => {
+    let id = event.target.id;
+    $.post('/returningConsigment', { id: id }, function (data) {
+      window.location.replace("/consigments?secret_token=" + token);
+    }).fail(function (e) {
+      console.error("function ('.returningConsigment') failed");
+    });
+  });
+  
+  $('.soldConsigment').click(() => {
+    let id = event.target.id;
+    $.post('/soldConsigment', { id: id }, function (data) {
+      window.location.replace("/consigments?secret_token=" + token);
+    }).fail(function (e) {
+      console.error("function ('.soldConsigment') failed");
+    });
+  });
+  
+  
   $('.deleteConsigment').click(() => {
     let id = event.target.id;
     $.post('/deleteConsigment', { id: id }, function (data) {
-      window.location.replace("/consigments");
+      window.location.replace("/consigments?secret_token=" + token);
     }).fail(function (e) {
       console.error("function ('.deleteConsigment') failed");
     });
   });
+
 
 }());

@@ -10,7 +10,7 @@ const knex = require('knex')({
 });
 
 knex.raw('select 1+1 as result').catch(err => {
-    console.log('ERROR CONNECTING: There was an error connecting to the database, make sure the DB is running and the connection keys are valid.')
+    console.error('ERROR CONNECTING: There was an error connecting to the database, make sure the DB is running and the connection keys are valid.')
 });
 
 

@@ -62,11 +62,23 @@
                     </div>
                     <div class="col-9">
                         <form id="globalSearchForm" method="get" action="/invoices" autocomplete="off" class="form-inline float-right">
-                            <div class="form-group input-group-sm mr-3">
-                                <input type="text" class="form-control" placeholder="Search..." name="search" />
+                            <div class="col-12 mb-3 form-inline">
+                                <small>From&nbsp;</small>
+                                <div class="form-group input-group-sm mr-3">
+                                    <input type="date" class="form-control" name="fromDate" />
+                                </div>
+                                <small>To&nbsp;</small>
+                                <div class="form-group input-group-sm ">
+                                    <input type="date" class="form-control" name="toDate" />
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-info btn-sm">Search</button>
-                            <button type="submit" class="btn btn-secondary ml-2 btn-sm">All</button>
+                            <div class="col-12 form-inline">
+                                <div class="form-group input-group-sm mr-3">
+                                    <input type="text" class="form-control" placeholder="Search..." name="search" />
+                                </div>
+                                <button type="submit" class="btn btn-info btn-sm">Search</button>
+                                <button type="submit" class="btn btn-secondary ml-2 btn-sm">All</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -78,6 +90,8 @@
                             <th scope="col">Item</th>
                             <th scope="col">Customer</th>
                             <th scope="col">Date Sold</th>
+                            <th scope="col">Cost price</th>
+                            <th scope="col">Sell price</th>
                             <th scope="col">Status</th>
                             <th scope="col"></th>
                         </tr>
@@ -100,6 +114,14 @@
                                     <%=element.solddate%>
                                 </td>
                                 <td>
+                                    $
+                                    <%=element.costprice || 0%>
+                                </td>
+                                <td>
+                                    $
+                                    <%=element.sellprice || 0%>
+                                </td>
+                                <td>
                                     <%=element.status%>
                                 </td>
                                 <td>
@@ -109,6 +131,14 @@
                                 </td>
                                 <% }); %>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Total</td>
+                            <td colspan="3"></td>
+                            <td>$<%= costpriceTotal %></td>
+                            <td>$<%= sellpriceTotal %></td>
+                        </tr>
+                    </tfoot>
                 </table>
 
                 <!-- pagination -->

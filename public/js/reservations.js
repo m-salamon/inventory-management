@@ -44,7 +44,7 @@
 
     itemLookup.map((id) => {
       $.post('/addReservation', { itemId: id, customerId: customerLookup, reserveddate: date }, (data) => {
-        window.location.replace("/reservations");
+        location.reload();
       }).fail(function (e) {
         console.error("function ('.addConsigment') failed");
       });
@@ -56,30 +56,32 @@
   $('.deleteReservation').click(() => {
     let id = event.target.id;
     $.post('/deleteReservation', { id: id }, function (data) {
-      window.location.replace("/reservations");
+      window.location.replace("/reservations?secret_token=" + token);
     }).fail(function (e) {
       console.error("function ('.deleteReservation') failed");
     });
   });
 
+  // $('.searchReservations').click((e) => {
+  //   var search = $('#search').val()
+  //   $.ajax({
+  //     type: 'GET',
+  //     "headers": {
+  //       "secret_token": localStorage.getItem('token')
+  //     },
+  //     url: '/reservations',
+  //     data: {search: search},
+  //     success: function (data) {
+  //     //location.reload();
+        
+  //      // window.location.replace("/reservations?secret_token=" + token);
+  //     },
+  //     error: function (error) {
+  //       console.error("function ('.searchReservations') failed");
+  //     }
+  //   })
 
-  $(document).on('click', '.uniq-customer-btn', (e) => {
-    $('#search').val($(e.target).attr("value"))
-    $( ".btn-search" ).trigger( "click" );
-  });
-
-
-  $.get('/getReservations', function (data) {
-
-    var getReservations = R.uniqBy(R.prop('customer'), data)
-    getReservations.map(i => {
-      $('.uniq-reservation-customers').append(`<div class="uniq-customer-btn btn btn-outline-secondary btn-sm mr-3 mb-3" value="${i.customer}">${i.customer}</div>`)
-    })
-
-  }).fail(function (e) {
-    console.error("function ('.getReservations') failed");
-  });
-
+  // });
 
 
 }());

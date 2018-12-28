@@ -44,7 +44,7 @@
  
      itemLookup.map((id) => {
        $.post('/addInvoice', { itemId: id, customerId: customerLookup, solddate: date }, (data) => {
-         window.location.replace("/invoices");
+        location.reload();
        }).fail(function (e) {
          console.error("function ('.addInvoice') failed");
        });
@@ -56,7 +56,7 @@
    $('.deleteInvoice').click(() => {
      let id = event.target.id;
      $.post('/deleteInvoice', { id: id }, function (data) {
-       window.location.replace("/invoices");
+      window.location.replace("/invoices?secret_token=" + token);
      }).fail(function (e) {
        console.error("function ('.deleteInvoice') failed");
      });

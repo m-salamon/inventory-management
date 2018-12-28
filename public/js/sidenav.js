@@ -25,3 +25,7 @@ if (localStorage.getItem('sidenav') == 'true') {
 if (localStorage.getItem('sidenav') == 'false') {
   closeNav()
 }
+
+function hrefHeader(){
+  
+}

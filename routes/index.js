@@ -1,25 +1,22 @@
 const express = require('express');
 const router = express.Router();
 
-const items = require('../repo/items');
-const customers = require('../repo/customers');
-const consigments = require('../repo/consigments');
-const reservations = require('../repo/reservations');
-const invoices = require('../repo/invoices');
-const dashboard = require('../repo/dashboard');
-
-router.use(function (req, res, next) {
-    res.locals.params = {
-        query: req.query,
-        url: req.originalUrl
-    }
-    next();
-});
+const items = require('./items');
+const customers = require('./customers');
+const consigments = require('./consigments');
+const reservations = require('./reservations');
+const invoices = require('./invoices');
+const dashboard = require('./dashboard');
 
 router.get('/', (req, res) => {
-        res.render('index', {
-            pageTitle: 'Home',
-    });
+    res.redirect('/login');
 });
+
+router.use('/items', items);
+router.use('/customers', customers);
+router.use('/consigments', consigments);
+router.use('/reservations', reservations);
+router.use('/invoices', invoices);
+router.use('/dashboard', dashboard);
 
 module.exports = router;

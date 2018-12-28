@@ -1,14 +1,20 @@
 <div id="mySidenav" class="sidenav">
 
   <li class="navbar-brand">
-  <a href="/"> 
-  <img src="/images/beverly_wigs_logo.png" width="50" height="45"/>
-  </a>
+    <a href="/">
+      <img src="/images/beverly_wigs_logo.png" width="50" height="45" />
+    </a>
   </li>
-  <a href="/dashboard" <% if(pageTitle.toLowerCase() == 'dashboard') { %> class="active" <% } %>>Dashboard</a>
-  <a href="/items" <% if(pageTitle.toLowerCase() == 'items') { %> class="active" <% } %> >Items</a>
-  <a href="/customers" <% if(pageTitle.toLowerCase() == 'customers') { %> class="active" <% } %>>Customers</a>
-  <a href="/consigments" <% if(pageTitle.toLowerCase() == 'consigments') { %> class="active" <% } %>>Consigments</a>
-  <a href="/reservations" <% if(pageTitle.toLowerCase() == 'reservations') { %> class="active" <% } %> >Reservations</a>
-  <a href="/invoices" <% if(pageTitle.toLowerCase() == 'invoices') { %> class="active" <% } %>>Invoices</a>
+  <a href="/dashboard" onclick="return hrefHeader();" <% if(pageTitle.toLowerCase()=='dashboard' ) { %> class="active"
+    <% } %>>Dashboard</a>
+  <a href="/items" <% if(pageTitle.toLowerCase()=='items' ) { %> class="active"
+    <% } %> >Items</a>
+  <a href="/customers" <% if(pageTitle.toLowerCase()=='customers' ) { %> class="active"
+    <% } %>>Customers</a>
+  <a href="/consigments" <% if(pageTitle.toLowerCase()=='consigments' ) { %> class="active"
+    <% } %>>Consigments</a>
+  <a href="/reservations" <% if(pageTitle.toLowerCase()=='reservations' ) { %> class="active"
+    <% } %> >Reservations</a>
+  <a href="/invoices" <% if(pageTitle.toLowerCase()=='invoices' ) { %> class="active"
+    <% } %>>Invoices</a>
 </div>

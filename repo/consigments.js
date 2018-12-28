@@ -13,17 +13,21 @@ function getConsigments(data = '', page, paginate = false) {
         .where(function () {
             this.where('c.name', 'like', `%${data}%`)
                 .orWhere('con.shippeddate', 'like', `%${data}%`)
-             //   .orWhere('i.name', 'like', `%${data}%`)
-            // .orWhere('i.status', 'like', `%${data}%`)
+                .orWhere('i.name', 'like', `%${data}%`)
+                .orWhere('i.status', 'like', `%${data}%`)
         })
         .where({ 'con.inactive': false })
         .orderBy('con.id', 'asc')
 
     if (paginate)
-        query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = true)
+        query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = false)
 
     return query;
 
+}
+
+function countRows() {
+    return knex('consigments').count().where('inactive', false)
 }
 
 function getConsigment(id) {
@@ -37,12 +41,12 @@ function getConsigment(id) {
 async function addConsigment(data) {
     let query = await knex('consigments').insert(data)
     //update items
-    await knex('items').where('id', data.itemId).update({ status: ITEM_STATUS.consigned, consigmentId: query })
+    await knex('items').where('id', data.itemId).update({ status: ITEM_STATUS.consigned })
     return query;
 }
 
 async function checkConsigment(data) {
-    console.log(data)
+  
     let query = await knex('reservations as r').select('r.id', 'c.name AS customerName', 'i.name AS itemName')
         .leftJoin('items as i', 'i.id', 'r.itemId')
         .leftJoin('customers as c', 'c.id', 'r.customerId')
@@ -83,4 +87,4 @@ async function returningConsigment(id) {
     return query;
 }
 
-module.exports = { getConsigments, getConsigment, addConsigment, editConsigment, deleteConsigment, checkConsigment, soldConsigment, returningConsigment };
+module.exports = { getConsigments, getConsigment, addConsigment, editConsigment, deleteConsigment, checkConsigment, soldConsigment, returningConsigment, countRows };

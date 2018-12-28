@@ -7,13 +7,15 @@ var pagination = require('pagination');
 
 router.get('/consigments', async (req, res) => {
     let consigments = await repo.consigments.getConsigments(req.query.search || '', req.query.page || 1, true)
-    console.log(consigments);
-
+    let countRows = await repo.consigments.countRows()
+    var totalRows = countRows[0]['count(*)']
+    
     let customers = await repo.customers.getCustomers()
     let items = await repo.items.getItems()
     let itemsToConsign = await repo.items.getItemsToConsign()
 
-    var paginator = new pagination.SearchPaginator({ prelink: '/consigments', current: consigments.current_page, rowsPerPage: consigments.per_page, totalResult: consigments.total }).render()
+    
+    var paginator = new pagination.SearchPaginator({ prelink: '/consigments', current: consigments.current_page, rowsPerPage: consigments.per_page, totalResult: totalRows }).render()
 
     res.render('consigments', {
         pageTitle: 'Consigments',
@@ -22,7 +24,7 @@ router.get('/consigments', async (req, res) => {
         items: items,
         itemsToConsign,
         paginator,
-        totalResult: consigments.total
+        totalResult: totalRows
     });
 
 });
@@ -49,7 +51,7 @@ router.post('/addConsigment', async (req, res) => {
         let response = await repo.consigments.addConsigment(req.body)
         res.redirect('/Consigments');
     } catch (e) {
-        console.log('Error: ', e)
+        console.error('Error: ', e)
     }
 });
 
@@ -58,7 +60,7 @@ router.post('/checkConsigment', async (req, res) => {
         let response = await repo.consigments.checkConsigment(req.body)
         res.json(response)
     } catch (e) {
-        console.log('Error: ', e)
+        console.error('Error: ', e)
     }
 });
 
@@ -75,26 +77,24 @@ router.post('/deleteConsigment', async (req, res) => {
         let response = await repo.consigments.deleteConsigment(req.body.id)
         res.redirect('/consigments')
     } catch (e) {
-        console.log('Routes Error: ', e)
+        console.error('Routes Error: ', e)
     }
 });
 
 router.post('/returningConsigment', async (req, res) => {
-    console.log(req.body)
     try {
         let response = await repo.consigments.returningConsigment(req.body.id)
         res.redirect('/consigments')
     } catch (e) {
-        console.log('Routes Error: ', e)
+        console.error('Routes Error: ', e)
     }
 })
 router.post('/soldConsigment', async (req, res) => {
-    //console.log(req.body)
     try {
         let response = await repo.consigments.soldConsigment(req.body.id)
         res.redirect('/consigments')
     } catch (e) {
-        console.log('Routes Error: ', e)
+        console.error('Routes Error: ', e)
     }
 })
 

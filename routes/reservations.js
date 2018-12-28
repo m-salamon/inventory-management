@@ -7,7 +7,10 @@ var pagination = require('pagination');
 
 router.get('/reservations', async (req, res) => {
   try {
-    let reservations = await repo.reservations.getReservations(req.query.search || '', req.query.page || 1, true )
+    let reservations = await repo.reservations.getReservations(req.query.search || '', req.query.page || 1, true)
+    let countRows = await repo.reservations.countRows()
+    var totalRows = countRows[0]['count(*)']
+    
     let customers = await repo.customers.getCustomers()
     let items = await repo.items.getItemsNotSold()
 
@@ -28,19 +31,20 @@ router.get('/reservations', async (req, res) => {
       })(items).filter(f => f)
     }
 
-    var paginator = new pagination.SearchPaginator({ prelink: '/reservations', current: reservations.current_page, rowsPerPage: reservations.per_page, totalResult: reservations.total }).render()
     
+    var paginator = new pagination.SearchPaginator({ prelink: '/reservations', current: reservations.current_page, rowsPerPage: reservations.per_page, totalResult: totalRows }).render()
+
     res.render('reservations', {
       pageTitle: 'Reservations',
       reservations: reservations.data,
       customers,
       items,
       paginator,
-      totalResult: reservations.total
+      totalResult: totalRows
     });
 
   } catch (e) {
-    console.log('Routes Error: ', e)
+    console.error('Routes Error: ', e)
   }
 
 });
@@ -51,7 +55,7 @@ router.get('/getReservations', async (req, res) => {
     res.json(reservations)
 
   } catch (e) {
-    console.log('Routes Error: ', e)
+    console.error('Routes Error: ', e)
   }
 });
 
@@ -64,7 +68,7 @@ router.get('/getReservation/:id', async (req, res) => {
     });
 
   } catch (e) {
-    console.log('Routes Error: ', e)
+    console.error('Routes Error: ', e)
   }
 
 });
@@ -75,7 +79,7 @@ router.post('/addReservation', async (req, res) => {
     res.redirect('/reservations');
 
   } catch (e) {
-    console.log('Routes Error: ', e)
+    console.error('Routes Error: ', e)
   }
 
 });
@@ -90,7 +94,7 @@ router.post('/editReservation', async (req, res) => {
     });
 
   } catch (e) {
-    console.log('Routes Error: ', e)
+    console.error('Routes Error: ', e)
   }
 });
 
@@ -99,7 +103,7 @@ router.post('/deleteReservation', async (req, res) => {
     await repo.reservations.deleteReservation(req.body.id)
     res.redirect('/reservations');
   } catch (e) {
-    console.log('Routes Error: ', e)
+    console.error('Routes Error: ', e)
   }
 
 });

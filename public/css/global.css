@@ -1,8 +1,8 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+html{
+  height: 100%;
+  width: 100%;
 }
+
 
 :root {
   --blue: #1997c6;
@@ -16,7 +16,23 @@ body {
   color: #202020;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
+  
+  /* animation */
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+          animation: fadein 1s;
 }
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 
 .colors {
   padding: 50px;
@@ -230,3 +246,20 @@ table>thead>tr{
 table>tbody{
   font-size: 15px;
 }
+
+/*///////////////////
+  Login
+///////////////////*/
+.loginPage{
+  background-size: 70% 80%, cover;
+  background-color: #FC80A5;
+}
+
+.loginForm{
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+} 
+

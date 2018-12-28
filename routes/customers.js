@@ -38,7 +38,7 @@ router.post('/addCustomer', async (req, res) => {
         let response = await repo.customers.addCustomer(req.body)
         ErrorHandeling("/customers", res, response, true)
     } catch (e) {
-        console.log('Error: ', e)
+        console.error('Error: ', e)
         ErrorHandeling("/customers", res, "", false)
     }
 });
@@ -53,7 +53,7 @@ router.post('/updateCustomer', async (req, res) => {
         let response = await repo.customers.updateCustomer(req.body.id, req.body)
         ErrorHandeling("/customers", res, response, true)
     } catch (e) {
-        console.log('Error: ', e)
+        console.error('Error: ', e)
         ErrorHandeling("/customers", res, "", false)
     }
 });
@@ -63,7 +63,7 @@ router.post('/deleteCustomer', async (req, res) => {
         let response = await repo.customers.deleteCustomer(req.body.id)
         res.redirect('/customers')
     } catch (e) {
-        console.log('Error: ', e)
+        console.error('Error: ', e)
     }
 });
 

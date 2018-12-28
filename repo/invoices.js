@@ -4,24 +4,28 @@ const moment = require('moment')
 const { ITEM_STATUS, ErrorHandeling, PaginatePerPage } = require('../routes/globals')
 const setupPaginator = require('knex-paginator')(knex);
 
-function getInvoices(data = '', page, paginate = false) {
-  let query = knex('invoices as inv').select('inv.id', 'inv.itemId', 'inv.customerId', 'inv.solddate', 'i.name AS item', 'c.name AS customer', 'i.status')
+function getInvoices(data = '', fromDate, toDate, page, paginate = false) {
+  let query = knex('invoices as inv').select('inv.id', 'inv.itemId', 'inv.customerId', 'inv.solddate', 'i.name AS item', 'c.name AS customer', 'i.status', 'i.sellprice', 'i.costprice')
     .leftJoin('items as i', 'i.id', 'inv.itemId')
     .leftJoin('customers as c', 'c.id', 'inv.customerId')
     .where(function () {
       this.where('c.name', 'like', `%${data}%`)
         .orWhere('inv.solddate', 'like', `%${data}%`)
-       // .orWhere('i.name', 'like', `%${data}%`)
+        .orWhere('i.name', 'like', `%${data}%`)
     })
     .orderBy('inv.id', 'desc')
     .where({ 'inv.inactive': false })
- //   .where({ 'i.inactive': false })
+    .whereBetween('inv.solddate', [fromDate, toDate])
 
   if (paginate)
-    query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = true)
-
+    query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = false)
 
   return query;
+}
+
+
+function countRows() {
+  return knex('invoices').count().where('inactive', false)
 }
 
 function getInvoice(id) {
@@ -52,4 +56,4 @@ async function deleteInvoice(id) {
 }
 
 
-module.exports = { getInvoices, getInvoice, addInvoice, editInvoice, deleteInvoice };
+module.exports = { getInvoices, getInvoice, addInvoice, editInvoice, deleteInvoice, countRows };
