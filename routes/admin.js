@@ -18,7 +18,7 @@ router.get('/admin', async (req, res) => {
 
   const users = await repo.admin.getUsers()
 
-  res.render('Admin', {
+  res.render('admin', {
     pageTitle: 'Admin',
     users,
     totalResult: users.length
