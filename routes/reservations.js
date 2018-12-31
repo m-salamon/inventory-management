@@ -7,7 +7,7 @@ var pagination = require('pagination');
 
 router.get('/reservations', async (req, res) => {
   try {
-    let reservations = await repo.reservations.getReservations(req.query.search || '', req.query.page || 1, true)
+    let reservations = await repo.reservations.getReservations(req.query.search || '', req.query.page || 1, req.query.perPage || 10, true)
     let countRows = await repo.reservations.countRows()
     var totalRows = countRows[0]['count(*)']
     
@@ -32,7 +32,7 @@ router.get('/reservations', async (req, res) => {
     }
 
     
-    var paginator = new pagination.SearchPaginator({ prelink: '/reservations', current: reservations.current_page, rowsPerPage: reservations.per_page, totalResult: totalRows }).render()
+    var paginator = new pagination.SearchPaginator({ prelink: '/reservations', current: reservations.current_page, rowsPerPage: reservations.per_page, totalResult: reservations.total }).render()
 
     res.render('reservations', {
       pageTitle: 'Reservations',
@@ -40,7 +40,7 @@ router.get('/reservations', async (req, res) => {
       customers,
       items,
       paginator,
-      totalResult: totalRows
+      totalResult: reservations.total
     });
 
   } catch (e) {

@@ -4,7 +4,7 @@ const moment = require('moment')
 const { ITEM_STATUS, ErrorHandeling, PaginatePerPage } = require('../routes/globals')
 const setupPaginator = require('knex-paginator')(knex);
 
-function getItems(data = '', page = 1, paginate = false) {
+function getItems(data = '', page = 1, perPage = 10, paginate = false) {
 
     let query = knex('items').select('*')
         .where(function () {
@@ -17,7 +17,7 @@ function getItems(data = '', page = 1, paginate = false) {
         .orderBy('id', 'desc')
         
     if (paginate)
-        query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = true)
+        query = query.paginate(perPage = perPage, page = page, isLengthAware = true)
 
     return query;
 }

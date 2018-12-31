@@ -238,6 +238,21 @@ body {
 }
 
 /*///////////////////
+  Footer
+///////////////////*/
+.footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #F8F9FA;
+  color: white;
+  text-align: center;
+  height: 80px;
+  margin-top: 100px;
+  position: relative;
+}
+
+/*///////////////////
   Table
 ///////////////////*/
 table>thead>tr{

@@ -61,25 +61,34 @@
                         <%= totalResult %>
                     </div>
                     <div class="col-9">
-                        <form id="globalSearchForm" method="get" action="/invoices" autocomplete="off" class="form-inline float-right">
+                        <div id="globalSearchForm" class="form-inline float-right">
                             <div class="col-12 mb-3 form-inline">
                                 <small>From&nbsp;</small>
                                 <div class="form-group input-group-sm mr-3">
-                                    <input type="date" class="form-control" name="fromDate" />
+                                    <input type="date" class="form-control" name="fromDate" id="fromDate" />
                                 </div>
                                 <small>To&nbsp;</small>
                                 <div class="form-group input-group-sm ">
-                                    <input type="date" class="form-control" name="toDate" />
+                                    <input type="date" class="form-control" name="toDate" id="toDate" />
                                 </div>
                             </div>
                             <div class="col-12 form-inline">
-                                <div class="form-group input-group-sm mr-3">
-                                    <input type="text" class="form-control" placeholder="Search..." name="search" />
+                                <select id="perPage" class="custom-select custom-select-sm mr-4">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="9999">All</option>
+                                </select>
+                                <div class="form-group input-group-sm mr-2">
+                                    <input type="text" class="form-control" placeholder="Search..." name="search" id="search" />
                                 </div>
-                                <button type="submit" class="btn btn-info btn-sm">Search</button>
-                                <button type="submit" class="btn btn-secondary ml-2 btn-sm">All</button>
+                                <div class="form-group">
+                                    <button class="btn btn-info btn-sm searchButton">Search</button>
+                                    <button type="submit" class="btn btn-secondary ml-2 btn-sm     searchAll">All</button>
+                                </div>
                             </div>
-                        </form>
+                        </div>
+
                     </div>
                 </div>
 
@@ -135,8 +144,12 @@
                         <tr>
                             <td>Total</td>
                             <td colspan="3"></td>
-                            <td>$<%= costpriceTotal %></td>
-                            <td>$<%= sellpriceTotal %></td>
+                            <td>$
+                                <%= costpriceTotal %>
+                            </td>
+                            <td>$
+                                <%= sellpriceTotal %>
+                            </td>
                         </tr>
                     </tfoot>
                 </table>

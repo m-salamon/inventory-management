@@ -6,7 +6,7 @@ const { ITEM_STATUS, ErrorHandeling } = require('./globals')
 var pagination = require('pagination');
 
 router.get('/consigments', async (req, res) => {
-    let consigments = await repo.consigments.getConsigments(req.query.search || '', req.query.page || 1, true)
+    let consigments = await repo.consigments.getConsigments(req.query.search || '', req.query.page || 1, req.query.perPage || 10, true)
     let countRows = await repo.consigments.countRows()
     var totalRows = countRows[0]['count(*)']
     
@@ -14,8 +14,8 @@ router.get('/consigments', async (req, res) => {
     let items = await repo.items.getItems()
     let itemsToConsign = await repo.items.getItemsToConsign()
 
-    
-    var paginator = new pagination.SearchPaginator({ prelink: '/consigments', current: consigments.current_page, rowsPerPage: consigments.per_page, totalResult: totalRows }).render()
+    console.log(consigments)
+    var paginator = new pagination.SearchPaginator({ prelink: '/consigments', current: consigments.current_page, rowsPerPage: consigments.per_page, totalResult: consigments.total }).render()
 
     res.render('consigments', {
         pageTitle: 'Consigments',
@@ -24,7 +24,7 @@ router.get('/consigments', async (req, res) => {
         items: items,
         itemsToConsign,
         paginator,
-        totalResult: totalRows
+        totalResult: consigments.total
     });
 
 });

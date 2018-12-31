@@ -7,14 +7,14 @@ var pagination = require('pagination');
 
 router.get('/invoices', async (req, res) => {
     
-    let invoices = await repo.invoices.getInvoices(req.query.search || '', req.query.fromDate || 2000/01/01, req.query.toDate || 2999/01/01,  req.query.page || 1, true)
+    let invoices = await repo.invoices.getInvoices(req.query.search || '', req.query.fromDate || 2000/01/01, req.query.toDate || 2999/01/01,  req.query.page || 1, req.query.perPage || 10, true)
     let countRows = await repo.invoices.countRows()
     var totalRows = countRows[0]['count(*)']
 
     let customers = await repo.customers.getCustomers()
     let items = await repo.items.getItemsNotSold()
 
-    var paginator = new pagination.SearchPaginator({ prelink: '/invoices', current: invoices.current_page, rowsPerPage: invoices.per_page, totalResult: totalRows }).render()
+    var paginator = new pagination.SearchPaginator({ prelink: '/invoices', current: invoices.current_page, rowsPerPage: invoices.per_page, totalResult: invoices.total }).render()
 
     var sellpriceTotal = R.sum(R.map(R.prop('sellprice'))(invoices.data))
     var costpriceTotal = R.sum(R.map(R.prop('costprice'))(invoices.data))
@@ -25,7 +25,7 @@ router.get('/invoices', async (req, res) => {
         customers,
         items,
         paginator,
-        totalResult: totalRows,
+        totalResult: invoices.total,
         sellpriceTotal,
         costpriceTotal
     });

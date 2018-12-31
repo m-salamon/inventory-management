@@ -4,7 +4,7 @@ const moment = require('moment')
 const { ITEM_STATUS, ErrorHandeling, PaginatePerPage } = require('../routes/globals')
 const setupPaginator = require('knex-paginator')(knex);
 
-function getInvoices(data = '', fromDate, toDate, page, paginate = false) {
+function getInvoices(data = '', fromDate, toDate, page, perPage = 10, paginate = false) {
   let query = knex('invoices as inv').select('inv.id', 'inv.itemId', 'inv.customerId', 'inv.solddate', 'i.name AS item', 'c.name AS customer', 'i.status', 'i.sellprice', 'i.costprice')
     .leftJoin('items as i', 'i.id', 'inv.itemId')
     .leftJoin('customers as c', 'c.id', 'inv.customerId')
@@ -18,7 +18,7 @@ function getInvoices(data = '', fromDate, toDate, page, paginate = false) {
     .whereBetween('inv.solddate', [fromDate, toDate])
 
   if (paginate)
-    query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = false)
+    query = query.paginate(perPage = perPage, page = page, isLengthAware = true)
 
   return query;
 }

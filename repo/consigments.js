@@ -5,7 +5,7 @@ const { ITEM_STATUS, ErrorHandeling, PaginatePerPage } = require('../routes/glob
 const setupPaginator = require('knex-paginator')(knex);
 
 
-function getConsigments(data = '', page, paginate = false) {
+function getConsigments(data = '', page, perPage = 10, paginate = false) {
 
     let query = knex('consigments as con').select('con.id', 'con.itemId', 'con.customerId', 'con.shippeddate', 'i.name AS item', 'c.name AS customer', 'i.status')
         .leftJoin('items as i', 'i.id', 'con.itemId')
@@ -20,7 +20,7 @@ function getConsigments(data = '', page, paginate = false) {
         .orderBy('con.id', 'asc')
 
     if (paginate)
-        query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = false)
+        query = query.paginate(perPage = perPage, page = page, isLengthAware = true)
 
     return query;
 

@@ -50,7 +50,7 @@
             </div>
             <div class="form-group float-right">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" type="submit">Close</button>
-                <button class="btn btn-success " type="submit">Save</button>
+                <button class="btn btn-success" type="submit">Save</button>
             </div>
             
               </form>

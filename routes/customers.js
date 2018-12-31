@@ -6,7 +6,7 @@ const { ITEM_STATUS, ErrorHandeling } = require('./globals')
 var pagination = require('pagination');
 
 router.get('/customers', async (req, res) => {
-    let customers = await repo.customers.getCustomers(req.query.search || '', req.query.page || 1, true )
+    let customers = await repo.customers.getCustomers(req.query.search || '', req.query.page || 1, req.query.perPage || 10, true )
     let states = await repo.customers.getStates()
     let citys = await repo.customers.getCitys()
     let zips = await repo.customers.getZips()

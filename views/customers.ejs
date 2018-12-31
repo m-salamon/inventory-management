@@ -66,13 +66,21 @@
                         <%= totalResult %>
                     </div>
                     <div class="col-9">
-                        <form id="globalSearchForm" method="get" action="/customers" autocomplete="off" class="form-inline float-right">
-                            <div class="form-group input-group-sm mr-3">
-                                <input type="text" class="form-control " placeholder="Search..." name="search" />
+                        <div id="globalSearchForm" class="form-inline float-right">
+                            <select id="perPage" class="custom-select custom-select-sm mr-4">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="9999">All</option>
+                            </select>
+                            <div class="form-group input-group-sm mr-2">
+                                <input type="text" class="form-control" placeholder="Search..." name="search" id="search" />
                             </div>
-                            <button type="submit" class="btn btn-info btn-sm">Search</button>
-                            <button type="submit" class="btn btn-secondary ml-2 btn-sm">All</button>
-                        </form>
+                            <div class="form-group">
+                                <button class="btn btn-info btn-sm searchButton">Search</button>
+                                <button type="submit" class="btn btn-secondary ml-2 btn-sm     searchAll">All</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -127,7 +135,7 @@
             </div>
         </div>
         <!-- End row -->
-    </div> 
+    </div>
     <!-- End container -->
 
     <% include footer.ejs %>

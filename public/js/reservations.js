@@ -62,26 +62,25 @@
     });
   });
 
-  // $('.searchReservations').click((e) => {
-  //   var search = $('#search').val()
-  //   $.ajax({
-  //     type: 'GET',
-  //     "headers": {
-  //       "secret_token": localStorage.getItem('token')
-  //     },
-  //     url: '/reservations',
-  //     data: {search: search},
-  //     success: function (data) {
-  //     //location.reload();
-        
-  //      // window.location.replace("/reservations?secret_token=" + token);
-  //     },
-  //     error: function (error) {
-  //       console.error("function ('.searchReservations') failed");
-  //     }
-  //   })
 
-  // });
+  $(document).on('click', '.uniq-customer-btn', (e) => {
+    $('#search').val($(e.target).attr("value"))
+    $(".searchButton").trigger("click");
+  });
 
+  if (window.location.pathname == '/reservations')
+    $.ajax({
+      type: 'GET',
+      url: '/getReservations',
+      "headers": {
+        "secret_token": localStorage.getItem('token')
+      },
+      success: function (data) {
+        var getReservations = R.uniqBy(R.prop('customer'), data)
+        getReservations.map(i => {
+          $('.uniq-reservation-customers').append(`<div class="uniq-customer-btn btn btn-outline-secondary btn-sm mr-3 mb-3" value="${i.customer}">${i.customer}</div>`)
+        })
+      }
+    })
 
 }());

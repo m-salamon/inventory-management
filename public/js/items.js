@@ -32,21 +32,6 @@
     $('#costPrice').val(localStorage.getItem('costPrice'));
   }
 
-  $('.searchButton').click(() => {
-    var searchParam = (location.search.split('search' + '=')[1] || '').split('&')[0];
-    var search = $('#search').val()
-    if (!R.isEmpty(searchParam)) {
-      window.location.href = location.href.replace("search=" + searchParam, "search=" + search);
-    } else {
-      window.location.href = location.search + "&search=" + search
-    }
-  })
-
-  $('.searchAll').click(() => {
-    var searchParam = (location.search.split('search' + '=')[1] || '').split('&')[0];
-    window.location.href = location.href.replace("search=" + searchParam, "");
-  })
-
   $('.editItem').click(() => {
     let id = event.target.id;
 

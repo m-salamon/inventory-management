@@ -7,8 +7,7 @@ var pagination = require('pagination');
 
 
 router.get('/items', async (req, res) => {
-    
-    let items = await repo.items.getItems(req.query.search || '', req.query.page || 1 , true)
+    let items = await repo.items.getItems(req.query.search || '', req.query.page || 1 , req.query.perPage || 10, true)
     let colors = await repo.items.getColors()
     let lengths = await repo.items.getLengths()
     

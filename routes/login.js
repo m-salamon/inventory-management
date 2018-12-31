@@ -30,7 +30,7 @@ router.post('/signup', passport.authenticate('signup', { session: false }), asyn
     user: req.body.firstname,
     success: true
   });
-  
+
 });
 
 router.post('/login', async (req, res, next) => {

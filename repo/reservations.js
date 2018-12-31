@@ -4,7 +4,7 @@ const moment = require('moment')
 const { ITEM_STATUS, ErrorHandeling, PaginatePerPage } = require('../routes/globals')
 const setupPaginator = require('knex-paginator')(knex);
 
-function getReservations(data = '', page, paginate = false) {
+function getReservations(data = '', page, perPage = 10, paginate = false) {
     let query = knex('reservations as r').select('r.id', 'r.itemId', 'r.customerId', 'r.reserveddate', 'i.name AS item', 'c.name AS customer', 'i.status')
         .leftJoin('items as i', 'i.id', 'r.itemId')
         .leftJoin('customers as c', 'c.id', 'r.customerId')
@@ -18,7 +18,7 @@ function getReservations(data = '', page, paginate = false) {
         .orderBy('r.id', 'asc')
 
     if (paginate)
-        query = query.paginate(perPage = PaginatePerPage, page = page, isLengthAware = false)
+        query = query.paginate(perPage = perPage, page = page, isLengthAware = true)
 
     return query;
 }

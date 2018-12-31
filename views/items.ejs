@@ -61,8 +61,14 @@
                     </div>
                     <div class="col-9">
                         <div id="globalSearchForm" class="form-inline float-right">
+                            <select id="perPage" class="custom-select custom-select-sm mr-4">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="9999">All</option>
+                            </select>
                             <div class="form-group input-group-sm mr-2">
-                                <input type="text" class="form-control" placeholder="Search..." name="search" id="search"/>
+                                <input type="text" class="form-control" placeholder="Search..." name="search" id="search" />
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-info btn-sm searchButton">Search</button>
@@ -106,10 +112,12 @@
                                     <%=element.status%>
                                 </td>
                                 <td>
-                                    $ <%=element.costprice || 0 %>
+                                    $
+                                    <%=element.costprice || 0 %>
                                 </td>
                                 <td>
-                                    $ <%=element.sellprice || 0 %>
+                                    $
+                                    <%=element.sellprice || 0 %>
                                 </td>
                                 <td>
                                     <div class="btn-toolbar">

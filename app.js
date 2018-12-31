@@ -29,6 +29,7 @@ app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/
 app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/reservations'));
 app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/invoices'));
 app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/dashboard'));
+app.use('/',passport.authenticate('jwt', { session: false }), require('./routes/admin'));
 
 
 app.use(function (err, req, res, next) {
