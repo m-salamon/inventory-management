@@ -19,7 +19,7 @@ passport.use('signup', new localStrategy({
     const hash = await bcrypt.hash(password, 10);
     //Replace the plain text password with the hash and then store it
     //Save the information provided by the user to the the database
-    const user = await knex('users').insert({ email, password: hash, firstname: req.body.firstname, lastname: req.body.lastname });
+    const user = await knex('users').insert({ email: email.toLowerCase(), password: hash, firstname: req.body.firstname, lastname: req.body.lastname });
 
     //Send the user information to the next middleware
     return done(null, user);

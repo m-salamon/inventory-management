@@ -24,10 +24,12 @@
 
 <body class="loginPage">
 
+  <img class="loginImage" src="/images/beverly_wigs_logo_vertical.png" alt="beverly-wigs" />
+
   <div class="container">
-    
+
     <div class="row">
-      <form class="col-md-3 col-9 card loginForm" autocomplete="off"> 
+      <form class="col-md-3 col-9 card loginForm" autocomplete="off">
         <div class="text-center" style="font-size: 35px;">Signup</div>
         <div class="form-group">
           <label>First Name</label>
@@ -53,24 +55,23 @@
   </div>
 
   <% include footer.ejs %>
-  
-  <script>
 
-    $('form').submit(function () {
-      $.ajax({
-        url: '/signup',
-        type: 'POST',
-        data: $(this).serialize(),
-        success: function (res) {
-          if (res.success) {
-            window.location.href = `/login`
-          } else {
-            window.location.href = '/'
+    <script>
+
+      $('form').submit(function () {
+        $.ajax({
+          url: '/signup',
+          type: 'POST',
+          data: $(this).serialize(),
+          success: function (res) {
+            if (res.success) {
+              window.location.href = `/login`
+            } else {
+              window.location.href = '/'
+            }
           }
-        }
+        });
+        return false;
       });
-      return false;
-    });
 
-  </script>
-  
+    </script>

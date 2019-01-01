@@ -267,7 +267,13 @@ table>tbody{
 ///////////////////*/
 .loginPage{
   background-size: 70% 80%, cover;
-  background-color: #FC80A5;
+  background-color: #B35B65;
+}
+
+.loginImage{
+  width: 7%;
+  margin-top: 50px;
+  margin-left: 50px;
 }
 
 .loginForm{

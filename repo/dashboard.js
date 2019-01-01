@@ -24,6 +24,15 @@ function getItemsConsignedCount() {
   return query;
 }
 
+function getInvoices() {
+  let query = knex('invoices as inv').select('inv.id', 'inv.itemId', 'inv.customerId', 'inv.solddate', 'i.name AS item', 'c.name AS customer', 'i.status', 'i.sellprice', 'i.costprice')
+    .leftJoin('items as i', 'i.id', 'inv.itemId')
+    .leftJoin('customers as c', 'c.id', 'inv.customerId')
+    .orderBy('inv.id', 'desc')
+    .where('inv.inactive', false)
+    .limit(12)
 
+  return query;
+}
 
-module.exports = {getCustomersCount, getRevenueSum, getItemsSoldCount, getItemsConsignedCount};
+module.exports = { getCustomersCount, getRevenueSum, getItemsSoldCount, getItemsConsignedCount, getInvoices };
