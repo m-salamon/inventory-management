@@ -5,7 +5,7 @@
 
             <div class="col-sm-4">
 
-                <div class="page-title">Add Reservation</div>
+                <div class="page-title">Add Order</div>
                 <div>
                     <div class="form-group">
                         <small class="form-text text-muted">Choose a customer from the list.</small>
@@ -105,10 +105,20 @@
                                     <%=element.status%>
                                 </td>
                                 <td>
-                                    <button class="btn btn-danger deleteReservation btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">
-                                        Delete
-                                    </button>
+                                    <% if(element.status != 'sold') { %>
+                                        <button class="float-left d-inline btn btn-warning returningConsigmentDeleteReservation m-1 btn-sm" name="id" id="<%=element.id%>"
+                                            value="<%=element.id%>">Returning</button>
+                                        <% } %>
+                                            <% if(element.status != 'sold') { %>
+                                                <button class="d-inline btn btn-success createConsigmentDeleteReservation m-1 btn-sm" name="consign" id="<%=element.id%>"
+                                                    value="<%=element.id%>">Consign</button>
+                                                <% } %>
+                                                    <button class="float-right d-inline btn btn-danger deleteReservation m-1 btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">
+                                                        Delete
+                                                    </button>
+
                                 </td>
+
                                 <% }); %>
                     </tbody>
                 </table>

@@ -111,11 +111,15 @@
                                     <%=element.status%>
                                 </td>
                                 <td>
-                                    <button type="submit" name="id" id="<%=element.itemId%>" value="<%=element.itemId%>" class="d-inline btn btn-warning returningConsigment m-1 btn-sm">Returning</button>
-                                    <button class=" btn btn-danger deleteConsigment m-1 btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">
-                                        Delete
-                                    </button>
-                                    <button type="submit" name="id" id="<%=element.itemId%>" value="<%=element.itemId%>" class="d-inline btn btn-success soldConsigment m-1 btn-sm">Sold</button>
+                                    <% if(element.status == 'consigned') { %>
+                                        <button type="submit" name="id" id="<%=element.itemId%>" value="<%=element.itemId%>" class="float-left d-inline btn btn-warning returningConsigment m-1 btn-sm">Returning</button>
+                                        <% } %>
+                                            <% if(element.status != 'sold') { %>
+                                                <button type="submit" name="id" id="<%=element.itemId%>" value="<%=element.itemId%>" class="d-inline btn btn-success soldConsigment m-1 btn-sm">Sold</button>
+                                                <% } %>
+                                                    <button class="float-right d-inline btn btn-danger deleteConsigment m-1 btn-sm" name="delete" id="<%=element.id%>" value="<%=element.id%>">
+                                                        Delete
+                                                    </button>
                                 </td>
                                 <% }); %>
                     </tbody>

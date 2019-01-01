@@ -51,4 +51,33 @@ function deleteReservation(id) {
     return query;
 }
 
-module.exports = { getReservations, getReservation, addReservation, editReservation, deleteReservation, countRows };
+async function createConsigmentDeleteReservation(id) {
+    //get reservation info
+    let reservation = await knex('reservations').select('*').where('id', id)
+    reservation = R.head(reservation)
+    
+    //delete old consigment
+    await knex('consigments').where('itemId', reservation.itemId).update({ inactive: true })
+    
+    //create consigment
+    await knex('consigments').insert({ customerId: reservation.customerId, itemId: reservation.itemId, shippeddate: moment().format('YYYY/MM/DD') })
+    
+    //update item
+    await knex('items').where('id', reservation.itemId).update({ status: ITEM_STATUS.consigned })
+    
+    //update reservation
+    let query = await knex('reservations').where('id', reservation.id).update({ inactive: true })
+
+    return query;
+}
+async function returningConsigmentDeleteReservation(id) {
+    //get reservation info
+    let reservation = await knex('reservations').select('*').where('id', id)
+    reservation = R.head(reservation)
+    //update item
+    let query = await knex('items').where('id', reservation.itemId).update({ status: ITEM_STATUS.returning })
+
+    return query;
+}
+
+module.exports = { getReservations, getReservation, addReservation, editReservation, deleteReservation, countRows, returningConsigmentDeleteReservation, createConsigmentDeleteReservation };

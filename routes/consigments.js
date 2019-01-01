@@ -14,7 +14,6 @@ router.get('/consigments', async (req, res) => {
     let items = await repo.items.getItems()
     let itemsToConsign = await repo.items.getItemsToConsign()
 
-    console.log(consigments)
     var paginator = new pagination.SearchPaginator({ prelink: '/consigments', current: consigments.current_page, rowsPerPage: consigments.per_page, totalResult: consigments.total }).render()
 
     res.render('consigments', {

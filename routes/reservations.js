@@ -105,7 +105,26 @@ router.post('/deleteReservation', async (req, res) => {
   } catch (e) {
     console.error('Routes Error: ', e)
   }
+});
 
+router.post('/createConsigmentDeleteReservation', async (req, res) => {
+  try {
+    console.log(req.body.id)
+    await repo.reservations.createConsigmentDeleteReservation(req.body.id)
+    res.redirect('/reservations');
+  } catch (e) {
+    console.error('Routes Error: ', e)
+  }
+});
+
+router.post('/returningConsigmentDeleteReservation', async (req, res) => {
+  try {
+    console.log(req.body.id)
+    await repo.reservations.returningConsigmentDeleteReservation(req.body.id)
+    res.redirect('/reservations');
+  } catch (e) {
+    console.error('Routes Error: ', e)
+  }
 });
 
 module.exports = router;

@@ -53,6 +53,25 @@
 
   });
 
+  $('.createConsigmentDeleteReservation').click(() => {
+    let id = event.target.id;
+    $.post('/createConsigmentDeleteReservation', { id: id }, function (data) {
+      window.location.replace("/reservations?secret_token=" + token);
+    }).fail(function (e) {
+      console.error("function ('.returningConsigmentDeleteReservation') failed");
+    });
+  });
+  
+  $('.returningConsigmentDeleteReservation').click(() => {
+    let id = event.target.id;
+    console.log(id)
+    $.post('/returningConsigmentDeleteReservation', { id: id }, function (data) {
+      window.location.replace("/reservations?secret_token=" + token);
+    }).fail(function (e) {
+      console.error("function ('.returningConsigmentDeleteReservation') failed");
+    });
+  });
+  
   $('.deleteReservation').click(() => {
     let id = event.target.id;
     $.post('/deleteReservation', { id: id }, function (data) {
