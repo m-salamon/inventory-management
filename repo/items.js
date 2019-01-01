@@ -58,7 +58,8 @@ function getItem(id) {
         'c.id as customerReservationId',
         'con.id as consigmentId',
         'con.shippeddate',
-        'cust.name as customerConsigmentName')
+        'cust.name as customerConsigmentName',
+        'cust.id as customerConsigmentId')
         .leftJoin('reservations as r', function () {
             this.on('r.itemId', 'i.id').andOn('r.inactive', 0);
         })
