@@ -81,6 +81,7 @@
                             <th scope="col">Customer</th>
                             <th scope="col">Date Reserved</th>
                             <th scope="col">Item Status</th>
+                            <th scope="col">Consigned</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -103,6 +104,9 @@
                                 </td>
                                 <td>
                                     <%=element.status%>
+                                </td>
+                                <td style="color: #a0a0a0;">
+                                    <%=element.customerConsigmentName%>
                                 </td>
                                 <td>
                                     <% if(element.status != 'sold') { %>

@@ -5,9 +5,13 @@ const { ITEM_STATUS, ErrorHandeling, PaginatePerPage } = require('../routes/glob
 const setupPaginator = require('knex-paginator')(knex);
 
 function getReservations(data = '', page, perPage = 10, paginate = false) {
-    let query = knex('reservations as r').select('r.id', 'r.itemId', 'r.customerId', 'r.reserveddate', 'i.name AS item', 'c.name AS customer', 'i.status')
+    let query = knex('reservations as r').select('r.id', 'r.itemId', 'r.customerId', 'r.reserveddate', 'i.name AS item', 'c.name AS customer', 'i.status', 'cust.name as customerConsigmentName')
         .leftJoin('items as i', 'i.id', 'r.itemId')
+        .leftJoin('consigments as con', function () {
+            this.on('con.itemId', 'i.id').andOn('con.inactive', 0);
+        })
         .leftJoin('customers as c', 'c.id', 'r.customerId')
+        .leftJoin('customers as cust', 'cust.id', 'con.customerId')
         .where(function () {
             this.where('c.name', 'like', `%${data}%`)
                 .orWhere('r.reserveddate', 'like', `%${data}%`)

@@ -34,6 +34,7 @@ router.get('/reservations', async (req, res) => {
     
     var paginator = new pagination.SearchPaginator({ prelink: '/reservations', current: reservations.current_page, rowsPerPage: reservations.per_page, totalResult: reservations.total }).render()
 
+    console.log(reservations)
     res.render('reservations', {
       pageTitle: 'Reservations',
       reservations: reservations.data,
